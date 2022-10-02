@@ -25,7 +25,7 @@ export default function EmbeddedFormField(props:EmbeddedElementInterface){
         setFieldValue(newValue)
     }
 
-
+    console.log("CIAO")
     // @ts-ignore
     return <FormGeneratorContext.Provider value={{setFieldValue:changeValue, values:nestedValues,errors:nestedErrors, touched:nestedTouched,elements:formElements, submitForm:()=>new Promise<void>(()=>{}) }}>
             {nestedForm}

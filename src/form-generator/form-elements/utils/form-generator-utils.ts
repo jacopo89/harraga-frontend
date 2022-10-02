@@ -18,6 +18,7 @@ const removeIndex = (accessor:string) => {
 }
 
 export const getNestedValue = (accessor:string,obj:any) => {
+    console.log("accessor",accessor)
     return getAccessorElements(accessor).reduce((previousValue, currentValue) => {
         if(previousValue) return previousValue[currentValue];
         return undefined

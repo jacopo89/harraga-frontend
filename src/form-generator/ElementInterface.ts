@@ -43,16 +43,13 @@ export interface NumberElementInterface extends ElementInterface{
 
 export interface CollectionElementInterface extends ElementInterface{
     type:"collection",
-    formElements:FormElements,
-    initialValues:any,
-    validationSchema:any
+    formElements:FormElements
 
 }
 
 export interface EmbeddedElementInterface extends ElementInterface{
     type:"embedded",
     formElements:FormElements,
-    initialValues:any
 
 }
 

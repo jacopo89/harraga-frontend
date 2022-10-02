@@ -1,6 +1,25 @@
 import * as Yup from "yup";
 import {FormElements} from "../../../form-generator/ElementInterface";
 
+export const domicilioInitialValues = {
+    tipologiaDomicilio:null
+}
+
+const domicilioElements:FormElements = [
+    {
+        accessor:"tipologiaDomicilio",
+        Header: "Tipologia",
+        type:"select",
+        options:[
+            {label:"Famiglia Affidataria", value:"famigliaAffidataria"},
+            {label:"CPA", value:"cpa"},
+            {label:"Comunità", value:"comunita"},
+            {label:"Sprar", value:"sprar"},
+
+        ]
+    }
+]
+
 const elements:FormElements = [
     {
         Header: 'Nome',
@@ -11,6 +30,12 @@ const elements:FormElements = [
         Header: 'Cognome',
         accessor: 'cognome',
         type: "text",
+    },
+    {
+        accessor:"domicilio",
+        Header:"Domicilio/Accoglienza",
+        type:"collection",
+        formElements:domicilioElements
     }
 ]
 
@@ -18,6 +43,7 @@ const elements:FormElements = [
 const initialValues = {
     nome:null,
     cognome:null,
+    domicilio:[],
 };
 
 const validationForm = Yup.object().shape({
@@ -37,13 +63,7 @@ export const anagraficaElements:FormElements = [
         accessor:"anagrafica",
         type:"embedded",
         formElements:elements,
-        initialValues:initialValues
     },
-    {
-        Header:"Testo",
-        accessor:"testo",
-        type:"text",
-    }
 ]
 
 export const anagraficaInitialValues ={
