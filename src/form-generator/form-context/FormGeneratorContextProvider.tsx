@@ -63,9 +63,6 @@ export default function FormGeneratorContextProvider({elements, validationSchema
         updateTouched()
     },[existingErrors])
 
-    useEffect(()=>{console.log("values",values)},[values])
-
-
     return <FormGeneratorContext.Provider value={{values,errors, touched, setFieldValue,elements, submitForm}}>
         <form onSubmit={handleSubmit}>
         {children}

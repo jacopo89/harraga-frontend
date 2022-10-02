@@ -9,7 +9,7 @@ export interface FormContextInterface{
     setFieldValue:(name:string,value:any)=> Promise<void> | Promise<FormikErrors<FormikValues>>,
     elements:GenericElementInterface[],
     submitForm:(e?: React.FormEvent<HTMLFormElement> | undefined) => Promise<any>
-
+    accessorRoot?:string
 }
 
 const formContextDefaultValue:FormContextInterface = {

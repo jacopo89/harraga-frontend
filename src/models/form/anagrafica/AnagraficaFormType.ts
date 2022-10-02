@@ -11,8 +11,7 @@ const elements:FormElements = [
         Header: 'Cognome',
         accessor: 'cognome',
         type: "text",
-    },
-
+    }
 ]
 
 
@@ -26,15 +25,24 @@ const validationForm = Yup.object().shape({
     cognome: Yup.string().required('Inserire il cognome').nullable(),
 });
 
+export const validationSchema = Yup.object().shape({
+    anagrafica:validationForm,
+    testo:Yup.string().required("Inserire il TESTO").nullable(),
+})
+
 
 export const anagraficaElements:FormElements = [
     {
         Header:"Anagrafica",
         accessor:"anagrafica",
         type:"embedded",
-        validationSchema:validationForm,
         formElements:elements,
         initialValues:initialValues
+    },
+    {
+        Header:"Testo",
+        accessor:"testo",
+        type:"text",
     }
 ]
 

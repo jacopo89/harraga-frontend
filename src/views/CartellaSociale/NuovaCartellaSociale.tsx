@@ -1,14 +1,12 @@
 import FormGeneratorContextProvider from "../../form-generator/form-context/FormGeneratorContextProvider";
 import {
     anagraficaElements,
-    anagraficaInitialValues
+    anagraficaInitialValues,
+    validationSchema
 } from "../../models/form/anagrafica/AnagraficaFormType";
-import {Button, Col, Row} from "react-bootstrap";
+import {Button} from "react-bootstrap";
 import FormElement from "../../form-generator/form-elements/FormElement";
-import {postCartellaSociale} from "../../api/cartellaSociale/cartellaSocialeApi";
 import {useNavigate} from "react-router";
-import {editCartellaSocialeRoute} from "../../routes/frontend-routes";
-import {toast} from "react-toastify";
 
 export default function (){
 
@@ -19,18 +17,9 @@ export default function (){
     }
 
     return <div>
-        <FormGeneratorContextProvider elements={anagraficaElements} onSubmit={onSubmit} initialValues={anagraficaInitialValues}>
-            <FormElement accessor={"anagrafica"} nestedForm={FormAnagrafica}></FormElement>
+        <FormGeneratorContextProvider elements={anagraficaElements} validationSchema={validationSchema} onSubmit={onSubmit} initialValues={anagraficaInitialValues}>
+            <FormElement accessor={"anagrafica.nome"}/>
             <Button type="submit"> OK</Button>
         </FormGeneratorContextProvider>
     </div>
 }
-
-const FormAnagrafica = <Row>
-    <Col xs={6}>
-        <FormElement accessor={"nome"}/>
-    </Col>
-    <Col xs={6}>
-        <FormElement accessor={"cognome"}/>
-    </Col>
-</Row>

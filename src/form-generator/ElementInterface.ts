@@ -52,8 +52,7 @@ export interface CollectionElementInterface extends ElementInterface{
 export interface EmbeddedElementInterface extends ElementInterface{
     type:"embedded",
     formElements:FormElements,
-    initialValues:any,
-    validationSchema:any
+    initialValues:any
 
 }
 

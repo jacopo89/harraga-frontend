@@ -9,7 +9,7 @@ export interface EmbeddedElementInterface extends BasicFormElementInterface{
     formElements: FormElements,
     nestedForm: JSX.Element,
     initialValues: any,
-    validationSchema:any
+    validationSchema:any,
 }
 
 export default function EmbeddedFormField(props:EmbeddedElementInterface){
