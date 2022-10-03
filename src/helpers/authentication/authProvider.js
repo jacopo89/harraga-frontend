@@ -1,7 +1,7 @@
 import jwt_decode from "jwt-decode";
 import client from "../../api/client";
 
-export const AUTH_ENTRYPOINT = process.env.REACT_APP_AUTH_ENDPOINT;
+export const AUTH_ENTRYPOINT = process.env.REACT_APP_ENTRYPOINT;
 
 export const check_login = AUTH_ENTRYPOINT + "/authentication_token"
 export const registration = AUTH_ENTRYPOINT + "/register"

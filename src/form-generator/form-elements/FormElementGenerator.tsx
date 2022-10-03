@@ -8,8 +8,10 @@ import TagsFormField, {TagsElementInterface} from "./fields/TagsFormField";
 import NumberFormField, {NumberElementInterface} from "./fields/NumberFormField";
 import CollectionFormField, {CollectionElementInterface} from "./fields/CollectionFormField";
 import EmbeddedFormField, {EmbeddedElementInterface} from "./fields/EmbeddedFormField";
+import FileFormField, {FileFormElementInterface} from "./fields/FileFormField";
+import DateFormField, {DateElementInterface} from "./fields/DateFormField";
 
-export type GenericFormElementInterface = TextElementInterface | SelectFormElementInterface | RadioFormElementInterface | CheckboxFormElementInterface |WYSIWYGElementInterface | TagsElementInterface|NumberElementInterface | CollectionElementInterface | EmbeddedElementInterface
+export type GenericFormElementInterface = TextElementInterface | SelectFormElementInterface | RadioFormElementInterface | CheckboxFormElementInterface |WYSIWYGElementInterface | TagsElementInterface|NumberElementInterface | CollectionElementInterface | EmbeddedElementInterface | FileFormElementInterface | DateElementInterface
 
 export default function FormElementGenerator(props: GenericFormElementInterface) {
     const {type} = props
@@ -36,6 +38,12 @@ export default function FormElementGenerator(props: GenericFormElementInterface)
         }
         case "embedded":{
             return <EmbeddedFormField {...props} />
+        }
+        case "file":{
+            return <FileFormField {...props} />
+        }
+        case "date":{
+            return <DateFormField {...props}/>
         }
     }
     return <></>

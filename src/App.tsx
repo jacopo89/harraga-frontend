@@ -11,6 +11,7 @@ import {nuovaCartellaSocialeRoute} from "./routes/frontend-routes";
 import NuovaCartellaSociale from "./views/CartellaSociale/NuovaCartellaSociale";
 import 'react-toastify/dist/ReactToastify.css';
 import './css/bootstrap.min.css'
+import './css/dropzone.css'
 
 function App() {
   //const tokenValid = authProvider.checkTokenValidity();

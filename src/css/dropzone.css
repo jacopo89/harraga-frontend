@@ -1,0 +1,203 @@
+html{
+    --primary: #D52589;
+    --secondary: #4A4F55;
+    --tertiary: #2C2C2C;
+    --quaternary: #558df3;
+    --primary-rgb: 213, 47, 137;
+    --secondary-rgb: #4A4F55;
+    --tertiary-rgb: #2C2C2C;
+    --quaternary-rgb: 85, 141, 243;
+    --primary-darker: #D52589;
+    --secondary-darker: #4A4F55;
+    --tertiary-darker: #2C2C2C;
+    --quaternary-darker: #4c7dd6;
+    --body: #4e4e4e;
+    --alternate: #7c7c7c;
+    --muted: #afafaf;
+    --separator: #dddddd;
+    --separator-light: #f1f1f1;
+    --body-rgb: 59, 59, 59;
+    --alternate-rgb: 124, 124, 124;
+    --muted-rgb: 176, 176, 176;
+    --separator-rgb: 221, 221, 221;
+    --separator-light-rgb: 241, 241, 241;
+    --background: #f9f9f9;
+    --foreground: #ffffff;
+    --background-rgb: 249, 249, 249;
+    --foreground-rgb: 255, 255, 255;
+    --background-theme: #eaf0f1;
+    --background-light: #f8f8f8;
+    /*--gradient-1: #004b6a;*/
+    /*--gradient-2: #21aff0;*/
+    /*--gradient-3: #23b3f4;*/
+    --gradient-1: #212121;
+    --gradient-2: #212121;
+    --gradient-3: #212121;
+    --gradient-1-lighter: #D52589;
+    --gradient-1-darker: #1fa5e2;
+    --light-text: #fff;
+    --dark-text: #343a40;
+    --light-text-darker: #eeeeee;
+    --dark-text-darker: #23272b;
+    --light-text-rgb: 255, 255, 255;
+    --dark-text-rgb: 52, 58, 64;
+    --danger: #cf2637;
+    --info: #279aac;
+    --warning: #ebb71a;
+    --success: #439b38;
+    --light: #dadada;
+    --dark: #4e4e4e;
+    --danger-darker: #771a23;
+    --info-darker: #19545d;
+    --warning-darker: #aa830f;
+    --success-darker: #285422;
+    --light-darker: #c9c9c9;
+    --dark-darker: #282828;
+    --body-darker: #333333;
+    --alternate-darker: #616161;
+    --muted-darker: #888888;
+    --separator-darker: #c0c0c0;
+    --danger-rgb: 182, 40, 54;
+    --info-rgb: 41, 138, 153;
+    --warning-rgb: 235, 183, 26;
+    --success-rgb: 65, 139, 56;
+    --light-rgb: 218, 218, 218;
+    --dark-rgb: 78, 78, 78;
+    --menu-shadow: 0px 3px 10px rgba(0, 0, 0, 0.12);
+    --menu-shadow-navcolor: 0px 2px 6px rgba(0, 0, 0, 0.05);
+    --background-navcolor-light: #fff;
+    --background-navcolor-dark: #253a52;
+    --theme-image-filter: hue-rotate(0deg);
+}
+
+
+.dzu-dropzone {
+    overflow: initial !important;
+    min-height: 112px !important;
+    border: 1px solid var(--separator) !important;
+    background: var(--foreground) !important;
+    padding: var(--card-spacing-sm) !important;
+    border-radius: var(--border-radius-md) !important;
+    align-items: flex-start !important;
+    flex-direction: row !important;
+    flex-wrap: wrap;
+    padding-bottom: initial !important;
+}
+.dzu-dropzone.dzu-dropzoneActive {
+    border-color: var(--primary) !important;
+}
+
+.dzu-inputLabel {
+    color: var(--body) !important;
+    font-size: 1em !important;
+    font-weight: initial !important;
+    font-family: var(--font) !important;
+}
+
+.dzu-previewContainer progress {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 3px;
+}
+.dzu-previewContainer progress::-webkit-progress-value {
+    background: var(--primary);
+}
+
+.dzu-preview-file-name {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.dzu-preview-success,
+.dzu-preview-error,
+.dzu-preview-spinner {
+    position: absolute;
+    background: var(--foreground);
+    color: var(--primary);
+    border-radius: var(--border-radius-xl);
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    top: 3px;
+    left: 3px;
+    padding-top: 1px;
+}
+.dzu-preview-success i,
+.dzu-preview-error i,
+.dzu-preview-spinner i {
+    font-size: 14px;
+}
+
+.dzu-preview-spinner {
+    padding-left: 2px;
+}
+
+.dzu-preview-icon {
+    font-size: 24px !important;
+    color: var(--primary);
+}
+
+.dzu-inputLabel {
+    width: 100%;
+}
+
+.dzu-dropzone.row {
+    border: initial !important;
+    padding: initial !important;
+    min-height: 226px;
+}
+.dzu-dropzone.row .dzu-inputLabel {
+    padding-top: 4px !important;
+}
+
+.filled .dzu-dropzone {
+    border-color: var(--background-light) !important;
+    background: var(--background-light) !important;
+    padding-left: 45px !important;
+}
+.filled .dzu-dropzone.dzu-dropzoneActive {
+    border-color: var(--primary) !important;
+}
+.filled .dzu-inputLabel {
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding-left: 45px !important;
+    padding-top: 12px !important;
+    color: var(--alternate) !important;
+}
+
+.top-label .dzu-dropzone {
+    padding: 2rem 0.5rem 0 1rem !important;
+    min-height: 124px !important;
+}
+.top-label .dzu-inputLabel {
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    font-size: 1em !important;
+    z-index: initial !important;
+}
+
+.top-label label:not(.form-check-label).dzu-inputLabel {
+    font-size: 1em !important;
+    background: initial !important;
+    cursor: pointer !important;
+}
+
+.form-floating .dzu-dropzone {
+    padding: 1rem !important;
+    padding-bottom: initial !important;
+    min-height: 124px !important;
+}
+.form-floating .dzu-inputLabel {
+    pointer-events: initial !important;
+}
+.form-floating .dzu-dropzone.full {
+    padding-top: 2rem !important;
+}
+.form-floating .dzu-dropzone.full ~ label {
+    transform: scale(0.85) translateY(-0.5rem) translateX(0.15rem);
+    color: var(--muted);
+}

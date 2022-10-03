@@ -14,6 +14,6 @@ export default function TextFormField(props:TextElementInterface){
 
     return <div className="filled form-group tooltip-end-top">
         <Form.Control type="text" name={accessor} placeholder={Header} value={getNestedValue(accessor,values)} onChange={(e)=>setFieldValue(e.target.value)} />
-        <div className="d-block">{errorMessage}</div>
+        {nestedTouched && <div className="d-block">{errorMessage}</div>}
     </div>
 }

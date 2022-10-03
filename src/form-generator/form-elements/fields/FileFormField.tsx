@@ -1,9 +1,10 @@
 import {Button, Form} from "react-bootstrap";
-import React from "react";
+import React, {useEffect} from "react";
 import BasicFormElementInterface from "../../BasicFormElementInterface";
 import Dropzone from "react-dropzone-uploader";
 import DropzonePreview from "../utils/DropzonePreview";
-import { readFiles } from "../utils/FileUploadedHelper";
+import {readFile, readFiles} from "../utils/FileUploadedHelper";
+import 'react-dropzone-uploader/dist/styles.css'
 
 export interface FileFormElementInterface extends BasicFormElementInterface{
     type:"file"
@@ -12,23 +13,32 @@ export interface FileFormElementInterface extends BasicFormElementInterface{
 export default function FileFormField(props:FileFormElementInterface){
     const {type,values, errors, touched,setFieldValue,accessor,Header} = props
 
+    useEffect(()=>{console.log("values",values)},[values])
+
     // @ts-ignore
-    return <Dropzone
+    return <>
+
+        <Dropzone
         onSubmit={(successFiles)=>{
+            console.log("success files",successFiles)
             const files = successFiles.map(file => file.file)
 
             // @ts-ignore
-            readFiles(files).then(result => onSubmit(result))
+
 
         }}
+        onChangeStatus={(file, status, allFiles)=>{
+
+            // @ts-ignore
+            readFile(file.file).then(result => setFieldValue(result))
+
+        }}
+
         PreviewComponent={DropzonePreview}
         accept="image/*"
         maxFiles={1}
         //SubmitButtonComponent={button}
         inputContent="Carica file"
-    />
-    return <div className="filled form-group tooltip-end-top">
-        <Form.Control type="text" name={accessor} placeholder={Header} value={values[accessor]} onChange={(e)=>setFieldValue(e.target.value)} />
-        {/*{errors[accessor] && touched[accessor] && <div className="d-block invalid-tooltip">{errors[accessor]}</div>}*/}
-    </div>
+        />
+    </>
 }
