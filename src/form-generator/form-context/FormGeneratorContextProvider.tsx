@@ -39,7 +39,7 @@ export default function FormGeneratorContextProvider({elements, validationSchema
         }
     },[existingValue,values])
 
-    const updateErrors = useCallback(()=>{
+    /*const updateErrors = useCallback(()=>{
         if(existingErrors && existingErrors !== errors) {
             setErrors(existingErrors)
         }
@@ -53,15 +53,16 @@ export default function FormGeneratorContextProvider({elements, validationSchema
                 touched[key] = true})
             setTouched(touched)
         }
-    },[existingErrors,errors])
+    },[existingErrors,errors])*/
 
     useEffect(()=>{
+        console.log("updating.")
         updateValues()
     },[existingValue])
-    useEffect(()=>{
+    /*useEffect(()=>{
         updateErrors()
         updateTouched()
-    },[existingErrors])
+    },[existingErrors])*/
 
 
     useEffect(()=>{console.log("values",values)},[values])

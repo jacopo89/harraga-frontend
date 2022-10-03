@@ -1,9 +1,10 @@
 import axios from "axios";
 
 const config = {headers:{ 'Content-Type': 'application/json' }}
+const patchConfigDefault = {headers:{ 'Content-Type': 'application/merge-patch+json' }}
 
 const finalConfig = localStorage.getItem('token') ? {headers:{ 'Content-Type': 'application/json',  'Authorization': `Bearer ${localStorage.getItem('token').slice(1,-1)}` }} : config
-const patchConfig = localStorage.getItem('token') ? {headers:{ 'Content-Type': 'application/merge-patch+json',  'Authorization': `Bearer ${localStorage.getItem('token').slice(1,-1)}` }} : config
+const patchConfig = localStorage.getItem('token') ? {headers:{ 'Content-Type': 'application/merge-patch+json',  'Authorization': `Bearer ${localStorage.getItem('token').slice(1,-1)}` }} : patchConfigDefault
 
 const get = (url) => axios.get(url,finalConfig)
 const post = (url,data) => axios.post(url,data,finalConfig)

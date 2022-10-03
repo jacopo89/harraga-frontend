@@ -23,10 +23,23 @@ const documentiIdentitaElements:FormElements = [
         accessor:"allegato",
         Header: "Allegato",
         type:"file",
-    }
+    },
+    {
+        Header: 'Descrizione',
+        accessor: 'descrizione',
+        type: "text",
+    },
 ]
 
-const elements:FormElements = [
+const mediatoreElements: FormElements = [
+    {
+        Header: 'Nome',
+        accessor: 'nome',
+        type: "text",
+    },
+]
+
+export const anagraficaElements:FormElements = [
     {
         Header: 'Nome',
         accessor: 'nome',
@@ -76,12 +89,12 @@ const elements:FormElements = [
     {
         Header: 'Data nascita - prima identificazione',
         accessor: 'dataNascitaPrimaIdentificazione',
-        type: "text",
+        type: "date",
     },
     {
         Header: 'Data nascita corretta',
         accessor: 'dataNascitaCorretta',
-        type: "text",
+        type: "date",
     },
     {
         Header: 'lingua Madre',
@@ -99,6 +112,16 @@ const elements:FormElements = [
         type: "date",
     },
     {
+        Header: 'Alias',
+        accessor: 'alias',
+        type: "text",
+    },
+    {
+        Header: 'Luogo arrivo in Italia',
+        accessor: 'luogoArrivoInItalia',
+        type: "text",
+    },
+    {
         accessor:"domicilio",
         Header:"Domicilio/Accoglienza",
         type:"collection",
@@ -109,39 +132,56 @@ const elements:FormElements = [
         Header:"Documenti Identità",
         type:"collection",
         formElements:documentiIdentitaElements
+    },
+    {
+        accessor:"mediatore",
+        Header:"Mediatore",
+        type:"embedded",
+        formElements:mediatoreElements
     }
 ]
 
 
-const initialValues = {
+export const anagraficaInitialValues = {
     nome:null,
     cognome:null,
     numeroTutela:null,
+    altroNome:null,
     italiano:false,
+    sesso: null,
+    luogoNascita:null,
+    paeseOrigine:null,
+    cittadinanza:null,
+    dataNascitaPrimaIdentificazione:null,
+    dataNascitaCorretta:null,
+    linguaMadre:null,
+    gruppoEtnicoAppartenenza:null,
+    dataArrivoInItalia:null,
+    luogoArrivoInItalia:null,
     domicilio:[],
     documentoIdentitas:[]
 };
 
-const validationForm = Yup.object().shape({
+export const anagraficaValidationSchema = Yup.object().shape({
     nome:Yup.string().required("Inserire il nome").nullable(),
     cognome: Yup.string().required('Inserire il cognome').nullable(),
     numeroTutela: Yup.string().required('Inserire il numero di tutela').nullable(),
 });
 
-export const validationSchema = Yup.object().shape({
-    anagrafica:validationForm
+export const cartellaSocialeValidationSchema = Yup.object().shape({
+    anagrafica:anagraficaValidationSchema
 })
 
 
-export const anagraficaElements:FormElements = [
+export const cartellaSocialeElements:FormElements = [
     {
         Header:"Anagrafica",
         accessor:"anagrafica",
         type:"embedded",
-        formElements:elements,
+        formElements:anagraficaElements,
     },
 ]
 
-export const anagraficaInitialValues ={
-    anagrafica:initialValues
+export const cartellaSocialeInitialValues ={
+    anagrafica:anagraficaInitialValues
 }
