@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 // @ts-ignore
 import Select from "react-select";
 import BasicFormElementInterface from "../../BasicFormElementInterface";
+import {Form} from "react-bootstrap";
 
 export interface Option{
     label:string,
@@ -31,5 +32,11 @@ export default function SelectFormField(element:SelectFormElementInterface){
     },[values[accessor]])
 
     // @ts-ignore
-    return <Select classNamePrefix="react-select" options={options} value={value} onChange={setValue} placeholder={Header} />
+    const select =<Select classNamePrefix="react-select" options={options} value={value} onChange={setValue} placeholder={Header} />
+
+
+    return <>
+        <Form.Label>{Header}</Form.Label>
+        {select}
+    </>
 }

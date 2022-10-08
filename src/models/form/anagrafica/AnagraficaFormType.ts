@@ -1,43 +1,12 @@
 import * as Yup from "yup";
 import {FormElements} from "../../../form-generator/ElementInterface";
-
-export const domicilioInitialValues = {
-    tipologiaDomicilio:null
-}
-const domicilioElements:FormElements = [
-    {
-        accessor:"tipologiaDomicilio",
-        Header: "Tipologia",
-        type:"select",
-        options:[
-            {label:"Famiglia Affidataria", value:"famigliaAffidataria"},
-            {label:"CPA", value:"cpa"},
-            {label:"Comunità", value:"comunita"},
-            {label:"Sprar", value:"sprar"},
-        ]
-    }
-]
-
-const documentiIdentitaElements:FormElements = [
-    {
-        accessor:"allegato",
-        Header: "Allegato",
-        type:"file",
-    },
-    {
-        Header: 'Descrizione',
-        accessor: 'descrizione',
-        type: "text",
-    },
-]
-
-const mediatoreElements: FormElements = [
-    {
-        Header: 'Nome',
-        accessor: 'nome',
-        type: "text",
-    },
-]
+import {assistenteSocialeElements} from "./assistenteSociale/AssistenteSocialeType";
+import {mediatoreElements} from "./mediatore/MediatoreType";
+import {domicilioElements} from "./domiciilio/DomicilioType";
+import {documentiIdentitaElements} from "./documentoIdentita/DocumentoIdentitaType";
+import {tutoreElements} from "./tutore/TutoreType";
+import {polizzaAssicurativaElements} from "./polizzaAssicurativa/PolizzaAssicurativaType";
+import {documentiPossessoElements} from "./documentiPossesso/DocumentiPossessoType";
 
 export const anagraficaElements:FormElements = [
     {
@@ -59,6 +28,26 @@ export const anagraficaElements:FormElements = [
         Header: 'Altro nome',
         accessor: 'altroNome',
         type: "text",
+    },
+    {
+        Header: 'Email',
+        accessor: 'email',
+        type: "text",
+    },
+    {
+        Header: 'Telefono',
+        accessor: 'telefono',
+        type: "text",
+    },
+    {
+        Header: 'Unità operativa (UO)',
+        accessor: 'unitaOperativa',
+        type: "text",
+    },
+    {
+        Header: 'Data assegnazione (UO)',
+        accessor: 'dataAssegnazioneUO',
+        type: "date",
     },
     {
         Header: 'Italiano',
@@ -122,7 +111,7 @@ export const anagraficaElements:FormElements = [
         type: "text",
     },
     {
-        accessor:"domicilio",
+        accessor:"domicilios",
         Header:"Domicilio/Accoglienza",
         type:"collection",
         formElements:domicilioElements
@@ -138,7 +127,31 @@ export const anagraficaElements:FormElements = [
         Header:"Mediatore",
         type:"embedded",
         formElements:mediatoreElements
-    }
+    },
+    {
+        accessor:"assistenteSociale",
+        Header:"Assistente Sociale",
+        type:"embedded",
+        formElements:assistenteSocialeElements
+    },
+    {
+        accessor:"tutore",
+        Header:"Tutore",
+        type:"embedded",
+        formElements:tutoreElements
+    },
+    {
+        accessor:"polizzaAssicurativa",
+        Header:"Polizza assicurativa",
+        type:"embedded",
+        formElements:polizzaAssicurativaElements
+    },
+    {
+        accessor:"documentiPossesso",
+        Header:"Documenti possesso",
+        type:"embedded",
+        formElements:documentiPossessoElements
+    },
 ]
 
 
@@ -158,7 +171,7 @@ export const anagraficaInitialValues = {
     gruppoEtnicoAppartenenza:null,
     dataArrivoInItalia:null,
     luogoArrivoInItalia:null,
-    domicilio:[],
+    domicilios:[],
     documentoIdentitas:[]
 };
 

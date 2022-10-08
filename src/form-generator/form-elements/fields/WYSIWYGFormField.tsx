@@ -1,6 +1,7 @@
 import React, {useCallback, useEffect, useState} from "react";
 import BasicFormElementInterface from "../../BasicFormElementInterface";
 import ReactQuill from "react-quill";
+import 'react-quill/dist/quill.snow.css';
 
 export interface WYSIWYGElementInterface extends BasicFormElementInterface{
     type:"wysiwyg"

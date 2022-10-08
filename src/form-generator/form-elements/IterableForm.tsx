@@ -2,7 +2,6 @@ import {useContext} from "react";
 import FormGeneratorContext from "../form-context/FormGeneratorContext";
 import {getNestedValue} from "./utils/form-generator-utils";
 import {Button} from "react-bootstrap";
-import {domicilioInitialValues} from "../../models/form/anagrafica/AnagraficaFormType";
 
 interface IterableFormInterface{
     accessor:string,

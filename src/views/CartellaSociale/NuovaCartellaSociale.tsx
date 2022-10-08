@@ -1,13 +1,12 @@
 import FormGeneratorContextProvider from "../../form-generator/form-context/FormGeneratorContextProvider";
 import {
     cartellaSocialeElements,
-    cartellaSocialeInitialValues, domicilioInitialValues,
+    cartellaSocialeInitialValues,
     cartellaSocialeValidationSchema
 } from "../../models/form/anagrafica/AnagraficaFormType";
 import {Button, Col, Row} from "react-bootstrap";
 import FormElement from "../../form-generator/form-elements/FormElement";
 import {useNavigate} from "react-router";
-import {IterableForm} from "../../form-generator/form-elements/IterableForm";
 import {postCartellaSociale} from "../../api/cartellaSociale/cartellaSocialeApi";
 import {editCartellaSocialeRoute} from "../../routes/frontend-routes";
 import {toast} from "react-toastify";
