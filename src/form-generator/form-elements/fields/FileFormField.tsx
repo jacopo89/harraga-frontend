@@ -13,7 +13,7 @@ export interface FileFormElementInterface extends BasicFormElementInterface{
 export default function FileFormField(props:FileFormElementInterface){
     const {type,values, errors, touched,setFieldValue,accessor,Header} = props
 
-    useEffect(()=>{console.log("values",values)},[values])
+    //useEffect(()=>{console.log("values",values)},[values])
 
     // @ts-ignore
     return <>

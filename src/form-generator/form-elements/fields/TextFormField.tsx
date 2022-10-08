@@ -12,11 +12,6 @@ export default function TextFormField(props:TextElementInterface){
     const errorMessage = getNestedValue(accessor,errors)
     const nestedTouched = getNestedValue(accessor,touched)
 
-    useEffect(()=>{
-        console.log("accessor", accessor)
-        console.log(getNestedValue(accessor,values))
-    },[values])
-
     return <div className="filled form-group tooltip-end-top">
         <Form.Label>{Header}</Form.Label>
         <Form.Control type="text" name={accessor} placeholder={Header} value={getNestedValue(accessor,values)} onChange={(e)=>setFieldValue(e.target.value)} />
