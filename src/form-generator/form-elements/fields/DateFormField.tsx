@@ -19,8 +19,6 @@ export default function DateFormField(props:DateElementInterface){
         setFieldValue( serializeDate(value))
     }
     const value = getNestedValue(accessor,values);
-
-    useEffect(()=> console.log("value",normalizeDate(value)),[value])
     return <div className="filled form-group tooltip-end-top">
         <Form.Label>{Header}</Form.Label>
         <DatePicker placeholderText={Header} className="form-control" selected={value ? normalizeDate(value): new Date()} onChange={handleData} dateFormat={"dd/MM/yyyy"}/>

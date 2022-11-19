@@ -1,6 +1,6 @@
 import {FormElements} from "../../../../form-generator/ElementInterface";
 
-export const assistenteSocialeElements: FormElements = [
+export const permessoSoggiornoElements: FormElements = [
     {
         Header: 'Stato',
         accessor: 'stato',
@@ -55,6 +55,16 @@ export const assistenteSocialeElements: FormElements = [
 
 
 export const permessoSoggiornoInitialForm= {
+    stato:null,
+    dataRichiesta:null,
+    dataRilascio:null,
+    dataScadenza:null,
+    rilasciatoDa:null,
+    tipologia:null,
+    allegato:null
+}
+
+export const permessoSoggiornoInitialValues = {
     stato:null,
     dataRichiesta:null,
     dataRilascio:null,
