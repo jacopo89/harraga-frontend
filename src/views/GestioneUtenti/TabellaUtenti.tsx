@@ -17,6 +17,7 @@ import {getComparator, Order, stableSort} from "./Tabella/tabellaHelper";
 import {EnhancedTableHead, HeadCell} from "./Tabella/EnhancedTableHead";
 import {EnhancedTableToolbar} from "./Tabella/EnhancedTableToolbar";
 import {getUtenti} from "../../api/utente/utenteApi";
+import {editUtenteRoute} from "../../routes/frontend-routes";
 
 export interface Utente{
     id:string,
@@ -29,14 +30,14 @@ export interface Utente{
 export default function TabellaUtenti(){
     const navigate = useNavigate();
     const [utenti, setUtenti] = useState<Utente[]>([])
-
+    const editHandler = (id:string)=> navigate(editUtenteRoute(id))
 
     useEffect(()=>{
         getUtenti().then(response => setUtenti(response.data["hydra:member"]))
     },[])
 
     return <div>
-        <EnhancedTable rows={utenti} editHandler={()=>{}}></EnhancedTable>
+        <EnhancedTable rows={utenti} editHandler={editHandler}></EnhancedTable>
     </div>
 }
 
@@ -186,6 +187,7 @@ export function EnhancedTable({rows,editHandler}:EnhancedTable) {
                                             </TableCell>
                                             <TableCell align="right">{row.cognome}</TableCell>
                                             <TableCell align="right">{row.email}</TableCell>
+                                            <TableCell align="right"><Button onClick={()=>editHandler(row.id)}>Modifica</Button></TableCell>
                                         </TableRow>
                                     );
                                 })}

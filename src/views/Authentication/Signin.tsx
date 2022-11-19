@@ -37,6 +37,7 @@ const theme = createTheme();
 
 export default function SignIn() {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -45,7 +46,11 @@ export default function SignIn() {
             email: data.get('email'),
             password: data.get('password'),
         })
-            .then((token:any) => dispatch(setCurrentUser(token)))
+            .then((token:any) => {
+                console.log("token", token)
+                dispatch(setCurrentUser(token))
+                window.location.href = "/"
+            })
             //.then(()=>window.location.href = myads)
             .catch((error:any) => toast.error("Login failed",  {
             position: "top-center",

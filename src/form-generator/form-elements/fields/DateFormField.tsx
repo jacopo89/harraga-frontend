@@ -14,8 +14,8 @@ export interface DateElementInterface extends BasicFormElementInterface{
 export default function DateFormField(props:DateElementInterface){
     const {type,values, errors, touched,setFieldValue,accessor,Header} = props
     const handleData = (value:any) => {
-        console.log("value",value)
-        console.log("serialized date", serializeDate(value))
+        /*console.log("value",value)
+        console.log("serialized date", serializeDate(value))*/
         setFieldValue( serializeDate(value))
     }
     const value = getNestedValue(accessor,values);

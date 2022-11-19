@@ -2,6 +2,7 @@ import {Form} from "react-bootstrap";
 import React from "react";
 import BasicFormElementInterface from "../../BasicFormElementInterface";
 import {Option} from "./SelectFormField";
+import {getNestedValue} from "../utils/form-generator-utils";
 
 export interface RadioFormElementInterface extends BasicFormElementInterface{
     type:"radio",
@@ -17,7 +18,7 @@ export default function RadioFormField(props:RadioFormElementInterface){
     return <>
         <Form.Label>{Header}</Form.Label>
         <div>
-            {options.map(option =><Form.Check name={accessor} type="radio" value={option.value} label={option.label} id={option.value} inline onChange={onChangeRadio} checked={values[accessor]=== option.value} />)}
+            {options.map(option =><Form.Check name={accessor} type="radio" value={option.value} label={option.label} id={option.value} inline onChange={onChangeRadio} checked={getNestedValue(accessor,values)=== option.value} />)}
         </div>
 
     </>
