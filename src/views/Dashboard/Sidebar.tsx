@@ -6,7 +6,7 @@ import List from "@mui/material/List";
 import {ListItemButton, ListItemIcon, ListItemText} from "@mui/material";
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import {useNavigate} from "react-router";
-import {listaCartelleSociali} from "../../routes/frontend-routes";
+import {gestioneUtenti, listaCartelleSociali} from "../../routes/frontend-routes";
 
 export default function Sidebar(toggleDrawer:any){
 
@@ -30,6 +30,12 @@ export default function Sidebar(toggleDrawer:any){
                     <DashboardIcon />
                 </ListItemIcon>
                 <ListItemText primary="Dashboard" />
+            </ListItemButton>
+            <ListItemButton  onClick={()=>navigate(gestioneUtenti)}>
+                <ListItemIcon>
+                    <DashboardIcon />
+                </ListItemIcon>
+                <ListItemText primary="Utenti" />
             </ListItemButton>
         </List>
 

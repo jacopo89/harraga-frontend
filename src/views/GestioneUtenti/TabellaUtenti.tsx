@@ -1,7 +1,7 @@
 import {Button} from "@mui/material";
 import {useNavigate} from "react-router";
-import {editCartellaSocialeRoute, nuovaCartellaSocialeRoute} from "../../routes/frontend-routes";
 import * as React from 'react';
+import {useEffect, useState} from 'react';
 import Box from '@mui/material/Box';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -16,49 +16,30 @@ import Switch from '@mui/material/Switch';
 import {getComparator, Order, stableSort} from "./Tabella/tabellaHelper";
 import {EnhancedTableHead, HeadCell} from "./Tabella/EnhancedTableHead";
 import {EnhancedTableToolbar} from "./Tabella/EnhancedTableToolbar";
-import {getCartelleSociali} from "../../api/cartellaSociale/cartellaSocialeApi";
-import {useEffect, useState} from "react";
+import {getUtenti} from "../../api/utente/utenteApi";
 
-interface Anagrafica{
+export interface Utente{
+    id:string,
     nome:string,
     cognome:string,
-    numeroTutela:string
+    email:string,
+    telefono:string,
 }
 
-interface CartellaSocialeData{
-    id:string,
-    anagrafica:Anagrafica
-}
-
-export default function TabellaCartelleSociali(){
+export default function TabellaUtenti(){
     const navigate = useNavigate();
-    const [cartelleSociali, setCartelleSociali] = useState<CartellaSociale[]>([])
+    const [utenti, setUtenti] = useState<Utente[]>([])
 
-    const editHandler = (id:string)=> navigate(editCartellaSocialeRoute(id))
 
     useEffect(()=>{
-        getCartelleSociali().then(response => setCartelleSociali(response.data["hydra:member"].map((cartellaSociale:CartellaSocialeData)=>{
-            return {
-                id:cartellaSociale.id,
-                nome:cartellaSociale.anagrafica.nome,
-                cognome:cartellaSociale.anagrafica.cognome,
-                numeroTutela:cartellaSociale.anagrafica.numeroTutela,
-            }
-        })))
+        getUtenti().then(response => setUtenti(response.data["hydra:member"]))
     },[])
 
     return <div>
-        <Button onClick={()=>{navigate(nuovaCartellaSocialeRoute)}}>Crea</Button>
-        <EnhancedTable rows={cartelleSociali} editHandler={editHandler}></EnhancedTable>
+        <EnhancedTable rows={utenti} editHandler={()=>{}}></EnhancedTable>
     </div>
 }
 
-export interface CartellaSociale {
-    id: string;
-    nome: string;
-    cognome: string;
-    numeroTutela: string;
-}
 
 
 const headCells: HeadCell[] = [
@@ -75,23 +56,23 @@ const headCells: HeadCell[] = [
         label: 'Cognome',
     },
     {
-        id: 'numeroTutela',
+        id: 'email',
         numeric: true,
         disablePadding: false,
-        label: 'Numero Tutela',
+        label: 'Email',
     },
 
 ];
 
 interface EnhancedTable{
-    rows: CartellaSociale[],
+    rows: Utente[],
     editHandler: (id:string) => void
 }
 
 
 export function EnhancedTable({rows,editHandler}:EnhancedTable) {
     const [order, setOrder] = React.useState<Order>('asc');
-    const [orderBy, setOrderBy] = React.useState<keyof CartellaSociale>('nome');
+    const [orderBy, setOrderBy] = React.useState<keyof Utente>('nome');
     const [selected, setSelected] = React.useState<readonly string[]>([]);
     const [page, setPage] = React.useState(0);
     const [dense, setDense] = React.useState(false);
@@ -99,7 +80,7 @@ export function EnhancedTable({rows,editHandler}:EnhancedTable) {
 
     const handleRequestSort = (
         event: React.MouseEvent<unknown>,
-        property: keyof CartellaSociale,
+        property: keyof Utente,
     ) => {
         const isAsc = orderBy === property && order === 'asc';
         setOrder(isAsc ? 'desc' : 'asc');
@@ -204,8 +185,7 @@ export function EnhancedTable({rows,editHandler}:EnhancedTable) {
                                                 {row.nome}
                                             </TableCell>
                                             <TableCell align="right">{row.cognome}</TableCell>
-                                            <TableCell align="right">{row.numeroTutela}</TableCell>
-                                            <TableCell align="right"><Button onClick={()=>editHandler(row.id)}>Modifica</Button></TableCell>
+                                            <TableCell align="right">{row.email}</TableCell>
                                         </TableRow>
                                     );
                                 })}
