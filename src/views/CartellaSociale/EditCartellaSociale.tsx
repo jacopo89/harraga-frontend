@@ -9,6 +9,7 @@ import Box from '@mui/material/Box';
 import {a11yProps, TabPanel} from "../../components/TabPanel";
 import AnagraficaForm from "./SubForms/AnagraficaForm";
 import AmministrativaForm from "./SubForms/AmministrativaForm";
+import StoriaForm from "./SubForms/StoriaForm";
 
 
 export default function (){
@@ -40,7 +41,7 @@ export default function (){
             {value === 1 && <AmministrativaForm/>}
         </TabPanel>
         <TabPanel value={value} index={2}>
-            {value === 2 && "Item three"}
+            {value === 2 && <StoriaForm/>}
         </TabPanel>
     </>
 }
