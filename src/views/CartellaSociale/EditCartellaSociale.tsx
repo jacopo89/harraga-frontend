@@ -7,6 +7,7 @@ import AnagraficaForm from "./SubForms/AnagraficaForm";
 import AmministrativaForm from "./SubForms/AmministrativaForm";
 import StoriaForm from "./SubForms/StoriaForm";
 import SanitariaForm from "./SubForms/SanitariaForm";
+import SocialitaForm from "./SubForms/SocialitaForm";
 
 
 export default function (){
@@ -42,6 +43,9 @@ export default function (){
         </TabPanel>
         <TabPanel value={value} index={3}>
             {value === 3 && <SanitariaForm/>}
+        </TabPanel>
+        <TabPanel value={value} index={6}>
+            {value === 6 && <SocialitaForm/>}
         </TabPanel>
     </>
 }

@@ -7,6 +7,7 @@ const getCartellaSocialeAnagraficaRoute = (id:string) => createRoute(`/api/carte
 const getCartellaSocialeAmministrativaRoute = (id:string) => createRoute(`/api/cartella_sociales/${id}/amministrativa`)
 const getCartellaSocialeStoriaRoute = (id:string) => createRoute(`/api/cartella_sociales/${id}/storia`)
 const getCartellaSocialeSanitariaRoute = (id:string) => createRoute(`/api/cartella_sociales/${id}/sanitaria`)
+const getCartellaSocialeSocialitaRoute = (id:string) => createRoute(`/api/cartella_sociales/${id}/socialita`)
 
 export const getCartelleSociali = () => {
     return authClient.get(getCartellaSocialeRoute)
@@ -30,4 +31,8 @@ export const getCartellaSocialeStoria = (id:string) =>{
 
 export const getCartellaSocialeSanitaria = (id:string) =>{
     return authClient.get(getCartellaSocialeSanitariaRoute(id))
+}
+
+export const getCartellaSocialeSocialita = (id:string) =>{
+    return authClient.get(getCartellaSocialeSocialitaRoute(id))
 }
