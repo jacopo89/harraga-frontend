@@ -1,8 +1,4 @@
-import {getCartellaSocialeAnagrafica} from "../../api/cartellaSociale/cartellaSocialeApi";
-import {toast} from "react-toastify";
-import {useParams} from "react-router-dom";
-import {useEffect, useState} from "react";
-import {modificaAnagrafica} from "../../api/cartellaSociale/anagraficaApi";
+import {useState} from "react";
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
@@ -10,6 +6,7 @@ import {a11yProps, TabPanel} from "../../components/TabPanel";
 import AnagraficaForm from "./SubForms/AnagraficaForm";
 import AmministrativaForm from "./SubForms/AmministrativaForm";
 import StoriaForm from "./SubForms/StoriaForm";
+import SanitariaForm from "./SubForms/SanitariaForm";
 
 
 export default function (){
@@ -42,6 +39,9 @@ export default function (){
         </TabPanel>
         <TabPanel value={value} index={2}>
             {value === 2 && <StoriaForm/>}
+        </TabPanel>
+        <TabPanel value={value} index={3}>
+            {value === 3 && <SanitariaForm/>}
         </TabPanel>
     </>
 }
