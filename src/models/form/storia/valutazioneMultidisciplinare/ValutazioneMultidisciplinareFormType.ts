@@ -16,3 +16,8 @@ export const valutazioneMultidisciplinareFormElements :FormElements = [
         type:"wysiwyg",
     }
 ]
+
+export const valutazioneMultidisciplinareInitialValues = {
+    valutazione:null,
+    tipologia:null
+}

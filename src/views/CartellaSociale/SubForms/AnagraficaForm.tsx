@@ -30,7 +30,7 @@ export default function (){
 
     return <div>
         <FormGeneratorContextProvider elements={anagraficaElements} validationSchema={anagraficaValidationSchema} onSubmit={onSubmit} initialValues={anagraficaInitialValues} existingValue={anagrafica}>
-            <Divider className="mb-3"/>
+            {/*<Divider className="mb-3"/>
             <section>
                 <Row className="mb-3">
                     <Col xs={6}><FormElement accessor={"nome"}/></Col>
@@ -94,15 +94,16 @@ export default function (){
                     <Col xs={6}><FormElement accessor={"mediatore.email"}/></Col>
                     <Col xs={6}><FormElement accessor={"mediatore.telefono"}/></Col>
                 </Row>
-            </section>
+            </section>*/}
             <Divider className="mb-3"/>
             <section>
                 <h3>Domicilio/accoglienza</h3>
                 <Row className="mb-3">
-                    <IterableForm initialValue={domicilioInitialValues} form={DomicilioForm} buttonLabel={"Aggiungi domicilio"} accessor={"domicilios"}/>
+                    <FormElement accessor={"domicilios"} nestedForm={DomicilioForm}/>
+                    {/*<IterableForm initialValue={domicilioInitialValues} form={DomicilioForm} buttonLabel={"Aggiungi domicilio"} accessor={"domicilios"}/>*/}
                 </Row>
             </section>
-            <Divider className="mb-3"/>
+           {/* <Divider className="mb-3"/>
             <section>
                 <h3>Documenti di identità</h3>
                 <Row className="mb-3">
@@ -171,7 +172,7 @@ export default function (){
                     <Col xs={6}><FormElement accessor={"documentiPossesso.allegato"}/></Col>
                 </Row>
             </section>
-
+*/}
 
 
 
@@ -185,31 +186,31 @@ const DomicilioForm = (index:number) => {
     return <>
         <Row className="mb-1">
             <Col xs={6}>
-                <FormElement accessor={`domicilios[${index}].tipologiaDomicilio`}/>
+                <FormElement accessor={`tipologiaDomicilio`}/>
             </Col>
             <Col xs={6}>
-                <FormElement accessor={`domicilios[${index}].nome`}/>
-            </Col>
-        </Row>
-        <Row className="mb-1">
-            <Col xs={6}>
-                <FormElement accessor={`domicilios[${index}].tipoInserimento`}/>
-            </Col>
-            <Col xs={6}>
-                <FormElement accessor={`domicilios[${index}].responsabile`}/>
+                <FormElement accessor={`nome`}/>
             </Col>
         </Row>
         <Row className="mb-1">
             <Col xs={6}>
-                <FormElement accessor={`domicilios[${index}].email`}/>
+                <FormElement accessor={`tipoInserimento`}/>
             </Col>
             <Col xs={6}>
-                <FormElement accessor={`domicilios[${index}].telefono`}/>
+                <FormElement accessor={`responsabile`}/>
             </Col>
         </Row>
         <Row className="mb-1">
             <Col xs={6}>
-                <FormElement accessor={`domicilios[${index}].tempoPermanenzaPrevisto`}/>
+                <FormElement accessor={`email`}/>
+            </Col>
+            <Col xs={6}>
+                <FormElement accessor={`telefono`}/>
+            </Col>
+        </Row>
+        <Row className="mb-1">
+            <Col xs={6}>
+                <FormElement accessor={`tempoPermanenzaPrevisto`}/>
             </Col>
         </Row>
     </>

@@ -27,3 +27,11 @@ export const presoInCaricoElements:FormElements = [
         type:"file",
     }
 ]
+
+export const presoInCaricoInitialValues = {
+    nome:null,
+    cognome:null,
+    email:null,
+    telefono:null,
+    allegato:null,
+}

@@ -1,12 +1,15 @@
 import * as Yup from "yup";
 import {FormElements} from "../../../form-generator/ElementInterface";
-import {assistenteSocialeElements} from "./assistenteSociale/AssistenteSocialeType";
-import {mediatoreElements} from "./mediatore/MediatoreType";
-import {domicilioElements} from "./domiciilio/DomicilioType";
-import {documentiIdentitaElements} from "./documentoIdentita/DocumentoIdentitaType";
-import {tutoreElements} from "./tutore/TutoreType";
-import {polizzaAssicurativaElements} from "./polizzaAssicurativa/PolizzaAssicurativaType";
-import {documentiPossessoElements} from "./documentiPossesso/DocumentiPossessoType";
+import {assistenteSocialeElements, assistenteSocialeInitialValues} from "./assistenteSociale/AssistenteSocialeType";
+import {mediatoreElements, mediatoreInitialValues} from "./mediatore/MediatoreType";
+import {domicilioElements, domicilioInitialValues} from "./domiciilio/DomicilioType";
+import {documentiIdentitaElements, documentiIdentitaInitialValues} from "./documentoIdentita/DocumentoIdentitaType";
+import {tutoreElements, tutoreInitialValues} from "./tutore/TutoreType";
+import {
+    polizzaAssicurativaElements,
+    polizzaAssicurativaInitialValues
+} from "./polizzaAssicurativa/PolizzaAssicurativaType";
+import {documentiPossessoElements, documentiPossessoInitialValues} from "./documentiPossesso/DocumentiPossessoType";
 
 export const anagraficaElements:FormElements = [
     {
@@ -114,43 +117,50 @@ export const anagraficaElements:FormElements = [
         accessor:"domicilios",
         Header:"Domicilio/Accoglienza",
         type:"collection",
-        formElements:domicilioElements
+        formElements:domicilioElements,
+        initialValues:domicilioInitialValues
     },
     {
         accessor:"documentoIdentitas",
         Header:"Documenti Identità",
         type:"collection",
-        formElements:documentiIdentitaElements
+        formElements:documentiIdentitaElements,
+        initialValues:documentiIdentitaInitialValues
     },
     {
         accessor:"mediatore",
         Header:"Mediatore",
         type:"embedded",
-        formElements:mediatoreElements
+        formElements:mediatoreElements,
+        initialValues:mediatoreInitialValues
     },
     {
         accessor:"assistenteSociale",
         Header:"Assistente Sociale",
         type:"embedded",
-        formElements:assistenteSocialeElements
+        formElements:assistenteSocialeElements,
+        initialValues:assistenteSocialeInitialValues
     },
     {
         accessor:"tutore",
         Header:"Tutore",
         type:"embedded",
-        formElements:tutoreElements
+        formElements:tutoreElements,
+        initialValues: tutoreInitialValues
     },
     {
         accessor:"polizzaAssicurativa",
         Header:"Polizza assicurativa",
         type:"embedded",
-        formElements:polizzaAssicurativaElements
+        formElements:polizzaAssicurativaElements,
+        initialValues: polizzaAssicurativaInitialValues
     },
     {
         accessor:"documentiPossesso",
         Header:"Documenti possesso",
         type:"embedded",
-        formElements:documentiPossessoElements
+        formElements:documentiPossessoElements,
+        initialValues:documentiPossessoInitialValues
     },
 ]
 
@@ -192,6 +202,7 @@ export const cartellaSocialeElements:FormElements = [
         accessor:"anagrafica",
         type:"embedded",
         formElements:anagraficaElements,
+        initialValues:{}
     },
 ]
 

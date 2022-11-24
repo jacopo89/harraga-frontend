@@ -4,10 +4,19 @@ import FormGeneratorContext from "./FormGeneratorContext";
 import {GenericElementInterface} from "../ElementInterface";
 import {GenericResponse} from "../../helpers/response/GenericResponse";
 
-export interface FormGeneratorProviderInterface{
+type ConditionalProps = {
+    accessorRoot?: string;
+    onSubmit?: never;
+    onChange: (value: any) => Promise<void> | Promise<FormikErrors<FormikValues>>
+} | {
+    accessorRoot?: never;
+    onSubmit?: (values:any) => void | Promise<any>;
+    onChange?: never;
+};
+
+type CommonProps = {
     elements: GenericElementInterface[]
     validationSchema?:any,
-    onSubmit: (values:any) => void | Promise<any>
     initialValues:FormikValues
     children?:any,
     existingValue?:FormikValues,
@@ -15,19 +24,25 @@ export interface FormGeneratorProviderInterface{
     existingTouched?: FormikTouched<FormikValues>|undefined
 }
 
-export default function FormGeneratorContextProvider({elements, validationSchema, initialValues,onSubmit, children, existingValue,existingErrors}:FormGeneratorProviderInterface){
+type Props = CommonProps & ConditionalProps
+
+export default function FormGeneratorContextProvider({elements, validationSchema, initialValues,onSubmit, children, existingValue,existingErrors, accessorRoot, onChange}:Props){
     const onSubmitHandler = (values:FormikValues) => {
-        const onSubmitResponse = onSubmit(values)
-        if(onSubmitResponse instanceof Promise){
-            return onSubmitResponse.catch((error)=>{
-                if (error.response.status===400) {
-                    const response = GenericResponse.fromResponse(error.response)
-                    setErrors(response.content);
-                }
-                throw error
-            })
+        if(onSubmit){
+            const onSubmitResponse = onSubmit(values)
+            if(onSubmitResponse instanceof Promise){
+                return onSubmitResponse.catch((error)=>{
+                    if (error.response.status===400) {
+                        const response = GenericResponse.fromResponse(error.response)
+                        setErrors(response.content);
+                    }
+                    throw error
+                })
+            }
+            return onSubmitResponse;
         }
-        return onSubmitResponse;
+
+        return new Promise<any>(()=>{});
     }
 
     const formik = useFormik({ initialValues, validationSchema, onSubmit:onSubmitHandler });
@@ -38,6 +53,16 @@ export default function FormGeneratorContextProvider({elements, validationSchema
             setValues(existingValue)
         }
     },[existingValue,values])
+
+    useEffect(()=>{
+        if(accessorRoot){
+            console.log("accessor root",values)
+            onChange(values)
+        }
+        else{
+            console.log("values",values)
+        }
+    },[values])
 
     /*const updateErrors = useCallback(()=>{
         if(existingErrors && existingErrors !== errors) {
@@ -68,9 +93,10 @@ export default function FormGeneratorContextProvider({elements, validationSchema
     /*useEffect(()=>{console.log("values",values)},[values])
     useEffect(()=>{console.log("values",errors)},[errors])
 */
-    return <FormGeneratorContext.Provider value={{values,errors, touched, setFieldValue,elements, submitForm}}>
-        <form onSubmit={handleSubmit}>
-        {children}
-        </form>
+
+    const formContent = (onSubmit) ? <form onSubmit={handleSubmit}>{children}</form> : children
+
+    return <FormGeneratorContext.Provider value={{values,errors, touched, setFieldValue,elements, submitForm,accessorRoot}}>
+        {formContent}
     </FormGeneratorContext.Provider>
 }

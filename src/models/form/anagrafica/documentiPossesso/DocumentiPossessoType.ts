@@ -12,3 +12,8 @@ export const documentiPossessoElements:FormElements = [
         type:"file"
     }
 ]
+
+export const documentiPossessoInitialValues = {
+    tipologia:null,
+    allegato:null
+}

@@ -1,48 +1,57 @@
 import * as Yup from "yup";
 import {FormElements} from "../../../form-generator/ElementInterface";
-import {lingueDichiarateElements} from "./lingueDichiarate/LingueDichiarateFormType";
-import {lingueAttestateElements} from "./lingueAttestate/LingueAttestateFormType";
-import {lingueCertificateElements} from "./lingueCertificate/LingueCertificateFormType";
-import {competenzeDigitaliElements} from "./competenzeDigitali/CompetenzeDigitaliFormType";
-import {patenteElements} from "./patenti/PatenteFormType";
-import {altreCompetenzeElements} from "./altreCompetenze/AltreCompetenzeFormType";
+import {lingueDichiarateElements, lingueDichiarateInitialValues} from "./lingueDichiarate/LingueDichiarateFormType";
+import {lingueAttestateElements, lingueAttestateInitialValues} from "./lingueAttestate/LingueAttestateFormType";
+import {lingueCertificateElements, lingueCertificateInitialValues} from "./lingueCertificate/LingueCertificateFormType";
+import {
+    competenzeDigitaliElements,
+    competenzeDigitaliInitialValues
+} from "./competenzeDigitali/CompetenzeDigitaliFormType";
+import {patenteElements, patenteInitialValues} from "./patenti/PatenteFormType";
+import {altreCompetenzeElements, altreCompetenzeInitialValues} from "./altreCompetenze/AltreCompetenzeFormType";
 
 export const competenzeElements:FormElements = [
     {
         Header: 'Lingue dichiarate',
         accessor: 'linguaDichiaratas',
         type: "collection",
-        formElements:lingueDichiarateElements
+        formElements:lingueDichiarateElements,
+        initialValues:lingueDichiarateInitialValues,
     },
     {
         Header: 'Lingue attestate',
         accessor: 'linguaAttestatas',
         type: "collection",
-        formElements:lingueAttestateElements
+        formElements:lingueAttestateElements,
+        initialValues: lingueAttestateInitialValues
     },
     {
         Header: 'Lingue certificate',
         accessor: 'linguaCertificatas',
         type: "collection",
-        formElements:lingueCertificateElements
+        formElements:lingueCertificateElements,
+        initialValues: lingueCertificateInitialValues
     },
     {
         Header: 'Competenze digitali',
         accessor: 'competenzaDigitales',
         type: "collection",
-        formElements:competenzeDigitaliElements
+        formElements:competenzeDigitaliElements,
+        initialValues:competenzeDigitaliInitialValues
     },
     {
         Header: 'Associazioni',
         accessor: 'altraCompetenzas',
         type: "collection",
-        formElements:altreCompetenzeElements
+        formElements:altreCompetenzeElements,
+        initialValues:altreCompetenzeInitialValues
     },
     {
         Header: 'Associazioni',
         accessor: 'patentes',
         type: "collection",
-        formElements:patenteElements
+        formElements:patenteElements,
+        initialValues:patenteInitialValues
     },
 ]
 

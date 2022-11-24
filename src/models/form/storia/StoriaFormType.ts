@@ -1,17 +1,23 @@
 import * as Yup from "yup";
 import {FormElements} from "../../../form-generator/ElementInterface";
-import {parenteFormElements} from "./parenti/ParenteFormType";
-import {percorsoMigratorioFormElements} from "./percorsoMigratorio/percorsoMigratorioType";
-import {hotspotFormElements} from "./hotspot/HotspotFormType";
-import {CPAFormElements} from "./CPA/CPAFormType";
-import {SecondaAccoglienzaFormElements} from "./secondaAccoglienza/SecondaAccoglienzaFormType";
-import {allontanamentoFormElements} from "./allontanamento/AllontanamentoFormType";
-import {peiFormElements} from "./pei/PEIFormType";
-import {relazioneAssistenteSocialeFormElements} from "./relazioneAssistenteSociale/RelazioneAssistenteSocialeFormType";
-import {affidoFormElements} from "./affido/AffidoFormType";
-import {adozioneFormElements} from "./adozione/AdozioneFormType";
+import {parenteFormElements, parentesInitialValue} from "./parenti/ParenteFormType";
+import {percorsoMigratorioFormElements, percorsoMigratorioValues} from "./percorsoMigratorio/percorsoMigratorioType";
+import {hotspotFormElements, hotspotInitialValues} from "./hotspot/HotspotFormType";
+import {CPAFormElements, CPAInitialValues} from "./CPA/CPAFormType";
 import {
-    valutazioneMultidisciplinareFormElements
+    SecondaAccoglienzaFormElements,
+    SecondaAccoglienzaInitialValue
+} from "./secondaAccoglienza/SecondaAccoglienzaFormType";
+import {allontanamentiValues, allontanamentoFormElements} from "./allontanamento/AllontanamentoFormType";
+import {peiFormElements, PEIValues} from "./pei/PEIFormType";
+import {
+    relazioneAssistenteSocialeFormElements,
+    RelazioneAssistenteSocialeValues
+} from "./relazioneAssistenteSociale/RelazioneAssistenteSocialeFormType";
+import {affidoFormElements, affidoValues} from "./affido/AffidoFormType";
+import {adozioneFormElements, adozioneValues} from "./adozione/AdozioneFormType";
+import {
+    valutazioneMultidisciplinareFormElements, valutazioneMultidisciplinareInitialValues
 } from "./valutazioneMultidisciplinare/ValutazioneMultidisciplinareFormType";
 
 export const storiaElements:FormElements = [
@@ -29,67 +35,78 @@ export const storiaElements:FormElements = [
         Header: 'Parenti',
         accessor: 'parentes',
         type: "collection",
-        formElements:parenteFormElements
+        formElements:parenteFormElements,
+        initialValues:parentesInitialValue
     },
     {
         Header: 'Percorsi migratori',
         accessor: 'percorsoMigratorios',
         type: "collection",
-        formElements:percorsoMigratorioFormElements
+        formElements:percorsoMigratorioFormElements,
+        initialValues:percorsoMigratorioValues
     },
     {
         Header: 'Hotspot',
         accessor: 'hotspot',
         type: "embedded",
-        formElements:hotspotFormElements
+        formElements:hotspotFormElements,
+        initialValues:hotspotInitialValues
     },
     {
         Header: 'CPA',
         accessor: 'cPA',
         type: "embedded",
-        formElements:CPAFormElements
+        formElements:CPAFormElements,
+        initialValues:CPAInitialValues
     },
     {
         Header: 'Seconda Accoglienza',
         accessor: 'secondaAccoglienza',
         type: "embedded",
-        formElements:SecondaAccoglienzaFormElements
+        formElements:SecondaAccoglienzaFormElements,
+        initialValues:SecondaAccoglienzaInitialValue
     },
     {
         Header: 'Allontanamenti',
         accessor: 'allontanamentos',
         type: "collection",
-        formElements:allontanamentoFormElements
+        formElements:allontanamentoFormElements,
+        initialValues:allontanamentiValues
     },
     {
         Header: 'PEI',
         accessor: 'progettoEducativoIndividuales',
         type: "collection",
-        formElements:peiFormElements
+        formElements:peiFormElements,
+        initialValues:PEIValues
     },
     {
         Header: 'Relazione assistente sociale',
         accessor: 'relazioneAssistenteSociales',
         type: "collection",
-        formElements:relazioneAssistenteSocialeFormElements
+        formElements:relazioneAssistenteSocialeFormElements,
+        initialValues: RelazioneAssistenteSocialeValues
     },
     {
         Header: 'Affido',
         accessor: 'affidos',
         type: "collection",
-        formElements:affidoFormElements
+        formElements:affidoFormElements,
+        initialValues:affidoValues
     },
     {
         Header: 'Adozione',
         accessor: 'adoziones',
         type: "collection",
-        formElements:adozioneFormElements
+        formElements:adozioneFormElements,
+        initialValues:adozioneValues
     },
     {
         Header: 'Valutazione multidisciplinare',
         accessor: 'valutazioneMultidisciplinare',
         type: "embedded",
-        formElements:valutazioneMultidisciplinareFormElements
+        formElements:valutazioneMultidisciplinareFormElements,
+        initialValues: valutazioneMultidisciplinareInitialValues
     },
     {
         Header: 'Informazioni vita minore',

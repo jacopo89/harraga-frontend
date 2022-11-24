@@ -1,98 +1,120 @@
 import * as Yup from "yup";
 import {FormElements} from "../../../form-generator/ElementInterface";
-import {permessoSoggiornoElements} from "./permessoSoggiorno/PermessoSoggiornoType";
-import {provvedimentoGiudiziarioElements} from "./provvedimentoGiudiziario/ProvvedimentoGiudiziarioType";
-import { riferimentoLegaleElements } from "./riferimentoLegale/RiferimentoLegaleType";
-import {revocaTutelaElements} from "./revocaTutela/RevocaTutelaType";
-import { pattoAccoglienzaElements } from "./pattoAccoglienza/PattoAccoglienzaType";
-import { tesseraSanitariaElements } from "./tesseraSanitaria/TesseraSanitariaType";
-import { STPElements } from "./STP/STPType";
-import { codiceFiscaleElements } from "./codiceFiscale/CodiceFiscaleType";
-import {documentoIdentitaAmministrativaElements} from "./documentoIdentita/DocumentoIdentitaType";
-import {fotoSegnalazioneElements} from "./fotoSegnalazione/FotoSegnalazioneType";
-import {affidamentoElements} from "./affidamento/AffidamentoType";
-import {proceduraLegaleElements} from "./proceduraLegale/ProceduraLegaleType";
-import {proseguimentoAmministrativoElements} from "./proseguimentoAmministrativo/ProseguimentoAmministrativoType";
+import {permessoSoggiornoElements, permessoSoggiornoInitialValues} from "./permessoSoggiorno/PermessoSoggiornoType";
+import {
+    provvedimentoGiudiziarioElements,
+    provvedimentoGiudiziarioInitialValues
+} from "./provvedimentoGiudiziario/ProvvedimentoGiudiziarioType";
+import {riferimentoLegaleElements, riferimentoLegaleInitialValues} from "./riferimentoLegale/RiferimentoLegaleType";
+import {revocaTutelaElements, revocaTutelaInitialValues} from "./revocaTutela/RevocaTutelaType";
+import {pattoAccoglienzaElements, pattoAccoglienzaInitialValues} from "./pattoAccoglienza/PattoAccoglienzaType";
+import {tesseraSanitariaElements, tesseraSanitariaInitialValues} from "./tesseraSanitaria/TesseraSanitariaType";
+import {STPElements, STPInitialValues} from "./STP/STPType";
+import {codiceFiscaleElements, codiceFiscaleInitialValues} from "./codiceFiscale/CodiceFiscaleType";
+import {
+    documentoIdentitaAmministrativaElements,
+    documentoIdentitaAmministrativaInitialValues
+} from "./documentoIdentita/DocumentoIdentitaType";
+import {fotoSegnalazioneElements, fotoSegnalazioneInitialValues} from "./fotoSegnalazione/FotoSegnalazioneType";
+import {affidamentoElements, affidamentoInitialValues} from "./affidamento/AffidamentoType";
+import {proceduraLegaleElements, proceduraLegaleInitialValues} from "./proceduraLegale/ProceduraLegaleType";
+import {
+    proseguimentoAmministrativoElements,
+    proseguimentoAmministrativoInitialValues
+} from "./proseguimentoAmministrativo/ProseguimentoAmministrativoType";
 
 export const amministrativaElements:FormElements = [
     {
         accessor:"permessoSoggiornos",
         Header:"Permesso Soggiorno",
         type:"collection",
-        formElements:permessoSoggiornoElements
+        formElements:permessoSoggiornoElements,
+        initialValues:permessoSoggiornoInitialValues
     },
     {
         accessor:"provvedimentoGiudiziarios",
         Header:"Provvedimenti Giudiziari",
         type:"collection",
-        formElements:provvedimentoGiudiziarioElements
+        formElements:provvedimentoGiudiziarioElements,
+        initialValues:provvedimentoGiudiziarioInitialValues
     },
     {
         accessor:"riferimentoLegale",
         Header:"Riferimento Legale",
         type:"embedded",
-        formElements:riferimentoLegaleElements
+        formElements:riferimentoLegaleElements,
+        initialValues:riferimentoLegaleInitialValues
     },
     {
         accessor:"revocaTutela",
         Header:"Revoca Tutela",
         type:"embedded",
-        formElements:revocaTutelaElements
+        formElements:revocaTutelaElements,
+        initialValues:revocaTutelaInitialValues
     },
     {
         accessor:"pattoAccoglienza",
         Header:"Patto Accoglienza",
         type:"embedded",
-        formElements:pattoAccoglienzaElements
+        formElements:pattoAccoglienzaElements,
+        initialValues:pattoAccoglienzaInitialValues
     },
     {
         accessor:"tesseraSanitaria",
         Header:"Tessera sanitaria",
         type:"embedded",
-        formElements:tesseraSanitariaElements
+        formElements:tesseraSanitariaElements,
+        initialValues:tesseraSanitariaInitialValues
     },
     {
         accessor:"STP",
         Header:"STP",
         type:"embedded",
-        formElements:STPElements
+        formElements:STPElements,
+        initialValues:STPInitialValues
     },
     {
         accessor:"codiceFiscale",
         Header:"Codice Fiscale",
         type:"embedded",
-        formElements:codiceFiscaleElements
+        formElements:codiceFiscaleElements,
+        initialValues:codiceFiscaleInitialValues
     },
     {
         accessor:"documentiIdentitaAmministrativas",
         Header:"Documenti Identità amministrativi",
         type:"collection",
-        formElements:documentoIdentitaAmministrativaElements
+        formElements:documentoIdentitaAmministrativaElements,
+        initialValues:documentoIdentitaAmministrativaInitialValues
     },
     {
         accessor:"fotoSegnalazione",
         Header:"Foto segnalazione",
         type:"embedded",
-        formElements:fotoSegnalazioneElements
+        formElements:fotoSegnalazioneElements,
+        initialValues:fotoSegnalazioneInitialValues
     },
     {
         accessor:"affidamento",
         Header:"Affidamento",
         type:"embedded",
-        formElements:affidamentoElements
+        formElements:affidamentoElements,
+        initialValues:affidamentoInitialValues
     },
     {
         accessor:"proseguimentoAmministrativo",
         Header:"Proseguimento Amministrativo",
         type:"embedded",
-        formElements:proseguimentoAmministrativoElements
+        formElements:proseguimentoAmministrativoElements,
+        initialValues:proseguimentoAmministrativoInitialValues
     },
 
     {
         accessor:"proceduraLegales",
         Header:"Procedure Legali",
         type:"collection",
-        formElements:proceduraLegaleElements
+        formElements:proceduraLegaleElements,
+        initialValues:proceduraLegaleInitialValues
     },
 ]
 

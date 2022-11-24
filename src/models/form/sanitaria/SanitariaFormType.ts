@@ -1,48 +1,57 @@
 import * as Yup from "yup";
 import {FormElements} from "../../../form-generator/ElementInterface";
-import {patologiaAllergicaElements} from "./patologiaAllergicas/PatologiaAllergicaFormType";
-import {medicoCuranteElements} from "./medicoCurante/MedicoCuranteFormType";
-import {specificaDisabilitaElements} from "./specificaDisabilitas/SpecificaDisabilitaFormType";
-import {presoInCaricoElements} from "./presoInCarico/PresoIncaricoFormType";
-import {vaccinoElements} from "./vaccini/VaccinoFormType";
-import {visiteElements} from "./visite/VisiteFormType";
+import {patologiaAllergicaElements, patologiaValues} from "./patologiaAllergicas/PatologiaAllergicaFormType";
+import {medicoCuranteElements, medicoCuranteValues} from "./medicoCurante/MedicoCuranteFormType";
+import {
+    specificaDisabilitaElements,
+    specificaDisabilitaValues
+} from "./specificaDisabilitas/SpecificaDisabilitaFormType";
+import {presoInCaricoElements, presoInCaricoInitialValues} from "./presoInCarico/PresoIncaricoFormType";
+import {vaccinoElements, vaccinoInitialValues} from "./vaccini/VaccinoFormType";
+import {visitaInitialValues, visiteElements} from "./visite/VisiteFormType";
 
 export const sanitariaElements:FormElements = [
     {
         Header: 'Specifiche disabilità',
         accessor: 'specificaDisabilitas',
         type: "collection",
-        formElements:specificaDisabilitaElements
+        formElements:specificaDisabilitaElements,
+        initialValues:specificaDisabilitaValues
     },
     {
         Header: 'Patologie allergiche',
         accessor: 'patologiaAllergicas',
         type: "collection",
-        formElements:patologiaAllergicaElements
+        formElements:patologiaAllergicaElements,
+        initialValues:patologiaValues
     },
     {
         Header: 'Medico curante',
         accessor: 'medicoCurante',
         type: "embedded",
-        formElements:medicoCuranteElements
+        formElements:medicoCuranteElements,
+        initialValues:medicoCuranteValues
     },
     {
         Header: 'Preso in carico',
         accessor: 'presoInCarico',
         type: "embedded",
-        formElements:presoInCaricoElements
+        formElements:presoInCaricoElements,
+        initialValues:presoInCaricoInitialValues
     },
     {
         Header: 'Vaccini',
         accessor: 'vaccinos',
         type: "collection",
-        formElements:vaccinoElements
+        formElements:vaccinoElements,
+        initialValues:vaccinoInitialValues
     },
     {
         Header: 'Visite',
         accessor: 'visitas',
         type: "collection",
-        formElements:visiteElements
+        formElements:visiteElements,
+        initialValues:visitaInitialValues
     },
 ]
 

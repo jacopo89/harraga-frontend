@@ -1,7 +1,10 @@
 import {FormElements} from "../../../../form-generator/ElementInterface";
-import {regolamentoDublinoElements} from "./regolamentoDublino/RegolamentoDublino";
-import {appuntamentiElements} from "./appuntamenti/AppuntamentiType";
-import {ricorsiAmministrativiElements} from "./ricorsoAmministrativo/RicorsoAmministrativo";
+import {regolamentoDublinoElements, regolamentoDublinoInitialValues} from "./regolamentoDublino/RegolamentoDublino";
+import {appuntamentiElements, appuntamentiInitialValues} from "./appuntamenti/AppuntamentiType";
+import {
+    ricorsiAmministrativiElements,
+    ricorsiAmministrativiInitialValues
+} from "./ricorsoAmministrativo/RicorsoAmministrativo";
 
 export const proceduraLegaleElements: FormElements = [
     {
@@ -9,18 +12,21 @@ export const proceduraLegaleElements: FormElements = [
         accessor: "regolamentoDublino",
         type:"embedded",
         formElements: regolamentoDublinoElements,
+        initialValues: regolamentoDublinoInitialValues
     },
     {
         Header: "Appuntamenti",
         accessor: "appuntamenti",
         type:"collection",
         formElements: appuntamentiElements,
+        initialValues:appuntamentiInitialValues
     },
     {
         Header: "Ricorsi amministrativi",
         accessor: "ricorsiAmministrativi",
         type:"collection",
         formElements: ricorsiAmministrativiElements,
+        initialValues:ricorsiAmministrativiInitialValues
     }
 ]
 

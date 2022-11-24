@@ -21,3 +21,10 @@ export const mediatoreElements: FormElements = [
         type: "text",
     },
 ]
+
+export const mediatoreInitialValues = {
+    nome:null,
+    cognome:null,
+    email:null,
+    telefono:null
+}

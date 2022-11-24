@@ -22,3 +22,10 @@ export const assistenteSocialeElements: FormElements = [
         type: "text",
     },
 ]
+
+export const assistenteSocialeInitialValues = {
+    nome:null,
+    cognome:null,
+    email:null,
+    telefono:null
+}

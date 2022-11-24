@@ -26,3 +26,11 @@ export const polizzaAssicurativaElements: FormElements = [
         type:"file"
     }
 ]
+
+export const polizzaAssicurativaInitialValues = {
+    tipologia:null,
+    numero:null,
+    dataInizio:null,
+    dataFine:null,
+    allegato:null
+}

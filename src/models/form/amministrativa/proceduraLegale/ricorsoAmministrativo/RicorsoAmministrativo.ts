@@ -27,3 +27,11 @@ export const ricorsiAmministrativiElements: FormElements = [
         type:"text",
     }
 ]
+
+export const ricorsiAmministrativiInitialValues = {
+    dataInoltroRicorso:null,
+    note:null,
+    nomeAvvocato:null,
+    patrocinioGratuito:null,
+    esiti:null
+}

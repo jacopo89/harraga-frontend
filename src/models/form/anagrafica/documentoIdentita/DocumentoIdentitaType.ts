@@ -28,3 +28,10 @@ export const documentiIdentitaElements:FormElements = [
         type: "wysiwyg",
     },
 ]
+
+export const documentiIdentitaInitialValues = {
+    allegato:null,
+    tipologia:null,
+    note:null,
+    descrizione:null
+}

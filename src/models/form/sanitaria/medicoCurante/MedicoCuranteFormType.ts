@@ -28,3 +28,10 @@ export const medicoCuranteElements:FormElements = [
     }
 ]
 
+export const medicoCuranteValues = {
+    nome:null,
+    cognome:null,
+    email:null,
+    telefono:null,
+    allegato:null,
+}

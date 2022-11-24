@@ -1,35 +1,42 @@
 import * as Yup from "yup";
 import {FormElements} from "../../../form-generator/ElementInterface";
 import {specificaDisabilitaElements} from "../sanitaria/specificaDisabilitas/SpecificaDisabilitaFormType";
-import {esperienzeVolontariatoElements} from "./esperienzeVolontariato/EsperienzeVolontariatoFormType";
-import {laboratorioElements} from "./laboratori/LaboratorioFormType";
-import {attivitaSportivaElements} from "./attivitaSportiva/AttivitaSportivaFormType";
-import {associazioneElements} from "./associazione/AssociazioneFormType";
+import {
+    esperienzeInitialValues,
+    esperienzeVolontariatoElements
+} from "./esperienzeVolontariato/EsperienzeVolontariatoFormType";
+import {laboratorioElements, laboratorioInitialValues} from "./laboratori/LaboratorioFormType";
+import {attivitaSportivaElements, attivitaSportivaInitialValues} from "./attivitaSportiva/AttivitaSportivaFormType";
+import {associazioneElements, associazioneInitialValues} from "./associazione/AssociazioneFormType";
 
 export const socialitaElements:FormElements = [
     {
         Header: 'Esperienze di volontariato',
         accessor: 'esperienzaVolontariatos',
         type: "collection",
-        formElements:esperienzeVolontariatoElements
+        formElements:esperienzeVolontariatoElements,
+        initialValues:esperienzeInitialValues
     },
     {
         Header: 'Laboratori',
         accessor: 'laboratorios',
         type: "collection",
-        formElements:laboratorioElements
+        formElements:laboratorioElements,
+        initialValues:laboratorioInitialValues
     },
     {
         Header: 'Attività sportive',
         accessor: 'attivitaSportivas',
         type: "collection",
-        formElements:attivitaSportivaElements
+        formElements:attivitaSportivaElements,
+        initialValues:attivitaSportivaInitialValues
     },
     {
         Header: 'Associazioni',
         accessor: 'associaziones',
         type: "collection",
-        formElements:associazioneElements
+        formElements:associazioneElements,
+        initialValues:associazioneInitialValues
     },
 ]
 

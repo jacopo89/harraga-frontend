@@ -27,3 +27,11 @@ export const regolamentoDublinoElements: FormElements = [
         accessor:"allegato"
     }
 ]
+
+export const regolamentoDublinoInitialValues = {
+    paeseOrigine:null,
+    paeseArrivo:null,
+    data:null,
+    statoProcedura:null,
+    allegato:null
+}

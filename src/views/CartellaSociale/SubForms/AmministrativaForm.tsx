@@ -44,24 +44,25 @@ export default function (){
     return <div>
         <FormGeneratorContextProvider elements={amministrativaElements} validationSchema={amministrativaValidationSchema} onSubmit={onSubmit} initialValues={amministrativaInitialValues} existingValue={amministrativa}>
             <Divider className="mb-3"/>
-            <section>
+           {/* <section>
                 <Row className="mb-3">
                     <IterableForm initialValue={permessoSoggiornoInitialValues} form={PermessoSoggiornoForm} buttonLabel={"Aggiungi permesso soggiorno"} accessor={"permessoSoggiornos"}/>
                 </Row>
             </section>
-            <Divider className="mb-3"/>
+            <Divider className="mb-3"/>*/}
             <section>
                 <Row className="mb-3">
-                    <IterableForm initialValue={proceduraLegaleInitialValues} form={ProceduraLegaleForm} buttonLabel={"Aggiungi procedura legale"} accessor={"proceduraLegales"}/>
+                    <FormElement accessor={"proceduraLegales"} nestedForm={ProceduraLegaleForm}/>
+                    {/*<IterableForm initialValue={proceduraLegaleInitialValues} form={ProceduraLegaleForm} buttonLabel={"Aggiungi procedura legale"} accessor={"proceduraLegales"}/>*/}
                 </Row>
             </section>
             <Divider className="mb-3"/>
-            <section>
+            {/*<section>
                 <Row className="mb-3">
                     <IterableForm initialValue={provvedimentoGiudiziarioInitialValues} form={ProvvedimentoGiudiziarioForm} buttonLabel={"Aggiungi provvedimento giudiziario"} accessor={"provvedimentoGiudiziarios"}/>
                 </Row>
-            </section>
-            <Divider className="mb-3"/>
+            </section>*/}
+           {/* <Divider className="mb-3"/>
             <section>
                 <Row className="mb-3">
                     <Col xs={12}>
@@ -204,7 +205,7 @@ export default function (){
                         <FormElement accessor={`affidamento.provvedimentoAffidamentoDefinitivo`}/>
                     </Col>
                 </Row>
-            </section>
+            </section>*/}
             <Button type="submit"> OK</Button>
         </FormGeneratorContextProvider>
     </div>
@@ -278,23 +279,24 @@ const ProceduraLegaleForm = (index:number) => {
     return <>
         <Row className="mb-1">
             <Col xs={12}>
-                <FormElement accessor={`proceduraLegales[${index}].regolamentoDublino.paeseOrigine`}/>
+                <FormElement accessor={`regolamentoDublino.paeseOrigine`}/>
             </Col>
             <Col xs={12}>
-                <FormElement accessor={`proceduraLegales[${index}].regolamentoDublino.paeseArrivo`}/>
+                <FormElement accessor={`regolamentoDublino.paeseArrivo`}/>
             </Col>
             <Col xs={12}>
-                <FormElement accessor={`proceduraLegales[${index}].regolamentoDublino.data`}/>
+                <FormElement accessor={`regolamentoDublino.data`}/>
             </Col>
             <Col xs={12}>
-                <FormElement accessor={`proceduraLegales[${index}].regolamentoDublino.statoProcedura`}/>
+                <FormElement accessor={`regolamentoDublino.statoProcedura`}/>
             </Col>
             <Col xs={12}>
-                <FormElement accessor={`proceduraLegales[${index}].regolamentoDublino.allegato`}/>
+                <FormElement accessor={`regolamentoDublino.allegato`}/>
             </Col>
         </Row>
         <Row className="mb-3">
-            <IterableForm initialValue={appuntamentiInitialValues} form={AppuntamentiForm} buttonLabel={"Aggiungi appuntamento"} accessor={`proceduraLegales[${index}].appuntamenti`}/>
+            <FormElement accessor={"appuntamenti"} nestedForm={AppuntamentiForm}></FormElement>
+            {/*<IterableForm initialValue={appuntamentiInitialValues} form={AppuntamentiForm} buttonLabel={"Aggiungi appuntamento"} accessor={`proceduraLegales.appuntamenti`}/>*/}
         </Row>
     </>
 }
@@ -304,16 +306,16 @@ const AppuntamentiForm = (index:number) => {
     return <>
         <Row className="mb-1">
             <Col xs={12}>
-                <FormElement accessor={`appuntamenti[${index}].luogo`}/>
+                <FormElement accessor={`luogo`}/>
             </Col>
             <Col xs={12}>
-                <FormElement accessor={`appuntamenti[${index}].motivo`}/>
+                <FormElement accessor={`motivo`}/>
             </Col>
             <Col xs={12}>
-                <FormElement accessor={`appuntamenti[${index}].data`}/>
+                <FormElement accessor={`data`}/>
             </Col>
             <Col xs={12}>
-                <FormElement accessor={`appuntamenti[${index}].esiti`}/>
+                <FormElement accessor={`esiti`}/>
             </Col>
         </Row>
     </>

@@ -46,13 +46,14 @@ export interface DateElementInterface extends ElementInterface{
 }
 export interface CollectionElementInterface extends ElementInterface{
     type:"collection",
-    formElements:FormElements
-
+    formElements:FormElements,
+    initialValues: object,
 }
 
 export interface EmbeddedElementInterface extends ElementInterface{
     type:"embedded",
     formElements:FormElements,
+    initialValues: object,
 }
 export interface FileElementInterface extends ElementInterface{
     type:"file"
