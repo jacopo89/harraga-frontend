@@ -12,7 +12,7 @@ import {
   anagraficaRouterElement, competenzeRouterElement,
   dettaglioUtente,
   editCartellaSocialeRouterElement,
-  gestioneUtenti,
+  gestioneUtenti, lavoroRouterElement,
   nuovaCartellaSocialeRoute, sanitariaRouterElement, socialitaRouterElement, storiaRouterElement
 } from "./routes/frontend-routes";
 import NuovaCartellaSociale from "./views/CartellaSociale/NuovaCartellaSociale";
@@ -30,6 +30,7 @@ import SocialitaForm from "./views/CartellaSociale/SubForms/SocialitaForm";
 import SanitariaForm from "./views/CartellaSociale/SubForms/SanitariaForm";
 import StoriaForm from "./views/CartellaSociale/SubForms/StoriaForm";
 import CompetenzeForm from "./views/CartellaSociale/SubForms/CompetenzeForm";
+import LavoroForm from "./views/CartellaSociale/SubForms/LavoroForm";
 function App() {
   const tokenValid = authProvider.checkTokenValidity();
 
@@ -43,6 +44,7 @@ function App() {
     <Route path={sanitariaRouterElement} element={<Dashboard content={<EditCartellaSociale content={<SanitariaForm/>} />}/>}/>
     <Route path={storiaRouterElement} element={<Dashboard content={<EditCartellaSociale content={<StoriaForm/>} />}/>}/>
     <Route path={competenzeRouterElement} element={<Dashboard content={<EditCartellaSociale content={<CompetenzeForm/>} />}/>}/>
+    <Route path={lavoroRouterElement} element={<Dashboard content={<EditCartellaSociale content={<LavoroForm/>} />}/>}/>
 
     <Route path={nuovaCartellaSocialeRoute} element={<Dashboard content={<NuovaCartellaSociale/>}/>}/>
     <Route path={gestioneUtenti} element={<Dashboard content={<TabellaUtenti/>}/>}/>
