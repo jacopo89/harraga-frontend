@@ -40,7 +40,7 @@ export default function (){
             <section>
                 <Row>
                     <Col xs={12}>
-                        <IterableForm accessor={"esperienzaVolontariatos"} buttonLabel={"Aggiungi "} initialValue={esperienzeInitialValues} form={EsperienzeVolontariatoForm}/>
+                        <FormElement accessor={"esperienzaVolontariatos"} nestedForm={EsperienzeVolontariatoForm} />
                     </Col>
                 </Row>
             </section>
@@ -48,7 +48,7 @@ export default function (){
             <section>
                 <Row>
                     <Col xs={12}>
-                        <IterableForm accessor={"laboratorios"} buttonLabel={"Aggiungi "} initialValue={laboratorioInitialValues} form={LaboratorioForm}/>
+                        <FormElement accessor={"laboratorios"} nestedForm={LaboratorioForm} />
                     </Col>
                 </Row>
             </section>
@@ -56,7 +56,7 @@ export default function (){
             <section>
                 <Row>
                     <Col xs={12}>
-                        <IterableForm accessor={"attivitaSportivas"} buttonLabel={"Aggiungi "} initialValue={attivitaSportivaInitialValues} form={AttivitaSportivaForm}/>
+                        <FormElement accessor={"attivitaSportivas"} nestedForm={AttivitaSportivaForm} />
                     </Col>
                 </Row>
             </section>
@@ -64,7 +64,7 @@ export default function (){
             <section>
                 <Row>
                     <Col xs={12}>
-                        <IterableForm accessor={"associaziones"} buttonLabel={"Aggiungi "} initialValue={associazioneInitialValues} form={AssociazioneForm}/>
+                        <FormElement accessor={"associaziones"} nestedForm={AssociazioneForm} />
                     </Col>
                 </Row>
             </section>
@@ -78,42 +78,42 @@ const EsperienzeVolontariatoForm = (index:number) => {
     return <>
         <Row className="mb-1">
             <Col xs={6}>
-                <FormElement accessor={`esperienzaVolontariatos[${index}].stato`}/>
+                <FormElement accessor={`stato`}/>
             </Col>
             <Col xs={6}>
-                <FormElement accessor={`esperienzaVolontariatos[${index}].tipo`}/>
-            </Col>
-        </Row>
-        <Row className="mb-1">
-            <Col xs={6}>
-                <FormElement accessor={`esperienzaVolontariatos[${index}].dataInizio`}/>
-            </Col>
-            <Col xs={6}>
-                <FormElement accessor={`esperienzaVolontariatos[${index}].dataFine`}/>
+                <FormElement accessor={`tipo`}/>
             </Col>
         </Row>
         <Row className="mb-1">
             <Col xs={6}>
-                <FormElement accessor={`esperienzaVolontariatos[${index}].competenzeAcquisite`}/>
+                <FormElement accessor={`dataInizio`}/>
             </Col>
             <Col xs={6}>
-                <FormElement accessor={`esperienzaVolontariatos[${index}].certificazione`}/>
-            </Col>
-        </Row>
-        <Row className="mb-1">
-            <Col xs={6}>
-                <FormElement accessor={`esperienzaVolontariatos[${index}].nomeReferente`}/>
-            </Col>
-            <Col xs={6}>
-                <FormElement accessor={`esperienzaVolontariatos[${index}].cognomeReferente`}/>
+                <FormElement accessor={`dataFine`}/>
             </Col>
         </Row>
         <Row className="mb-1">
             <Col xs={6}>
-                <FormElement accessor={`esperienzaVolontariatos[${index}].emailReferente`}/>
+                <FormElement accessor={`competenzeAcquisite`}/>
             </Col>
             <Col xs={6}>
-                <FormElement accessor={`esperienzaVolontariatos[${index}].telefonoReferente`}/>
+                <FormElement accessor={`certificazione`}/>
+            </Col>
+        </Row>
+        <Row className="mb-1">
+            <Col xs={6}>
+                <FormElement accessor={`nomeReferente`}/>
+            </Col>
+            <Col xs={6}>
+                <FormElement accessor={`cognomeReferente`}/>
+            </Col>
+        </Row>
+        <Row className="mb-1">
+            <Col xs={6}>
+                <FormElement accessor={`emailReferente`}/>
+            </Col>
+            <Col xs={6}>
+                <FormElement accessor={`telefonoReferente`}/>
             </Col>
         </Row>
 
@@ -124,39 +124,39 @@ const LaboratorioForm = (index:number) => {
     return <>
         <Row className="mb-1">
             <Col xs={6}>
-                <FormElement accessor={`laboratorios[${index}].pregressa`}/>
+                <FormElement accessor={`pregressa`}/>
             </Col>
             <Col xs={6}>
-                <FormElement accessor={`laboratorios[${index}].tipo`}/>
-            </Col>
-        </Row>
-        <Row className="mb-1">
-            <Col xs={6}>
-                <FormElement accessor={`laboratorios[${index}].dataInizio`}/>
-            </Col>
-            <Col xs={6}>
-                <FormElement accessor={`laboratorios[${index}].dataFine`}/>
+                <FormElement accessor={`tipo`}/>
             </Col>
         </Row>
         <Row className="mb-1">
             <Col xs={6}>
-                <FormElement accessor={`laboratorios[${index}].certificazione`}/>
+                <FormElement accessor={`dataInizio`}/>
+            </Col>
+            <Col xs={6}>
+                <FormElement accessor={`dataFine`}/>
             </Col>
         </Row>
         <Row className="mb-1">
             <Col xs={6}>
-                <FormElement accessor={`laboratorios[${index}].nomeReferente`}/>
-            </Col>
-            <Col xs={6}>
-                <FormElement accessor={`laboratorios[${index}].cognomeReferente`}/>
+                <FormElement accessor={`certificazione`}/>
             </Col>
         </Row>
         <Row className="mb-1">
             <Col xs={6}>
-                <FormElement accessor={`laboratorios[${index}].emailReferente`}/>
+                <FormElement accessor={`nomeReferente`}/>
             </Col>
             <Col xs={6}>
-                <FormElement accessor={`laboratorios[${index}].telefonoReferente`}/>
+                <FormElement accessor={`cognomeReferente`}/>
+            </Col>
+        </Row>
+        <Row className="mb-1">
+            <Col xs={6}>
+                <FormElement accessor={`emailReferente`}/>
+            </Col>
+            <Col xs={6}>
+                <FormElement accessor={`telefonoReferente`}/>
             </Col>
         </Row>
 
@@ -167,39 +167,39 @@ const AttivitaSportivaForm = (index:number) => {
     return <>
         <Row className="mb-1">
             <Col xs={6}>
-                <FormElement accessor={`attivitaSportivas[${index}].pregressa`}/>
+                <FormElement accessor={`pregressa`}/>
             </Col>
             <Col xs={6}>
-                <FormElement accessor={`attivitaSportivas[${index}].tipo`}/>
-            </Col>
-        </Row>
-        <Row className="mb-1">
-            <Col xs={6}>
-                <FormElement accessor={`attivitaSportivas[${index}].dataInizio`}/>
-            </Col>
-            <Col xs={6}>
-                <FormElement accessor={`attivitaSportivas[${index}].dataFine`}/>
+                <FormElement accessor={`tipo`}/>
             </Col>
         </Row>
         <Row className="mb-1">
             <Col xs={6}>
-                <FormElement accessor={`attivitaSportivas[${index}].certificazione`}/>
+                <FormElement accessor={`dataInizio`}/>
+            </Col>
+            <Col xs={6}>
+                <FormElement accessor={`dataFine`}/>
             </Col>
         </Row>
         <Row className="mb-1">
             <Col xs={6}>
-                <FormElement accessor={`attivitaSportivas[${index}].nomeReferente`}/>
-            </Col>
-            <Col xs={6}>
-                <FormElement accessor={`attivitaSportivas[${index}].cognomeReferente`}/>
+                <FormElement accessor={`certificazione`}/>
             </Col>
         </Row>
         <Row className="mb-1">
             <Col xs={6}>
-                <FormElement accessor={`attivitaSportivas[${index}].emailReferente`}/>
+                <FormElement accessor={`nomeReferente`}/>
             </Col>
             <Col xs={6}>
-                <FormElement accessor={`attivitaSportivas[${index}].telefonoReferente`}/>
+                <FormElement accessor={`cognomeReferente`}/>
+            </Col>
+        </Row>
+        <Row className="mb-1">
+            <Col xs={6}>
+                <FormElement accessor={`emailReferente`}/>
+            </Col>
+            <Col xs={6}>
+                <FormElement accessor={`telefonoReferente`}/>
             </Col>
         </Row>
 
@@ -210,39 +210,39 @@ const AssociazioneForm = (index:number) => {
     return <>
         <Row className="mb-1">
             <Col xs={6}>
-                <FormElement accessor={`associaziones[${index}].pregressa`}/>
+                <FormElement accessor={`pregressa`}/>
             </Col>
             <Col xs={6}>
-                <FormElement accessor={`associaziones[${index}].tipo`}/>
-            </Col>
-        </Row>
-        <Row className="mb-1">
-            <Col xs={6}>
-                <FormElement accessor={`associaziones[${index}].dataInizio`}/>
-            </Col>
-            <Col xs={6}>
-                <FormElement accessor={`associaziones[${index}].dataFine`}/>
+                <FormElement accessor={`tipo`}/>
             </Col>
         </Row>
         <Row className="mb-1">
             <Col xs={6}>
-                <FormElement accessor={`associaziones[${index}].certificazione`}/>
+                <FormElement accessor={`dataInizio`}/>
+            </Col>
+            <Col xs={6}>
+                <FormElement accessor={`dataFine`}/>
             </Col>
         </Row>
         <Row className="mb-1">
             <Col xs={6}>
-                <FormElement accessor={`associaziones[${index}].nomeReferente`}/>
-            </Col>
-            <Col xs={6}>
-                <FormElement accessor={`associaziones[${index}].cognomeReferente`}/>
+                <FormElement accessor={`certificazione`}/>
             </Col>
         </Row>
         <Row className="mb-1">
             <Col xs={6}>
-                <FormElement accessor={`associaziones[${index}].emailReferente`}/>
+                <FormElement accessor={`nomeReferente`}/>
             </Col>
             <Col xs={6}>
-                <FormElement accessor={`associaziones[${index}].telefonoReferente`}/>
+                <FormElement accessor={`cognomeReferente`}/>
+            </Col>
+        </Row>
+        <Row className="mb-1">
+            <Col xs={6}>
+                <FormElement accessor={`emailReferente`}/>
+            </Col>
+            <Col xs={6}>
+                <FormElement accessor={`telefonoReferente`}/>
             </Col>
         </Row>
 

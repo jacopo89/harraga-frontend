@@ -2,7 +2,6 @@ import FormGeneratorContextProvider from "../../../form-generator/form-context/F
 import {Divider} from "@mui/material";
 import {Button, Col, Row} from "react-bootstrap";
 import FormElement from "../../../form-generator/form-elements/FormElement";
-import {IterableForm} from "../../../form-generator/form-elements/IterableForm";
 
 import {useEffect, useState} from "react";
 import {getCartellaSocialeStoria} from "../../../api/cartellaSociale/cartellaSocialeApi";
@@ -14,12 +13,6 @@ import {
     sanitariaInitialValues,
     sanitariaValidationSchema
 } from "../../../models/form/sanitaria/SanitariaFormType";
-import {
-    specificaDisabilitaValues
-} from "../../../models/form/sanitaria/specificaDisabilitas/SpecificaDisabilitaFormType";
-import {patologiaValues} from "../../../models/form/sanitaria/patologiaAllergicas/PatologiaAllergicaFormType";
-import {vaccinoInitialValues} from "../../../models/form/sanitaria/vaccini/VaccinoFormType";
-import {visitaInitialValues} from "../../../models/form/sanitaria/visite/VisiteFormType";
 
 export default function (){
     const params = useParams();
@@ -40,7 +33,7 @@ export default function (){
             <section>
                 <Row>
                     <Col xs={12}>
-                        <IterableForm accessor={"specificaDisabilitas"} buttonLabel={"Aggiungi "} initialValue={specificaDisabilitaValues} form={SpecificaDisabilitaForm}/>
+                        <FormElement accessor={"specificaDisabilitas"} nestedForm={SpecificaDisabilitaForm}/>
                     </Col>
                 </Row>
             </section>
@@ -48,7 +41,7 @@ export default function (){
             <section>
                 <Row>
                     <Col xs={12}>
-                        <IterableForm accessor={"patologiaAllergicas"} buttonLabel={"Aggiungi "} initialValue={patologiaValues} form={PatologiaForm}/>
+                        <FormElement accessor={"patologiaAllergicas"} nestedForm={PatologiaForm}/>
                     </Col>
                 </Row>
             </section>
@@ -104,7 +97,7 @@ export default function (){
             <section>
                 <Row>
                     <Col xs={12}>
-                        <IterableForm accessor={"vaccinos"} buttonLabel={"Aggiungi "} initialValue={vaccinoInitialValues} form={VaccinoForm}/>
+                        <FormElement accessor={"vaccinos"} nestedForm={VaccinoForm}/>
                     </Col>
                 </Row>
             </section>
@@ -112,7 +105,7 @@ export default function (){
             <section>
                 <Row>
                     <Col xs={12}>
-                        <IterableForm accessor={"visitas"} buttonLabel={"Aggiungi "} initialValue={visitaInitialValues} form={VaccinoForm}/>
+                        <FormElement accessor={"visitas"} nestedForm={VaccinoForm}/>
                     </Col>
                 </Row>
             </section>
@@ -126,10 +119,10 @@ const SpecificaDisabilitaForm = (index:number) => {
     return <>
         <Row className="mb-1">
             <Col xs={6}>
-                <FormElement accessor={`specificaDisabilitas[${index}].disabilita`}/>
+                <FormElement accessor={`disabilita`}/>
             </Col>
             <Col xs={6}>
-                <FormElement accessor={`specificaDisabilitas[${index}].allegato`}/>
+                <FormElement accessor={`allegato`}/>
             </Col>
         </Row>
 
@@ -140,10 +133,10 @@ const PatologiaForm = (index:number) => {
     return <>
         <Row className="mb-1">
             <Col xs={6}>
-                <FormElement accessor={`patologiaAllergicas[${index}].patologia`}/>
+                <FormElement accessor={`patologia`}/>
             </Col>
             <Col xs={6}>
-                <FormElement accessor={`patologiaAllergicas[${index}].allegato`}/>
+                <FormElement accessor={`allegato`}/>
             </Col>
         </Row>
 
@@ -154,10 +147,10 @@ const VaccinoForm = (index:number) => {
     return <>
         <Row className="mb-1">
             <Col xs={6}>
-                <FormElement accessor={`vaccinos[${index}].vaccino`}/>
+                <FormElement accessor={`vaccino`}/>
             </Col>
             <Col xs={6}>
-                <FormElement accessor={`vaccinos[${index}].allegato`}/>
+                <FormElement accessor={`allegato`}/>
             </Col>
         </Row>
 
@@ -168,39 +161,39 @@ const VisitaForm = (index:number) => {
     return <>
         <Row className="mb-1">
             <Col xs={6}>
-                <FormElement accessor={`visitas[${index}].tipo`}/>
+                <FormElement accessor={`tipo`}/>
             </Col>
             <Col xs={6}>
-                <FormElement accessor={`visitas[${index}].presidioOspedaliero`}/>
-            </Col>
-        </Row>
-        <Row className="mb-1">
-            <Col xs={6}>
-                <FormElement accessor={`visitas[${index}].UO`}/>
-            </Col>
-            <Col xs={6}>
-                <FormElement accessor={`visitas[${index}].data`}/>
+                <FormElement accessor={`presidioOspedaliero`}/>
             </Col>
         </Row>
         <Row className="mb-1">
             <Col xs={6}>
-                <FormElement accessor={`visitas[${index}].nomeMedico`}/>
+                <FormElement accessor={`UO`}/>
             </Col>
             <Col xs={6}>
-                <FormElement accessor={`visitas[${index}].cognomeMedico`}/>
-            </Col>
-        </Row>
-        <Row className="mb-1">
-            <Col xs={6}>
-                <FormElement accessor={`visitas[${index}].emailMedico`}/>
-            </Col>
-            <Col xs={6}>
-                <FormElement accessor={`visitas[${index}].telefonoMedico`}/>
+                <FormElement accessor={`data`}/>
             </Col>
         </Row>
         <Row className="mb-1">
             <Col xs={6}>
-                <FormElement accessor={`visitas[${index}].allegato`}/>
+                <FormElement accessor={`nomeMedico`}/>
+            </Col>
+            <Col xs={6}>
+                <FormElement accessor={`cognomeMedico`}/>
+            </Col>
+        </Row>
+        <Row className="mb-1">
+            <Col xs={6}>
+                <FormElement accessor={`emailMedico`}/>
+            </Col>
+            <Col xs={6}>
+                <FormElement accessor={`telefonoMedico`}/>
+            </Col>
+        </Row>
+        <Row className="mb-1">
+            <Col xs={6}>
+                <FormElement accessor={`allegato`}/>
             </Col>
         </Row>
 

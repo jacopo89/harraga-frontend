@@ -7,8 +7,6 @@ import {
 import {Divider} from "@mui/material";
 import {Button, Col, Row} from "react-bootstrap";
 import FormElement from "../../../form-generator/form-elements/FormElement";
-import {IterableForm} from "../../../form-generator/form-elements/IterableForm";
-import {domicilioInitialValues} from "../../../models/form/anagrafica/domiciilio/DomicilioType";
 import {useEffect, useState} from "react";
 import {getCartellaSocialeAnagrafica} from "../../../api/cartellaSociale/cartellaSocialeApi";
 import {modificaAnagrafica} from "../../../api/cartellaSociale/anagraficaApi";
@@ -30,7 +28,7 @@ export default function (){
 
     return <div>
         <FormGeneratorContextProvider elements={anagraficaElements} validationSchema={anagraficaValidationSchema} onSubmit={onSubmit} initialValues={anagraficaInitialValues} existingValue={anagrafica}>
-            {/*<Divider className="mb-3"/>
+            <Divider className="mb-3"/>
             <section>
                 <Row className="mb-3">
                     <Col xs={6}><FormElement accessor={"nome"}/></Col>
@@ -94,20 +92,19 @@ export default function (){
                     <Col xs={6}><FormElement accessor={"mediatore.email"}/></Col>
                     <Col xs={6}><FormElement accessor={"mediatore.telefono"}/></Col>
                 </Row>
-            </section>*/}
+            </section>
             <Divider className="mb-3"/>
             <section>
                 <h3>Domicilio/accoglienza</h3>
                 <Row className="mb-3">
                     <FormElement accessor={"domicilios"} nestedForm={DomicilioForm}/>
-                    {/*<IterableForm initialValue={domicilioInitialValues} form={DomicilioForm} buttonLabel={"Aggiungi domicilio"} accessor={"domicilios"}/>*/}
                 </Row>
             </section>
-           {/* <Divider className="mb-3"/>
+            <Divider className="mb-3"/>
             <section>
                 <h3>Documenti di identità</h3>
                 <Row className="mb-3">
-                    <IterableForm initialValue={{allegato:null}} form={DocumentiIdentitaForm} buttonLabel={"Aggiungi documento identità"} accessor={"documentoIdentitas"}/>
+                    <FormElement accessor={"documentoIdentitas"} nestedForm={DocumentiIdentitaForm}/>
                 </Row>
             </section>
             <Divider className="mb-3"/>
@@ -172,11 +169,6 @@ export default function (){
                     <Col xs={6}><FormElement accessor={"documentiPossesso.allegato"}/></Col>
                 </Row>
             </section>
-*/}
-
-
-
-
             <Button type="submit"> OK</Button>
         </FormGeneratorContextProvider>
     </div>
@@ -220,20 +212,20 @@ const DocumentiIdentitaForm = (index:number) => {
     return <>
         <Row className="mb-1">
             <Col xs={6}>
-                <FormElement accessor={`documentoIdentitas[${index}].tipologia`}/>
+                <FormElement accessor={`tipologia`}/>
             </Col>
             <Col xs={6}>
-                <FormElement accessor={`documentoIdentitas[${index}].descrizione`}/>
+                <FormElement accessor={`descrizione`}/>
             </Col>
         </Row>
         <Row className="mb-1">
             <Col xs={12}>
-                <FormElement accessor={`documentoIdentitas[${index}].note`}/>
+                <FormElement accessor={`note`}/>
             </Col>
         </Row>
         <Row className="mb-1">
             <Col xs={12}>
-                <FormElement accessor={`documentoIdentitas[${index}].allegato`}/>
+                <FormElement accessor={`allegato`}/>
             </Col>
         </Row>
     </>

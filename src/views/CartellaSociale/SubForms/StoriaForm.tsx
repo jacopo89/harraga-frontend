@@ -54,7 +54,7 @@ export default function (){
                         <h3>Famiglia di Origine</h3>
                     </Col>
                     <Col xs={12}>
-                        <IterableForm accessor={"parentes"} buttonLabel={"Aggiungi parente"} initialValue={parentesInitialValue} form={ParenteForm}/>
+                        <FormElement accessor={"parentes"} nestedForm={ParenteForm}/>
                     </Col>
                 </Row>
 
@@ -66,7 +66,7 @@ export default function (){
                         <h3>Percorso migratorio</h3>
                     </Col>
                     <Col xs={12}>
-                        <IterableForm accessor={"percorsoMigratorios"} buttonLabel={"Aggiungi percorso migratorio"} initialValue={percorsoMigratorioValues} form={PercorsoMigratorioForm}/>
+                        <FormElement accessor={"percorsoMigratorios"} nestedForm={PercorsoMigratorioForm}/>
                     </Col>
                 </Row>
 
@@ -140,7 +140,7 @@ export default function (){
                         <h3>Allontanamenti/Ritrovamenti</h3>
                     </Col>
                     <Col xs={12}>
-                        <IterableForm accessor={"allontanamentos"} buttonLabel={"Aggiungi "} initialValue={allontanamentiValues} form={AllontanamentiForm}/>
+                        <FormElement accessor={"allontanamentos"} nestedForm={AllontanamentiForm}/>
                     </Col>
                 </Row>
             </section>
@@ -150,7 +150,7 @@ export default function (){
                         <h3>PEI</h3>
                     </Col>
                     <Col xs={12}>
-                        <IterableForm accessor={"progettoEducativoIndividuales"} buttonLabel={"Aggiungi "} initialValue={PEIValues} form={PEIForm}/>
+                        <FormElement accessor={"progettoEducativoIndividuales"} nestedForm={PEIForm}/>
                     </Col>
                 </Row>
             </section>
@@ -160,7 +160,7 @@ export default function (){
                         <h3>Relazione Assistente Sociale</h3>
                     </Col>
                     <Col xs={12}>
-                        <IterableForm accessor={"relazioneAssistenteSociales"} buttonLabel={"Aggiungi "} initialValue={RelazioneAssistenteSocialeValues} form={RelazioneAssistenteSocialeForm}/>
+                        <FormElement accessor={"relazioneAssistenteSociales"} nestedForm={RelazioneAssistenteSocialeForm}/>
                     </Col>
                 </Row>
             </section>
@@ -170,7 +170,7 @@ export default function (){
                         <h3>Affido</h3>
                     </Col>
                     <Col xs={12}>
-                        <IterableForm accessor={"affidos"} buttonLabel={"Aggiungi "} initialValue={affidoValues} form={AffidoForm}/>
+                        <FormElement accessor={"affidos"} nestedForm={AffidoForm}/>
                     </Col>
                 </Row>
             </section>
@@ -180,7 +180,7 @@ export default function (){
                         <h3>Adozione</h3>
                     </Col>
                     <Col xs={12}>
-                        <IterableForm accessor={"adoziones"} buttonLabel={"Aggiungi "} initialValue={adozioneValues} form={AdozioneForm}/>
+                        <FormElement accessor={"adoziones"} nestedForm={AdozioneForm}/>
                     </Col>
                 </Row>
             </section>
@@ -244,36 +244,36 @@ const ParenteForm = (index:number) => {
     return <>
         <Row className="mb-1">
             <Col xs={6}>
-                <FormElement accessor={`parentes[${index}].relazioneParentela`}/>
+                <FormElement accessor={`relazioneParentela`}/>
             </Col>
             <Col xs={6}>
                 <Row className="mb-1">
                     <Col xs={12}>
-                        <FormElement accessor={`parentes[${index}].nome`}/>
+                        <FormElement accessor={`nome`}/>
                     </Col>
                     <Col xs={12}>
-                        <FormElement accessor={`parentes[${index}].cognome`}/>
+                        <FormElement accessor={`cognome`}/>
                     </Col>
                     <Col xs={12}>
-                        <FormElement accessor={`parentes[${index}].email`}/>
+                        <FormElement accessor={`email`}/>
                     </Col>
                     <Col xs={12}>
-                        <FormElement accessor={`parentes[${index}].telefono`}/>
+                        <FormElement accessor={`telefono`}/>
                     </Col>
                     <Col xs={12}>
-                        <FormElement accessor={`parentes[${index}].paeseOrigine`}/>
+                        <FormElement accessor={`paeseOrigine`}/>
                     </Col>
                     <Col xs={12}>
-                        <FormElement accessor={`parentes[${index}].inVita`}/>
+                        <FormElement accessor={`inVita`}/>
                     </Col>
                     <Col xs={12}>
-                        <FormElement accessor={`parentes[${index}].inUE`}/>
+                        <FormElement accessor={`inUE`}/>
                     </Col>
                     <Col xs={12}>
-                        <FormElement accessor={`parentes[${index}].note`}/>
+                        <FormElement accessor={`note`}/>
                     </Col>
                     <Col xs={12}>
-                        <FormElement accessor={`parentes[${index}].allegato`}/>
+                        <FormElement accessor={`allegato`}/>
                     </Col>
                 </Row>
             </Col>
@@ -287,21 +287,21 @@ const PercorsoMigratorioForm = (index:number) => {
     return <>
         <Row className="mb-1">
             <Col xs={12}>
-                <FormElement accessor={`percorsoMigratorios[${index}].annoPartenza`}/>
+                <FormElement accessor={`annoPartenza`}/>
             </Col>
 
         </Row>
         <Row className="mb-1">
             <Col xs={6}>
-                <FormElement accessor={`percorsoMigratorios[${index}].luogoPartenza`}/>
+                <FormElement accessor={`luogoPartenza`}/>
             </Col>
             <Col xs={6}>
-                <FormElement accessor={`percorsoMigratorios[${index}].ragioniEspatrio`}/>
+                <FormElement accessor={`ragioniEspatrio`}/>
             </Col>
         </Row>
         <Row className="mb-1">
             <Col xs={6}>
-                <FormElement accessor={`percorsoMigratorios[${index}].eventualiTimoriManifestati`}/>
+                <FormElement accessor={`eventualiTimoriManifestati`}/>
             </Col>
         </Row>
     </>
@@ -312,19 +312,19 @@ const AllontanamentiForm = (index:number) => {
     return <>
         <Row className="mb-1">
             <Col xs={12}>
-                <FormElement accessor={`allontanamentos[${index}].tipologia`}/>
+                <FormElement accessor={`tipologia`}/>
             </Col>
             <Col xs={12}>
-                <FormElement accessor={`allontanamentos[${index}].data`}/>
+                <FormElement accessor={`data`}/>
             </Col>
             <Col xs={12}>
-                <FormElement accessor={`allontanamentos[${index}].luogo`}/>
+                <FormElement accessor={`luogo`}/>
             </Col>
             <Col xs={12}>
-                <FormElement accessor={`allontanamentos[${index}].comunicazione`}/>
+                <FormElement accessor={`comunicazione`}/>
             </Col>
             <Col xs={12}>
-                <FormElement accessor={`allontanamentos[${index}].note`}/>
+                <FormElement accessor={`note`}/>
             </Col>
         </Row>
     </>
@@ -335,10 +335,10 @@ const PEIForm = (index:number) => {
     return <>
         <Row className="mb-1">
             <Col xs={12}>
-                <FormElement accessor={`progettoEducativoIndividuales[${index}].descrizione`}/>
+                <FormElement accessor={`descrizione`}/>
             </Col>
             <Col xs={12}>
-                <FormElement accessor={`progettoEducativoIndividuales[${index}].comunicazione`}/>
+                <FormElement accessor={`comunicazione`}/>
             </Col>
         </Row>
     </>
@@ -348,10 +348,10 @@ const RelazioneAssistenteSocialeForm = (index:number) => {
     return <>
         <Row className="mb-1">
             <Col xs={12}>
-                <FormElement accessor={`relazioneAssistenteSociales[${index}].descrizione`}/>
+                <FormElement accessor={`descrizione`}/>
             </Col>
             <Col xs={12}>
-                <FormElement accessor={`relazioneAssistenteSociales[${index}].comunicazione`}/>
+                <FormElement accessor={`comunicazione`}/>
             </Col>
         </Row>
     </>
@@ -362,13 +362,13 @@ const AffidoForm = (index:number) => {
     return <>
         <Row className="mb-1">
             <Col xs={12}>
-                <FormElement accessor={`affidos[${index}].data`}/>
+                <FormElement accessor={`data`}/>
             </Col>
             <Col xs={12}>
-                <FormElement accessor={`affidos[${index}].ente`}/>
+                <FormElement accessor={`ente`}/>
             </Col>
             <Col xs={12}>
-                <FormElement accessor={`affidos[${index}].allegato`}/>
+                <FormElement accessor={`allegato`}/>
             </Col>
         </Row>
     </>
@@ -378,13 +378,13 @@ const AdozioneForm = (index:number) => {
     return <>
         <Row className="mb-1">
             <Col xs={12}>
-                <FormElement accessor={`adoziones[${index}].data`}/>
+                <FormElement accessor={`data`}/>
             </Col>
             <Col xs={12}>
-                <FormElement accessor={`adoziones[${index}].ente`}/>
+                <FormElement accessor={`ente`}/>
             </Col>
             <Col xs={12}>
-                <FormElement accessor={`adoziones[${index}].allegato`}/>
+                <FormElement accessor={`allegato`}/>
             </Col>
         </Row>
     </>

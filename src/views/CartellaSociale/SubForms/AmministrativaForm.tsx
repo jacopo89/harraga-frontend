@@ -7,26 +7,12 @@ import {
 import {Divider} from "@mui/material";
 import {Button, Col, Row} from "react-bootstrap";
 import FormElement from "../../../form-generator/form-elements/FormElement";
-import {IterableForm} from "../../../form-generator/form-elements/IterableForm";
 
 import {useEffect, useState} from "react";
 import {getCartellaSocialeAmministrativa} from "../../../api/cartellaSociale/cartellaSocialeApi";
 import {modificaAmministrativa} from "../../../api/cartellaSociale/amministrativaApi";
 import {toast} from "react-toastify";
 import {useParams} from "react-router-dom";
-import {
-    permessoSoggiornoInitialValues
-} from "../../../models/form/amministrativa/permessoSoggiorno/PermessoSoggiornoType";
-import {
-    provvedimentoGiudiziarioInitialValues
-} from "../../../models/form/amministrativa/provvedimentoGiudiziario/ProvvedimentoGiudiziarioType";
-import {
-    proceduraLegaleInitialValues
-} from "../../../models/form/amministrativa/proceduraLegale/ProceduraLegaleType";
-import {
-    appuntamentiInitialValues
-} from "../../../models/form/amministrativa/proceduraLegale/appuntamenti/AppuntamentiType";
-import {documentiIdentitaElements} from "../../../models/form/anagrafica/documentoIdentita/DocumentoIdentitaType";
 
 export default function (){
     const params = useParams();
@@ -44,25 +30,24 @@ export default function (){
     return <div>
         <FormGeneratorContextProvider elements={amministrativaElements} validationSchema={amministrativaValidationSchema} onSubmit={onSubmit} initialValues={amministrativaInitialValues} existingValue={amministrativa}>
             <Divider className="mb-3"/>
-           {/* <section>
-                <Row className="mb-3">
-                    <IterableForm initialValue={permessoSoggiornoInitialValues} form={PermessoSoggiornoForm} buttonLabel={"Aggiungi permesso soggiorno"} accessor={"permessoSoggiornos"}/>
-                </Row>
-            </section>
-            <Divider className="mb-3"/>*/}
             <section>
                 <Row className="mb-3">
-                    <FormElement accessor={"proceduraLegales"} nestedForm={ProceduraLegaleForm}/>
-                    {/*<IterableForm initialValue={proceduraLegaleInitialValues} form={ProceduraLegaleForm} buttonLabel={"Aggiungi procedura legale"} accessor={"proceduraLegales"}/>*/}
+                    <FormElement accessor={"permessoSoggiornos"} nestedForm={PermessoSoggiornoForm}/>
                 </Row>
             </section>
             <Divider className="mb-3"/>
-            {/*<section>
+            <section>
                 <Row className="mb-3">
-                    <IterableForm initialValue={provvedimentoGiudiziarioInitialValues} form={ProvvedimentoGiudiziarioForm} buttonLabel={"Aggiungi provvedimento giudiziario"} accessor={"provvedimentoGiudiziarios"}/>
+                    <FormElement accessor={"proceduraLegales"} nestedForm={ProceduraLegaleForm}/>
                 </Row>
-            </section>*/}
-           {/* <Divider className="mb-3"/>
+            </section>
+            <Divider className="mb-3"/>
+            <section>
+                <Row className="mb-3">
+                    <FormElement accessor={"provvedimentoGiudiziarios"} nestedForm={ProvvedimentoGiudiziarioForm}/>
+                </Row>
+            </section>
+            <Divider className="mb-3"/>
             <section>
                 <Row className="mb-3">
                     <Col xs={12}>
@@ -143,7 +128,7 @@ export default function (){
             <Divider className="mb-3"/>
             <section>
                 <Row className="mb-3">
-                    <IterableForm initialValue={documentiIdentitaElements} form={DocumentiIdentitaForm} buttonLabel={"Aggiungi documento di identità"} accessor={"documentiIdentitaAmministrativas"}/>
+                    <FormElement accessor={"documentiIdentitaAmministrativas"} nestedForm={DocumentiIdentitaForm}/>
                 </Row>
             </section>
             <Divider className="mb-3"/>
@@ -205,7 +190,7 @@ export default function (){
                         <FormElement accessor={`affidamento.provvedimentoAffidamentoDefinitivo`}/>
                     </Col>
                 </Row>
-            </section>*/}
+            </section>
             <Button type="submit"> OK</Button>
         </FormGeneratorContextProvider>
     </div>
@@ -215,21 +200,21 @@ const ProvvedimentoGiudiziarioForm = (index:number) => {
     return <>
         <Row className="mb-1">
             <Col xs={6}>
-                <FormElement accessor={`provvedimentoGiudiziarios[${index}].data`}/>
+                <FormElement accessor={`data`}/>
             </Col>
             <Col xs={6}>
                 <Row className="mb-1">
                     <Col xs={12}>
-                        <FormElement accessor={`provvedimentoGiudiziarios[${index}].tipo`}/>
+                        <FormElement accessor={`tipo`}/>
                     </Col>
                     <Col xs={12}>
-                        <FormElement accessor={`provvedimentoGiudiziarios[${index}].istituzioneEmittente`}/>
+                        <FormElement accessor={`istituzioneEmittente`}/>
                     </Col>
                     <Col xs={12}>
-                        <FormElement accessor={`provvedimentoGiudiziarios[${index}].nomeAvvocato`}/>
+                        <FormElement accessor={`nomeAvvocato`}/>
                     </Col>
                     <Col xs={12}>
-                        <FormElement accessor={`provvedimentoGiudiziarios[${index}].allegato`}/>
+                        <FormElement accessor={`allegato`}/>
                     </Col>
                 </Row>
             </Col>
@@ -243,32 +228,32 @@ const PermessoSoggiornoForm = (index:number) => {
     return <>
         <Row className="mb-1">
             <Col xs={12}>
-                <FormElement accessor={`permessoSoggiornos[${index}].stato`}/>
+                <FormElement accessor={`stato`}/>
             </Col>
 
         </Row>
         <Row className="mb-1">
             <Col xs={6}>
-                <FormElement accessor={`permessoSoggiornos[${index}].dataRichiesta`}/>
+                <FormElement accessor={`dataRichiesta`}/>
             </Col>
             <Col xs={6}>
-                <FormElement accessor={`permessoSoggiornos[${index}].dataRilascio`}/>
-            </Col>
-        </Row>
-        <Row className="mb-1">
-            <Col xs={6}>
-                <FormElement accessor={`permessoSoggiornos[${index}].rilasciatoDa`}/>
-            </Col>
-            <Col xs={6}>
-                <FormElement accessor={`permessoSoggiornos[${index}].dataScadenza`}/>
+                <FormElement accessor={`dataRilascio`}/>
             </Col>
         </Row>
         <Row className="mb-1">
             <Col xs={6}>
-                <FormElement accessor={`permessoSoggiornos[${index}].tipologia`}/>
+                <FormElement accessor={`rilasciatoDa`}/>
             </Col>
             <Col xs={6}>
-                <FormElement accessor={`permessoSoggiornos[${index}].allegato`}/>
+                <FormElement accessor={`dataScadenza`}/>
+            </Col>
+        </Row>
+        <Row className="mb-1">
+            <Col xs={6}>
+                <FormElement accessor={`tipologia`}/>
+            </Col>
+            <Col xs={6}>
+                <FormElement accessor={`allegato`}/>
             </Col>
         </Row>
     </>
@@ -325,7 +310,7 @@ const DocumentiIdentitaForm = (index:number) => {
     return <>
         <Row className="mb-1">
             <Col xs={12}>
-                <FormElement accessor={`documentiIdentitaAmministrativas[${index}].allegato`}/>
+                <FormElement accessor={`allegato`}/>
             </Col>
         </Row>
     </>

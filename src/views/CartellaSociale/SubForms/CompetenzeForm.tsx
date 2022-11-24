@@ -2,7 +2,6 @@ import FormGeneratorContextProvider from "../../../form-generator/form-context/F
 import {Divider} from "@mui/material";
 import {Button, Col, Row} from "react-bootstrap";
 import FormElement from "../../../form-generator/form-elements/FormElement";
-import {IterableForm} from "../../../form-generator/form-elements/IterableForm";
 
 import {useEffect, useState} from "react";
 import {getCartellaSocialeCompetenze} from "../../../api/cartellaSociale/cartellaSocialeApi";
@@ -14,16 +13,6 @@ import {
     competenzeInitialValues,
     competenzeValidationSchema
 } from "../../../models/form/competenze/CompetenzeFormType";
-import {lingueDichiarateInitialValues} from "../../../models/form/competenze/lingueDichiarate/LingueDichiarateFormType";
-import {lingueAttestateInitialValues} from "../../../models/form/competenze/lingueAttestate/LingueAttestateFormType";
-import {
-    lingueCertificateInitialValues
-} from "../../../models/form/competenze/lingueCertificate/LingueCertificateFormType";
-import {
-    competenzeDigitaliInitialValues
-} from "../../../models/form/competenze/competenzeDigitali/CompetenzeDigitaliFormType";
-import {altreCompetenzeInitialValues} from "../../../models/form/competenze/altreCompetenze/AltreCompetenzeFormType";
-import {patenteInitialValues} from "../../../models/form/competenze/patenti/PatenteFormType";
 
 export default function (){
     const params = useParams();
@@ -44,7 +33,7 @@ export default function (){
             <section>
                 <Row>
                     <Col xs={12}>
-                        <IterableForm accessor={"linguaDichiaratas"} buttonLabel={"Aggiungi "} initialValue={lingueDichiarateInitialValues} form={LinguaDichiarataForm}/>
+                        <FormElement accessor={"linguaDichiaratas"} nestedForm={LinguaDichiarataForm}/>
                     </Col>
                 </Row>
             </section>
@@ -52,7 +41,7 @@ export default function (){
             <section>
                 <Row>
                     <Col xs={12}>
-                        <IterableForm accessor={"linguaAttestatas"} buttonLabel={"Aggiungi "} initialValue={lingueAttestateInitialValues} form={LinguaAttestataForm}/>
+                        <FormElement accessor={"linguaAttestatas"} nestedForm={LinguaAttestataForm}/>
                     </Col>
                 </Row>
             </section>
@@ -60,7 +49,7 @@ export default function (){
             <section>
                 <Row>
                     <Col xs={12}>
-                        <IterableForm accessor={"linguaCertificatas"} buttonLabel={"Aggiungi "} initialValue={lingueCertificateInitialValues} form={LinguaCertificataForm}/>
+                        <FormElement accessor={"linguaCertificatas"} nestedForm={LinguaCertificataForm}/>
                     </Col>
                 </Row>
             </section>
@@ -68,7 +57,7 @@ export default function (){
             <section>
                 <Row>
                     <Col xs={12}>
-                        <IterableForm accessor={"competenzaDigitales"} buttonLabel={"Aggiungi "} initialValue={competenzeDigitaliInitialValues} form={CompetenzeDigitaliForm}/>
+                        <FormElement accessor={"competenzaDigitales"} nestedForm={CompetenzeDigitaliForm}/>
                     </Col>
                 </Row>
             </section>
@@ -76,7 +65,7 @@ export default function (){
             <section>
                 <Row>
                     <Col xs={12}>
-                        <IterableForm accessor={"altraCompetenzas"} buttonLabel={"Aggiungi "} initialValue={altreCompetenzeInitialValues} form={AltreCompetenzeForm}/>
+                        <FormElement accessor={"altraCompetenzas"} nestedForm={AltreCompetenzeForm}/>
                     </Col>
                 </Row>
             </section>
@@ -84,7 +73,7 @@ export default function (){
             <section>
                 <Row>
                     <Col xs={12}>
-                        <IterableForm accessor={"patentes"} buttonLabel={"Aggiungi "} initialValue={patenteInitialValues} form={PatenteForm}/>
+                        <FormElement accessor={"patentes"} nestedForm={PatenteForm}/>
                     </Col>
                 </Row>
             </section>
@@ -98,15 +87,15 @@ const LinguaDichiarataForm = (index:number) => {
     return <>
         <Row className="mb-1">
             <Col xs={6}>
-                <FormElement accessor={`linguaDichiaratas[${index}].lingua`}/>
+                <FormElement accessor={`lingua`}/>
             </Col>
             <Col xs={6}>
-                <FormElement accessor={`linguaDichiaratas[${index}].livelloScritto`}/>
+                <FormElement accessor={`livelloScritto`}/>
             </Col>
         </Row>
         <Row className="mb-1">
             <Col xs={6}>
-                <FormElement accessor={`linguaDichiaratas[${index}].livelloOrale`}/>
+                <FormElement accessor={`livelloOrale`}/>
             </Col>
 
         </Row>
@@ -117,18 +106,18 @@ const LinguaAttestataForm = (index:number) => {
     return <>
         <Row className="mb-1">
             <Col xs={6}>
-                <FormElement accessor={`linguaAttestatas[${index}].lingua`}/>
+                <FormElement accessor={`lingua`}/>
             </Col>
             <Col xs={6}>
-                <FormElement accessor={`linguaAttestatas[${index}].livelloScritto`}/>
+                <FormElement accessor={`livelloScritto`}/>
             </Col>
         </Row>
         <Row className="mb-1">
             <Col xs={6}>
-                <FormElement accessor={`linguaAttestatas[${index}].livelloOrale`}/>
+                <FormElement accessor={`livelloOrale`}/>
             </Col>
             <Col xs={6}>
-                <FormElement accessor={`linguaAttestatas[${index}].certificazione`}/>
+                <FormElement accessor={`certificazione`}/>
             </Col>
 
         </Row>
@@ -139,18 +128,18 @@ const LinguaCertificataForm = (index:number) => {
     return <>
         <Row className="mb-1">
             <Col xs={6}>
-                <FormElement accessor={`linguaCertificatas[${index}].lingua`}/>
+                <FormElement accessor={`lingua`}/>
             </Col>
             <Col xs={6}>
-                <FormElement accessor={`linguaCertificatas[${index}].livelloScritto`}/>
+                <FormElement accessor={`livelloScritto`}/>
             </Col>
         </Row>
         <Row className="mb-1">
             <Col xs={6}>
-                <FormElement accessor={`linguaCertificatas[${index}].livelloOrale`}/>
+                <FormElement accessor={`livelloOrale`}/>
             </Col>
             <Col xs={6}>
-                <FormElement accessor={`linguaCertificatas[${index}].certificazione`}/>
+                <FormElement accessor={`certificazione`}/>
             </Col>
 
         </Row>
@@ -161,22 +150,22 @@ const CompetenzeDigitaliForm = (index:number) => {
     return <>
         <Row className="mb-1">
             <Col xs={6}>
-                <FormElement accessor={`competenzaDigitales[${index}].tipo`}/>
+                <FormElement accessor={`tipo`}/>
             </Col>
         </Row>
         <Row className="mb-1">
             <Col xs={12}>
-                <FormElement accessor={`competenzaDigitales[${index}].descrizione`}/>
+                <FormElement accessor={`descrizione`}/>
             </Col>
         </Row>
         <Row className="mb-1">
             <Col xs={6}>
-                <FormElement accessor={`competenzaDigitales[${index}].livello`}/>
+                <FormElement accessor={`livello`}/>
             </Col>
         </Row>
         <Row className="mb-1">
             <Col xs={6}>
-                <FormElement accessor={`competenzaDigitales[${index}].certificazione`}/>
+                <FormElement accessor={`certificazione`}/>
             </Col>
         </Row>
     </>
@@ -186,22 +175,22 @@ const AltreCompetenzeForm = (index:number) => {
     return <>
         <Row className="mb-1">
             <Col xs={6}>
-                <FormElement accessor={`altraCompetenzas[${index}].tipo`}/>
+                <FormElement accessor={`tipo`}/>
             </Col>
         </Row>
         <Row className="mb-1">
             <Col xs={12}>
-                <FormElement accessor={`altraCompetenzas[${index}].descrizione`}/>
+                <FormElement accessor={`descrizione`}/>
             </Col>
         </Row>
         <Row className="mb-1">
             <Col xs={6}>
-                <FormElement accessor={`altraCompetenzas[${index}].livello`}/>
+                <FormElement accessor={`livello`}/>
             </Col>
         </Row>
         <Row className="mb-1">
             <Col xs={6}>
-                <FormElement accessor={`altraCompetenzas[${index}].certificazione`}/>
+                <FormElement accessor={`certificazione`}/>
             </Col>
         </Row>
     </>
@@ -211,12 +200,12 @@ const PatenteForm = (index:number) => {
     return <>
         <Row className="mb-1">
             <Col xs={6}>
-                <FormElement accessor={`patentes[${index}].descrizione`}/>
+                <FormElement accessor={`descrizione`}/>
             </Col>
         </Row>
         <Row className="mb-1">
             <Col xs={12}>
-                <FormElement accessor={`patentes[${index}].allegato`}/>
+                <FormElement accessor={`allegato`}/>
             </Col>
         </Row>
     </>
