@@ -12,6 +12,7 @@ import {getCartellaSocialeAnagrafica} from "../../../api/cartellaSociale/cartell
 import {modificaAnagrafica} from "../../../api/cartellaSociale/anagraficaApi";
 import {toast} from "react-toastify";
 import {useParams} from "react-router-dom";
+import DoubleDivider from "../../../components/DoubleDivider";
 
 export default function (){
     const params = useParams();
@@ -29,7 +30,7 @@ export default function (){
 
     return <div>
         <FormGeneratorContextProvider elements={anagraficaElements} validationSchema={anagraficaValidationSchema} onSubmit={onSubmit} initialValues={anagraficaInitialValues} existingValue={anagrafica}>
-            <Divider className="mb-3"/>
+            <DoubleDivider/>
             <section>
                 <Row className="mb-3">
                     <Col xs={6}><FormElement accessor={"nome"}/></Col>

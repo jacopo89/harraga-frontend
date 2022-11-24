@@ -10,8 +10,10 @@ import CollectionFormField, {CollectionElementInterface} from "./fields/Collecti
 import EmbeddedFormField, {EmbeddedElementInterface} from "./fields/EmbeddedFormField";
 import FileFormField, {FileFormElementInterface} from "./fields/FileFormField";
 import DateFormField, {DateElementInterface} from "./fields/DateFormField";
+import {CountriesElementInterface} from "../ElementInterface";
+import CountriesFormField, {CountriesFormElementInterface} from "./fields/CountriesFormField";
 
-export type GenericFormElementInterface = TextElementInterface | SelectFormElementInterface | RadioFormElementInterface | CheckboxFormElementInterface |WYSIWYGElementInterface | TagsElementInterface|NumberElementInterface | CollectionElementInterface | EmbeddedElementInterface | FileFormElementInterface | DateElementInterface
+export type GenericFormElementInterface = TextElementInterface | SelectFormElementInterface | RadioFormElementInterface | CheckboxFormElementInterface |WYSIWYGElementInterface | TagsElementInterface|NumberElementInterface | CollectionElementInterface | EmbeddedElementInterface | FileFormElementInterface | DateElementInterface | CountriesFormElementInterface
 
 export default function FormElementGenerator(props: GenericFormElementInterface) {
     const {type} = props
@@ -44,6 +46,9 @@ export default function FormElementGenerator(props: GenericFormElementInterface)
         }
         case "date":{
             return <DateFormField {...props}/>
+        }
+        case "countries":{
+            return <CountriesFormField {...props}/>
         }
     }
     return <></>

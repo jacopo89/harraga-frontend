@@ -5,6 +5,7 @@ import Dropzone from "react-dropzone-uploader";
 import DropzonePreview from "../utils/DropzonePreview";
 import {readFile, readFiles} from "../utils/FileUploadedHelper";
 import 'react-dropzone-uploader/dist/styles.css'
+import {getNestedValue} from "../utils/form-generator-utils";
 
 export interface FileFormElementInterface extends BasicFormElementInterface{
     type:"file"
@@ -13,19 +14,20 @@ export interface FileFormElementInterface extends BasicFormElementInterface{
 export default function FileFormField(props:FileFormElementInterface){
     const {type,values, errors, touched,setFieldValue,accessor,Header} = props
 
-    //useEffect(()=>{console.log("values",values)},[values])
+    const existingFile = getNestedValue(accessor,values)
+    useEffect(()=>{
+        console.log("values",getNestedValue(accessor,values))
+    },[values])
 
     // @ts-ignore
     return <>
-
+        {existingFile && <Button onClick={() => {
+            window.open(process.env.REACT_APP_ENTRYPOINT + existingFile.url)
+        }}>Download file</Button>}
         <Dropzone
         onSubmit={(successFiles)=>{
-            console.log("success files",successFiles)
             const files = successFiles.map(file => file.file)
-
             // @ts-ignore
-
-
         }}
         onChangeStatus={(file, status, allFiles)=>{
 

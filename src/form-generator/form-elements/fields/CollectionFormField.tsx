@@ -22,10 +22,6 @@ export default function CollectionFormField({accessor, nestedForm, buttonLabel =
         return getNestedValue(accessor,values)
     },[accessor, values])
 
-    useEffect(()=>{
-        console.log("existing elements",existingElements)
-    },[existingElements])
-
     // @ts-ignore
     const collectionElement = elements.find(element => element.accessor ===accessor);
 

@@ -71,7 +71,7 @@ export const anagraficaElements:FormElements = [
     {
         Header: 'Paese di origine',
         accessor: 'paeseOrigine',
-        type: "text",
+        type: "countries",
     },
     {
         Header: 'Cittadinanza',
