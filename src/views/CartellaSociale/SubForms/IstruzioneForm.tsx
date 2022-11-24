@@ -1,0 +1,172 @@
+import FormGeneratorContextProvider from "../../../form-generator/form-context/FormGeneratorContextProvider";
+import {Divider} from "@mui/material";
+import {Button, Col, Row} from "react-bootstrap";
+import FormElement from "../../../form-generator/form-elements/FormElement";
+
+import {useEffect, useState} from "react";
+import {getCartellaSocialeIstruzione, getCartellaSocialeLavoro} from "../../../api/cartellaSociale/cartellaSocialeApi";
+import {toast} from "react-toastify";
+import {useParams} from "react-router-dom";
+import {modificaStoria} from "../../../api/cartellaSociale/storiaApi";
+import {
+    lavoroFormElements,
+    lavoroInitialValues,
+    lavoroValidationSchema
+} from "../../../models/form/lavoro/LavoroFormType";
+import {
+    istruzioneFormElements,
+    istruzioneInitialValues,
+    istruzioneValidationSchema
+} from "../../../models/form/istruzione/IstruzioneFormType";
+
+export default function (){
+    const params = useParams();
+    const [istruzione, setIstruzione] = useState()
+    useEffect(()=>{
+        // @ts-ignore
+        getCartellaSocialeIstruzione(params.id).then(response => setIstruzione(response.data))
+    },[])
+
+    const onSubmit = (values:any) => {
+        // @ts-ignore
+        modificaStoria(istruzione.id,values).then(response => toast.success("Anagrafica modificata con successo")).catch(error => toast.error("Errore nella creazione della cartella sociale"))
+    }
+
+    return <div>
+        <FormGeneratorContextProvider elements={istruzioneFormElements} validationSchema={istruzioneValidationSchema} onSubmit={onSubmit} initialValues={istruzioneInitialValues} existingValue={istruzione}>
+            <Divider className="mb-3"/>
+            <section>
+                <Row>
+                    <Col xs={12}>
+                        <FormElement accessor={"percorsoIstruzioneOrigines"} nestedForm={PercorsoIstruzioneOrigineForm} />
+                    </Col>
+                </Row>
+            </section>
+            <section>
+                <Row>
+                    <Col xs={12}>
+                        <FormElement accessor={"percorsoIstruzioneItaliaConclusos"} nestedForm={PercorsoIstruzioneItaliaConclusoForm} />
+                    </Col>
+                </Row>
+            </section>
+            <section>
+                <Row>
+                    <Col xs={12}>
+                        <FormElement accessor={"percorsoIstruzioneFormazioneItalias"} nestedForm={PercorsoIstruzioneItaliaForm} />
+                    </Col>
+                </Row>
+            </section>
+            <Button type="submit"> OK</Button>
+        </FormGeneratorContextProvider>
+    </div>
+}
+
+const PercorsoIstruzioneOrigineForm = (index:number) => {
+    return <>
+        <Row className="mb-1">
+            <Col xs={6}>
+                <FormElement accessor={`saLeggere`}/>
+            </Col>
+            <Col xs={6}>
+                <FormElement accessor={`saScrivere`}/>
+            </Col>
+        </Row>
+        <Row className="mb-1">
+            <Col xs={6}>
+                <FormElement accessor={`tipologia`}/>
+            </Col>
+            <Col xs={6}>
+                <FormElement accessor={`allegato`}/>
+            </Col>
+
+        </Row>
+    </>
+}
+
+const PercorsoIstruzioneItaliaConclusoForm = (index:number) => {
+    return <>
+        <Row className="mb-1">
+            <Col xs={12}>
+                <FormElement accessor={`tipologia`}/>
+            </Col>
+        </Row>
+        <Row className="mb-1">
+            <Col xs={6}>
+                <FormElement accessor={`dataInizio`}/>
+            </Col>
+            <Col xs={6}>
+                <FormElement accessor={`dataFine`}/>
+            </Col>
+        </Row>
+        <Row className="mb-1">
+            <Col xs={6}>
+                <FormElement accessor={`istituto`}/>
+            </Col>
+            <Col xs={6}>
+                <FormElement accessor={`allegato`}/>
+            </Col>
+        </Row>
+    </>
+}
+
+const PercorsoIstruzioneItaliaForm = (index:number) => {
+    return <>
+        <Row className="mb-1">
+            <Col xs={6}>
+                <FormElement accessor={`tipologia`}/>
+            </Col>
+            <Col xs={6}>
+                <FormElement accessor={`indirizzoStudi`}/>
+            </Col>
+        </Row>
+        <Row className="mb-1">
+            <Col xs={6}>
+                <FormElement accessor={`dataInizio`}/>
+            </Col>
+            <Col xs={6}>
+                <FormElement accessor={`dataFinePrevista`}/>
+            </Col>
+        </Row>
+        <Row className="mb-1">
+            <Col xs={6}>
+                <FormElement accessor={`classe`}/>
+            </Col>
+            <Col xs={6}>
+                <FormElement accessor={`istituto`}/>
+            </Col>
+        </Row>
+        <Row className="mb-1">
+            <Col xs={12}>
+                <FormElement accessor={`orariGiorni`}/>
+            </Col>
+        </Row>
+        <Row className="mb-1">
+            <Col xs={6}>
+                <FormElement accessor={`progettoFormativo`}/>
+            </Col>
+            <Col xs={6}>
+                <FormElement accessor={`pattoFormativo`}/>
+            </Col>
+        </Row>
+        <Row className="mb-1">
+            <Col xs={6}>
+                <FormElement accessor={`bilancioCompetenze`}/>
+            </Col>
+        </Row>
+        <Row className="mb-1">
+            <Col xs={6}>
+                <FormElement accessor={`valutaziones`} nestedForm={ValutazioneForm}/>
+            </Col>
+        </Row>
+    </>
+}
+
+const ValutazioneForm = (index:number) => {
+    return <>
+        <Row className="mb-1">
+            <Col xs={12}>
+                <FormElement accessor={`valutazione`}/>
+            </Col>
+        </Row>
+    </>
+}

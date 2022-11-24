@@ -11,6 +11,7 @@ export const sanitariaRouterElement = `/cartella_sociale/:id/sanitaria`
 export const socialitaRouterElement = `/cartella_sociale/:id/socialita`
 export const competenzeRouterElement = `/cartella_sociale/:id/competenze`
 export const lavoroRouterElement = `/cartella_sociale/:id/lavoro`
+export const istruzioneRouterElement = `/cartella_sociale/:id/istruzione`
 
 export const editCartellaSocialeRoute = (id) => `/cartella_sociale/${id}`
 export const editAnagraficaRoute = (id) => `/cartella_sociale/${id}/anagrafica`
@@ -20,5 +21,6 @@ export const editSanitariaRoute = (id) => `/cartella_sociale/${id}/sanitaria`
 export const editSocialitaRoute = (id) => `/cartella_sociale/${id}/socialita`
 export const editCompetenzeRoute = (id) => `/cartella_sociale/${id}/competenze`
 export const editLavoroRoute = (id) => `/cartella_sociale/${id}/lavoro`
+export const editIstruzioneRoute = (id) => `/cartella_sociale/${id}/istruzione`
 
 export const editUtenteRoute = (id) => `/utente/${id}`
