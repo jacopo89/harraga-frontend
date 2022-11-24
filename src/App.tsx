@@ -9,11 +9,17 @@ import SignUp from "./views/Authentication/SignUp";
 import TabellaCartelleSociali from "./views/CartellaSociale/TabellaCartelleSociali";
 import {
   amministrativaRouterElement,
-  anagraficaRouterElement, competenzeRouterElement,
+  anagraficaRouterElement,
+  competenzeRouterElement,
   dettaglioUtente,
-  editCartellaSocialeRouterElement,
-  gestioneUtenti, istruzioneRouterElement, lavoroRouterElement,
-  nuovaCartellaSocialeRoute, sanitariaRouterElement, socialitaRouterElement, storiaRouterElement
+  gestioneUtenti,
+  istruzioneRouterElement,
+  lavoroRouterElement,
+  nuovaCartellaSocialeRoute,
+  penaleRouterElement,
+  sanitariaRouterElement,
+  socialitaRouterElement,
+  storiaRouterElement
 } from "./routes/frontend-routes";
 import NuovaCartellaSociale from "./views/CartellaSociale/NuovaCartellaSociale";
 import 'react-toastify/dist/ReactToastify.css';
@@ -32,6 +38,8 @@ import StoriaForm from "./views/CartellaSociale/SubForms/StoriaForm";
 import CompetenzeForm from "./views/CartellaSociale/SubForms/CompetenzeForm";
 import LavoroForm from "./views/CartellaSociale/SubForms/LavoroForm";
 import IstruzioneForm from "./views/CartellaSociale/SubForms/IstruzioneForm";
+import PenaleForm from "./views/CartellaSociale/SubForms/PenaleForm";
+
 function App() {
   const tokenValid = authProvider.checkTokenValidity();
 
@@ -47,6 +55,7 @@ function App() {
     <Route path={competenzeRouterElement} element={<Dashboard content={<EditCartellaSociale content={<CompetenzeForm/>} />}/>}/>
     <Route path={lavoroRouterElement} element={<Dashboard content={<EditCartellaSociale content={<LavoroForm/>} />}/>}/>
     <Route path={istruzioneRouterElement} element={<Dashboard content={<EditCartellaSociale content={<IstruzioneForm/>} />}/>}/>
+    <Route path={penaleRouterElement} element={<Dashboard content={<EditCartellaSociale content={<PenaleForm/>} />}/>}/>
 
     <Route path={nuovaCartellaSocialeRoute} element={<Dashboard content={<NuovaCartellaSociale/>}/>}/>
     <Route path={gestioneUtenti} element={<Dashboard content={<TabellaUtenti/>}/>}/>

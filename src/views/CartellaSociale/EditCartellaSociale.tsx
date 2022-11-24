@@ -12,7 +12,7 @@ import CompetenzeForm from "./SubForms/CompetenzeForm";
 import {useNavigate} from "react-router";
 import {
     editAmministrativaRoute,
-    editAnagraficaRoute, editCompetenzeRoute, editIstruzioneRoute, editLavoroRoute,
+    editAnagraficaRoute, editCompetenzeRoute, editIstruzioneRoute, editLavoroRoute, editPenaleRoute,
     editSanitariaRoute, editSocialitaRoute,
     editStoriaRoute
 } from "../../routes/frontend-routes";
@@ -39,7 +39,7 @@ export default function ({content = <div></div>}:any){
             <Tab label="Socialità" onClick={() => navigate(editSocialitaRoute(id)) } />
             <Tab label="Competenze" onClick={() => navigate(editCompetenzeRoute(id)) } />
             <Tab label="Desideri" {...a11yProps(8)} />
-            <Tab label="Penale" {...a11yProps(9)} />
+            <Tab label="Penale" onClick={()=>navigate(editPenaleRoute(id))} />
         </Tabs>
         </Box>
         {content}

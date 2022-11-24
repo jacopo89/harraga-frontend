@@ -11,6 +11,7 @@ const getCartellaSocialeSocialitaRoute = (id:string) => createRoute(`/api/cartel
 const getCartellaSocialeCompetenzeRoute = (id:string) => createRoute(`/api/cartella_sociales/${id}/competenze`)
 const getCartellaSocialeLavoroRoute = (id:string) => createRoute(`/api/cartella_sociales/${id}/lavoro`)
 const getCartellaSocialeIstruzioneRoute = (id:string) => createRoute(`/api/cartella_sociales/${id}/istruzione`)
+const getCartellaSocialePenaleRoute = (id:string) => createRoute(`/api/cartella_sociales/${id}/penale`)
 
 export const getCartelleSociali = () => {
     return authClient.get(getCartellaSocialeRoute)
@@ -52,3 +53,6 @@ export const getCartellaSocialeIstruzione = (id:string) =>{
     return authClient.get(getCartellaSocialeIstruzioneRoute(id))
 }
 
+export const getCartellaSocialePenale = (id:string) =>{
+    return authClient.get(getCartellaSocialePenaleRoute(id))
+}
