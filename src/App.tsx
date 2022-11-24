@@ -10,7 +10,7 @@ import TabellaCartelleSociali from "./views/CartellaSociale/TabellaCartelleSocia
 import {
   amministrativaRouterElement,
   anagraficaRouterElement,
-  competenzeRouterElement,
+  competenzeRouterElement, desideriRouterElement,
   dettaglioUtente,
   gestioneUtenti,
   istruzioneRouterElement,
@@ -39,6 +39,7 @@ import CompetenzeForm from "./views/CartellaSociale/SubForms/CompetenzeForm";
 import LavoroForm from "./views/CartellaSociale/SubForms/LavoroForm";
 import IstruzioneForm from "./views/CartellaSociale/SubForms/IstruzioneForm";
 import PenaleForm from "./views/CartellaSociale/SubForms/PenaleForm";
+import DesideriForm from "./views/CartellaSociale/SubForms/DesideriForm";
 
 function App() {
   const tokenValid = authProvider.checkTokenValidity();
@@ -56,6 +57,7 @@ function App() {
     <Route path={lavoroRouterElement} element={<Dashboard content={<EditCartellaSociale content={<LavoroForm/>} />}/>}/>
     <Route path={istruzioneRouterElement} element={<Dashboard content={<EditCartellaSociale content={<IstruzioneForm/>} />}/>}/>
     <Route path={penaleRouterElement} element={<Dashboard content={<EditCartellaSociale content={<PenaleForm/>} />}/>}/>
+    <Route path={desideriRouterElement} element={<Dashboard content={<EditCartellaSociale content={<DesideriForm/>} />}/>}/>
 
     <Route path={nuovaCartellaSocialeRoute} element={<Dashboard content={<NuovaCartellaSociale/>}/>}/>
     <Route path={gestioneUtenti} element={<Dashboard content={<TabellaUtenti/>}/>}/>

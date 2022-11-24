@@ -12,7 +12,7 @@ import CompetenzeForm from "./SubForms/CompetenzeForm";
 import {useNavigate} from "react-router";
 import {
     editAmministrativaRoute,
-    editAnagraficaRoute, editCompetenzeRoute, editIstruzioneRoute, editLavoroRoute, editPenaleRoute,
+    editAnagraficaRoute, editCompetenzeRoute, editDesideriRoute, editIstruzioneRoute, editLavoroRoute, editPenaleRoute,
     editSanitariaRoute, editSocialitaRoute,
     editStoriaRoute
 } from "../../routes/frontend-routes";
@@ -38,28 +38,10 @@ export default function ({content = <div></div>}:any){
             <Tab label="Lavoro" onClick={() => navigate(editLavoroRoute(id)) } />
             <Tab label="Socialità" onClick={() => navigate(editSocialitaRoute(id)) } />
             <Tab label="Competenze" onClick={() => navigate(editCompetenzeRoute(id)) } />
-            <Tab label="Desideri" {...a11yProps(8)} />
+            <Tab label="Desideri" onClick={()=>navigate(editDesideriRoute(id))} />
             <Tab label="Penale" onClick={()=>navigate(editPenaleRoute(id))} />
         </Tabs>
         </Box>
         {content}
-        {/*<TabPanel value={value} index={0}>
-            {value === 0 && <AnagraficaForm/>}
-        </TabPanel>
-        <TabPanel value={value} index={1}>
-            {value === 1 && <AmministrativaForm/>}
-        </TabPanel>
-        <TabPanel value={value} index={2}>
-            {value === 2 && <StoriaForm/>}
-        </TabPanel>
-        <TabPanel value={value} index={3}>
-            {value === 3 && <SanitariaForm/>}
-        </TabPanel>
-        <TabPanel value={value} index={6}>
-            {value === 6 && <SocialitaForm/>}
-        </TabPanel>
-        <TabPanel value={value} index={7}>
-            {value === 7 && <CompetenzeForm/>}
-        </TabPanel>*/}
     </>
 }
