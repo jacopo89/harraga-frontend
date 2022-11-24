@@ -16,6 +16,7 @@ import {useParams} from "react-router-dom";
 export default function (){
     const params = useParams();
     const [anagrafica, setAnagrafica] = useState()
+
     useEffect(()=>{
         // @ts-ignore
         getCartellaSocialeAnagrafica(params.id).then(response => setAnagrafica(response.data))

@@ -8,10 +8,12 @@ import SignIn from "./views/Authentication/Signin";
 import SignUp from "./views/Authentication/SignUp";
 import TabellaCartelleSociali from "./views/CartellaSociale/TabellaCartelleSociali";
 import {
+  amministrativaRouterElement,
+  anagraficaRouterElement, competenzeRouterElement,
   dettaglioUtente,
   editCartellaSocialeRouterElement,
   gestioneUtenti,
-  nuovaCartellaSocialeRoute
+  nuovaCartellaSocialeRoute, sanitariaRouterElement, socialitaRouterElement, storiaRouterElement
 } from "./routes/frontend-routes";
 import NuovaCartellaSociale from "./views/CartellaSociale/NuovaCartellaSociale";
 import 'react-toastify/dist/ReactToastify.css';
@@ -22,6 +24,12 @@ import {ToastContainer} from "react-toastify";
 import TabellaUtenti from "./views/GestioneUtenti/TabellaUtenti";
 import {authProvider} from "./helpers/authentication/authProvider";
 import EditUtente from "./views/GestioneUtenti/EditUtente";
+import AnagraficaForm from "./views/CartellaSociale/SubForms/AnagraficaForm";
+import AmministrativaForm from './views/CartellaSociale/SubForms/AmministrativaForm';
+import SocialitaForm from "./views/CartellaSociale/SubForms/SocialitaForm";
+import SanitariaForm from "./views/CartellaSociale/SubForms/SanitariaForm";
+import StoriaForm from "./views/CartellaSociale/SubForms/StoriaForm";
+import CompetenzeForm from "./views/CartellaSociale/SubForms/CompetenzeForm";
 function App() {
   const tokenValid = authProvider.checkTokenValidity();
 
@@ -29,7 +37,13 @@ function App() {
     <Route path="/login" element={<SignIn/>}/>
     <Route path="/registrazione" element={<SignUp/>}/>
     <Route path="/" element={<Dashboard content={<TabellaCartelleSociali/>}/>}/>
-    <Route path={editCartellaSocialeRouterElement}  element={<Dashboard content={<EditCartellaSociale/>}/>}/>
+    <Route path={anagraficaRouterElement} element={<Dashboard content={<EditCartellaSociale content={<AnagraficaForm/>} />}/>}/>
+    <Route path={amministrativaRouterElement} element={<Dashboard content={<EditCartellaSociale content={<AmministrativaForm/>} />}/>}/>
+    <Route path={socialitaRouterElement} element={<Dashboard content={<EditCartellaSociale content={<SocialitaForm/>} />}/>}/>
+    <Route path={sanitariaRouterElement} element={<Dashboard content={<EditCartellaSociale content={<SanitariaForm/>} />}/>}/>
+    <Route path={storiaRouterElement} element={<Dashboard content={<EditCartellaSociale content={<StoriaForm/>} />}/>}/>
+    <Route path={competenzeRouterElement} element={<Dashboard content={<EditCartellaSociale content={<CompetenzeForm/>} />}/>}/>
+
     <Route path={nuovaCartellaSocialeRoute} element={<Dashboard content={<NuovaCartellaSociale/>}/>}/>
     <Route path={gestioneUtenti} element={<Dashboard content={<TabellaUtenti/>}/>}/>
     <Route path={dettaglioUtente} element={<Dashboard content={<EditUtente/>}/>}/>

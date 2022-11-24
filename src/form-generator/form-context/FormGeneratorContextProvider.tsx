@@ -54,15 +54,24 @@ export default function FormGeneratorContextProvider({elements, validationSchema
         }
     },[existingValue,values])
 
+    const updateWhenValuesChange = useCallback(()=>{
+
+        if(accessorRoot && values!==initialValues){
+            if(values!==existingValue){
+                onChange(values)
+            }
+        }
+    },[values, existingValue,accessorRoot,initialValues])
+
     useEffect(()=>{
-        if(accessorRoot){
-            console.log("accessor root",values)
-            onChange(values)
-        }
-        else{
-            console.log("values",values)
-        }
+        updateWhenValuesChange()
     },[values])
+
+    useEffect(()=>{
+        updateValues()
+    },[existingValue])
+
+
 
     /*const updateErrors = useCallback(()=>{
         if(existingErrors && existingErrors !== errors) {
@@ -80,10 +89,7 @@ export default function FormGeneratorContextProvider({elements, validationSchema
         }
     },[existingErrors,errors])*/
 
-    useEffect(()=>{
-        console.log("updating.")
-        updateValues()
-    },[existingValue])
+
     /*useEffect(()=>{
         updateErrors()
         updateTouched()
@@ -95,6 +101,10 @@ export default function FormGeneratorContextProvider({elements, validationSchema
 */
 
     const formContent = (onSubmit) ? <form onSubmit={handleSubmit}>{children}</form> : children
+
+    useEffect(()=>{
+        console.log("first run.")
+    },[])
 
     return <FormGeneratorContext.Provider value={{values,errors, touched, setFieldValue,elements, submitForm,accessorRoot}}>
         {formContent}

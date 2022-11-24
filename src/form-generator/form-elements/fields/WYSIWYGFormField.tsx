@@ -37,7 +37,8 @@ export default function WYSIWYGFormField(props:WYSIWYGElementInterface){
     useEffect(()=>{updateFromForm()},[values[accessor]])
     useEffect(()=>{updateValueForm()},[value])
 
-    return <div>
+    return <div className="my-3">
+        <p>{Header}</p>
         <ReactQuill className="filled form-group" modules={modules} theme="snow" value={value} onChange={(content)=>{setValue(content)}}/>
     </div>
 }

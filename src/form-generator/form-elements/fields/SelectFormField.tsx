@@ -30,6 +30,7 @@ export default function SelectFormField(element:SelectFormElementInterface){
     },[value])
 
     useEffect(()=>{
+
         if(options.find(option => option.value === getNestedValue(accessor,values) )!== value){
             setValue(options.find(option => option.value === getNestedValue(accessor,values) ))
         }
