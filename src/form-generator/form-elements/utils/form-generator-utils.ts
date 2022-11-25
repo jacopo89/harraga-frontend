@@ -37,3 +37,7 @@ export const getNestedValue = (accessor:string,obj:any) => {
         return undefined
     },obj)
 }
+
+export const isArrayElementAccessor = (accessor:string) => {
+    return accessor.endsWith("]");
+}

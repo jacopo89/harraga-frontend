@@ -1,7 +1,8 @@
 import {Button} from "@mui/material";
 import {useNavigate} from "react-router";
-import {editCartellaSocialeRoute, nuovaCartellaSocialeRoute} from "../../routes/frontend-routes";
+import {editAnagraficaRoute, nuovaCartellaSocialeRoute} from "../../routes/frontend-routes";
 import * as React from 'react';
+import {useEffect, useState} from 'react';
 import Box from '@mui/material/Box';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -17,7 +18,6 @@ import {getComparator, Order, stableSort} from "./Tabella/tabellaHelper";
 import {EnhancedTableHead, HeadCell} from "./Tabella/EnhancedTableHead";
 import {EnhancedTableToolbar} from "./Tabella/EnhancedTableToolbar";
 import {getCartelleSociali} from "../../api/cartellaSociale/cartellaSocialeApi";
-import {useEffect, useState} from "react";
 
 interface Anagrafica{
     nome:string,
@@ -35,7 +35,7 @@ export default function TabellaCartelleSociali(){
     const navigate = useNavigate();
     const [cartelleSociali, setCartelleSociali] = useState<CartellaSociale[]>([])
 
-    const editHandler = (id:string)=> navigate(editCartellaSocialeRoute(id))
+    const editHandler = (id:string)=> navigate(editAnagraficaRoute(id))
 
     useEffect(()=>{
         getCartelleSociali().then(response => setCartelleSociali(response.data["hydra:member"].map((cartellaSociale:CartellaSocialeData)=>{

@@ -17,16 +17,20 @@ export interface CollectionElementInterface extends BasicFormElementInterface{
 
 export default function CollectionFormField({accessor, nestedForm, buttonLabel ="Aggiungi",initialValues}:CollectionElementInterface){
 
-    const {setFieldValue,values,elements,accessorRoot} = useContext(FormGeneratorContext);
-    const existingElements = useMemo(()=>{
+    const {setFieldValue,values,elements,accessorRoot, unsetFieldValue} = useContext(FormGeneratorContext);
+    /*const existingElements = useMemo(()=>{
+        console.log("ricalcolo existing elements.")
         return getNestedValue(accessor,values)
-    },[accessor, values])
+    },[accessor, values])*/
+
+    const existingElements = getNestedValue(accessor,values)
 
     // @ts-ignore
     const collectionElement = elements.find(element => element.accessor ===accessor);
 
 
     const existing = getNestedValue(accessor,values).length
+    console.log("existing elements number",existing)
 
     // @ts-ignore
     const nestedElements= collectionElement.formElements
@@ -37,6 +41,7 @@ export default function CollectionFormField({accessor, nestedForm, buttonLabel =
                         <FormGeneratorContextProvider key={index} elements={nestedElements} initialValues={initialValues} existingValue={getNestedValue(indexAccessor,values)}  accessorRoot={indexAccessor} onChange={(value) => setFieldValue(indexAccessor, value)}>
                             {nestedForm(index)}
                         </FormGeneratorContextProvider>
+                        <Button onClick={()=>unsetFieldValue(indexAccessor)}>Remove</Button>
                     </>
                 )})
     },[existingElements, accessor, initialValues])

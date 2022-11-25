@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 // @ts-ignore
 import Select from "react-select";
 import BasicFormElementInterface from "../../BasicFormElementInterface";
@@ -22,22 +22,27 @@ export default function SelectFormField(element:SelectFormElementInterface){
 
     const [value, setValue] = useState<Option|undefined>(options.find(option => option.value === getNestedValue(accessor,values) ));
 
-    useEffect(()=>{
-        console.log("option", values[accessor])
-    },[values[accessor]])
-    useEffect(()=>{
-        if(value) setFieldValue(value.value)
-    },[value])
-
-    useEffect(()=>{
-
+    const updateSelectValue =  useCallback(()=>{
         if(options.find(option => option.value === getNestedValue(accessor,values) )!== value){
+            console.log("changed values in select", getNestedValue(accessor,values), "while it was", value)
             setValue(options.find(option => option.value === getNestedValue(accessor,values) ))
         }
-    },[accessor,values])
+    },[accessor, values, value])
+
+    useEffect(()=>{
+        updateSelectValue()
+    },[values])
+
+    /*useEffect(()=>{
+        if(value) setFieldValue(value.value)
+    },[value])*/
+
+
+
+
 
     // @ts-ignore
-    const select =<Select classNamePrefix="react-select" options={options} value={value} onChange={setValue} placeholder={Header} />
+    const select =<Select classNamePrefix="react-select" options={options} value={value} onChange={(value) =>setFieldValue(value.value)} placeholder={Header} />
 
 
     return <>

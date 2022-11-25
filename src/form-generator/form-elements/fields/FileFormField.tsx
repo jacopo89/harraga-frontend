@@ -16,7 +16,7 @@ export default function FileFormField(props:FileFormElementInterface){
 
     const existingFile = getNestedValue(accessor,values)
     useEffect(()=>{
-        console.log("values",getNestedValue(accessor,values))
+
     },[values])
 
     // @ts-ignore

@@ -3,6 +3,7 @@ import {useCallback, useEffect} from "react";
 import FormGeneratorContext from "./FormGeneratorContext";
 import {GenericElementInterface} from "../ElementInterface";
 import {GenericResponse} from "../../helpers/response/GenericResponse";
+import {isArrayElementAccessor} from "../form-elements/utils/form-generator-utils";
 
 type ConditionalProps = {
     accessorRoot?: string;
@@ -71,6 +72,7 @@ export default function FormGeneratorContextProvider({elements, validationSchema
         updateValues()
     },[existingValue])
 
+    useEffect(()=>{console.log("values",values)},[values])
 
 
     /*const updateErrors = useCallback(()=>{
@@ -102,11 +104,27 @@ export default function FormGeneratorContextProvider({elements, validationSchema
 
     const formContent = (onSubmit) ? <form onSubmit={handleSubmit}>{children}</form> : children
 
-    useEffect(()=>{
-        console.log("first run.")
-    },[])
+    const unsetFieldValue = (accessor:string) => {
+        if(isArrayElementAccessor(accessor)){
+            const arrayAccessorStartingPosition = accessor.lastIndexOf("[");
+            if(arrayAccessorStartingPosition !==-1){
+                const indexToRemove = Number.parseInt(accessor.slice(arrayAccessorStartingPosition).slice(1,-1));
+                const collectionAccessor = accessor.slice(0,arrayAccessorStartingPosition);
+                const array:any[] = values[collectionAccessor];
+                const newArray = array.filter((item,index) => index !== indexToRemove )
+                const newValues = values;
+                newValues[collectionAccessor] = newArray;
+                setValues(newValues)
+            }
+        }else{
+            const newValues = values;
+            delete newValues[accessor]
+            setValues(newValues)
+        }
 
-    return <FormGeneratorContext.Provider value={{values,errors, touched, setFieldValue,elements, submitForm,accessorRoot}}>
+    }
+
+    return <FormGeneratorContext.Provider value={{values,errors, touched, setFieldValue, unsetFieldValue, elements, submitForm,accessorRoot}}>
         {formContent}
     </FormGeneratorContext.Provider>
 }
