@@ -31,20 +31,30 @@ export default function (){
         <FormGeneratorContextProvider elements={amministrativaElements} validationSchema={amministrativaValidationSchema} onSubmit={onSubmit} initialValues={amministrativaInitialValues} existingValue={amministrativa}>
             <Divider className="mb-3"/>
             <section>
+                <h3>Permessi di soggiorno</h3>
                 <Row className="mb-3">
-                    <FormElement accessor={"permessoSoggiornos"} nestedForm={PermessoSoggiornoForm}/>
+                    <Col xs={12}>
+                        <FormElement accessor={"permessoSoggiornos"} nestedForm={PermessoSoggiornoForm}/>
+                    </Col>
+
                 </Row>
             </section>
             <Divider className="mb-3"/>
             <section>
+                <h3>Procedure legali - amministrative</h3>
                 <Row className="mb-3">
-                    <FormElement accessor={"proceduraLegales"} nestedForm={ProceduraLegaleForm}/>
+                    <Col xs={12}>
+                        <FormElement accessor={"proceduraLegales"} nestedForm={ProceduraLegaleForm}/>
+                    </Col>
                 </Row>
             </section>
             <Divider className="mb-3"/>
             <section>
+                <h3>Provvedimenti giudiziari</h3>
                 <Row className="mb-3">
-                    <FormElement accessor={"provvedimentoGiudiziarios"} nestedForm={ProvvedimentoGiudiziarioForm}/>
+                    <Col xs={12}>
+                        <FormElement accessor={"provvedimentoGiudiziarios"} nestedForm={ProvvedimentoGiudiziarioForm}/>
+                    </Col>
                 </Row>
             </section>
             <Divider className="mb-3"/>
@@ -262,27 +272,42 @@ const PermessoSoggiornoForm = (index:number) => {
 
 const ProceduraLegaleForm = (index:number) => {
     return <>
-        <Row className="mb-1">
-            <Col xs={12}>
-                <FormElement accessor={`regolamentoDublino.paeseOrigine`}/>
-            </Col>
-            <Col xs={12}>
-                <FormElement accessor={`regolamentoDublino.paeseArrivo`}/>
-            </Col>
-            <Col xs={12}>
-                <FormElement accessor={`regolamentoDublino.data`}/>
-            </Col>
-            <Col xs={12}>
-                <FormElement accessor={`regolamentoDublino.statoProcedura`}/>
-            </Col>
-            <Col xs={12}>
-                <FormElement accessor={`regolamentoDublino.allegato`}/>
-            </Col>
-        </Row>
-        <Row className="mb-3">
-            <FormElement accessor={"appuntamenti"} nestedForm={AppuntamentiForm}></FormElement>
-            {/*<IterableForm initialValue={appuntamentiInitialValues} form={AppuntamentiForm} buttonLabel={"Aggiungi appuntamento"} accessor={`proceduraLegales.appuntamenti`}/>*/}
-        </Row>
+        <section>
+            <h4>Regolamento di dublino</h4>
+            <Row className="mb-1">
+                <Col xs={12}>
+                    <FormElement accessor={`regolamentoDublino.paeseOrigine`}/>
+                </Col>
+                <Col xs={12}>
+                    <FormElement accessor={`regolamentoDublino.paeseArrivo`}/>
+                </Col>
+                <Col xs={12}>
+                    <FormElement accessor={`regolamentoDublino.data`}/>
+                </Col>
+                <Col xs={12}>
+                    <FormElement accessor={`regolamentoDublino.statoProcedura`}/>
+                </Col>
+                <Col xs={12}>
+                    <FormElement accessor={`regolamentoDublino.allegato`}/>
+                </Col>
+            </Row>
+        </section>
+        <section>
+            <h4>Appuntamenti</h4>
+            <Row className="mb-3">
+                <Col xs={12}>
+                    <FormElement accessor={"appuntamenti"} nestedForm={AppuntamentiForm}/>
+                </Col>
+            </Row>
+        </section>
+        <section>
+            <h4>Ricorsi amministrativi</h4>
+            <Row className="mb-3">
+                <Col xs={12}>
+                    <FormElement accessor={"ricorsiAmministrativi"} nestedForm={RicorsiAmministrativiForm}/>
+                </Col>
+            </Row>
+        </section>
     </>
 }
 
@@ -298,6 +323,28 @@ const AppuntamentiForm = (index:number) => {
             </Col>
             <Col xs={12}>
                 <FormElement accessor={`data`}/>
+            </Col>
+            <Col xs={12}>
+                <FormElement accessor={`esiti`}/>
+            </Col>
+        </Row>
+    </>
+}
+
+const RicorsiAmministrativiForm = (index:number) => {
+    return <>
+        <Row className="mb-1">
+            <Col xs={6}>
+                <FormElement accessor={`dataInoltroRicorso`}/>
+            </Col>
+            <Col xs={12}>
+                <FormElement accessor={`note`}/>
+            </Col>
+            <Col xs={12}>
+                <FormElement accessor={`nomeAvvocato`}/>
+            </Col>
+            <Col xs={12}>
+                <FormElement accessor={`patrocinioGratuito`}/>
             </Col>
             <Col xs={12}>
                 <FormElement accessor={`esiti`}/>

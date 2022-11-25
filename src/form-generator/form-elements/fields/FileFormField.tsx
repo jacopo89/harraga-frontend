@@ -21,26 +21,28 @@ export default function FileFormField(props:FileFormElementInterface){
 
     // @ts-ignore
     return <>
-        {existingFile && <Button onClick={() => {
-            window.open(process.env.REACT_APP_ENTRYPOINT + existingFile.url)
-        }}>Download file</Button>}
-        <Dropzone
-        onSubmit={(successFiles)=>{
-            const files = successFiles.map(file => file.file)
-            // @ts-ignore
-        }}
-        onChangeStatus={(file, status, allFiles)=>{
+        <div>{Header}</div>
+        {existingFile && <>
+            <Button onClick={() => {window.open(process.env.REACT_APP_ENTRYPOINT + existingFile.url)}}>Download file</Button>
+            <Button onClick={() => {setFieldValue(null)}}>Rimuovi file</Button>
+            </>}
+        {!existingFile && <Dropzone
+            onSubmit={(successFiles) => {
+                const files = successFiles.map(file => file.file)
+                // @ts-ignore
+            }}
+            onChangeStatus={(file, status, allFiles) => {
 
-            // @ts-ignore
-            readFile(file.file).then(result => setFieldValue(result))
+                // @ts-ignore
+                readFile(file.file).then(result => setFieldValue(result))
 
-        }}
+            }}
 
-        PreviewComponent={DropzonePreview}
-        accept="image/*"
-        maxFiles={1}
-        //SubmitButtonComponent={button}
-        inputContent="Carica file"
-        />
+            PreviewComponent={DropzonePreview}
+            accept="image/*"
+            maxFiles={1}
+            //SubmitButtonComponent={button}
+            inputContent="Carica file"
+        />}
     </>
 }

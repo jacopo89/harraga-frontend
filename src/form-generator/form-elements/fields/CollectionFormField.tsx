@@ -1,4 +1,4 @@
-import {Button} from "react-bootstrap";
+import {Button, Col, Row} from "react-bootstrap";
 import React, {useContext, useEffect, useMemo} from "react";
 import BasicFormElementInterface from "../../BasicFormElementInterface";
 import {FormElements} from "../../ElementInterface";
@@ -6,6 +6,8 @@ import FormGeneratorContext from "../../form-context/FormGeneratorContext";
 import {IterableForm} from "../IterableForm";
 import FormGeneratorContextProvider from "../../form-context/FormGeneratorContextProvider";
 import {getNestedValue} from "../utils/form-generator-utils";
+import DeleteIcon from '@mui/icons-material/Delete';
+import {Divider} from "@mui/material";
 
 export interface CollectionElementInterface extends BasicFormElementInterface{
     type:"collection",
@@ -37,12 +39,20 @@ export default function CollectionFormField({accessor, nestedForm, buttonLabel =
     const nestedForms = useMemo(()=>{
         return existingElements.map((element:any,index:number)=>{
                 const indexAccessor = `${accessor}[${index}]`
-                return (<>
-                        <FormGeneratorContextProvider key={index} elements={nestedElements} initialValues={initialValues} existingValue={getNestedValue(indexAccessor,values)}  accessorRoot={indexAccessor} onChange={(value) => setFieldValue(indexAccessor, value)}>
-                            {nestedForm(index)}
-                        </FormGeneratorContextProvider>
-                        <Button onClick={()=>unsetFieldValue(indexAccessor)}>Remove</Button>
-                    </>
+                return (<Row className={"mb-3"}>
+                        <Col xs={1}>
+                            <Button className={"btn-sm p-1 rounded-circle bg-danger"} onClick={()=>unsetFieldValue(indexAccessor)}>
+                                <DeleteIcon/>
+                            </Button>
+                        </Col>
+                        <Col xs={11}>
+                            <FormGeneratorContextProvider key={index} elements={nestedElements} initialValues={initialValues} existingValue={getNestedValue(indexAccessor,values)}  accessorRoot={indexAccessor} onChange={(value) => setFieldValue(indexAccessor, value)}>
+                                {nestedForm(index)}
+                            </FormGeneratorContextProvider>
+                            <Divider light/>
+                        </Col>
+
+                    </Row>
                 )})
     },[existingElements, accessor, initialValues])
 
