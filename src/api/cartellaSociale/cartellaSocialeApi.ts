@@ -14,8 +14,8 @@ const getCartellaSocialeIstruzioneRoute = (id:string) => createRoute(`/api/carte
 const getCartellaSocialePenaleRoute = (id:string) => createRoute(`/api/cartella_sociales/${id}/penale`)
 const getCartellaSocialeDesideriRoute = (id:string) => createRoute(`/api/cartella_sociales/${id}/desideri`)
 
-export const getCartelleSociali = () => {
-    return authClient.get(getCartellaSocialeRoute)
+export const getCartelleSociali = (filters:any ={}) => {
+    return authClient.get(getCartellaSocialeRoute,filters)
 }
 
 export const postCartellaSociale = (values:any) => {

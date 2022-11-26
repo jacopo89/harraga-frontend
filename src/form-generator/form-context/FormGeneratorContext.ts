@@ -4,6 +4,7 @@ import React from "react";
 
 export interface FormContextInterface{
     values:FormikValues,
+    formValue:FormikValues,
     errors:FormikErrors<FormikValues>,
     touched:FormikTouched<FormikValues>,
     setFieldValue:(name:string,value:any)=> Promise<void> | Promise<FormikErrors<FormikValues>>,
@@ -15,6 +16,7 @@ export interface FormContextInterface{
 
 const formContextDefaultValue:FormContextInterface = {
     values:{},
+    formValue:{},
     errors:{},
     touched:{},
     setFieldValue:(name:string,value:any)=>new Promise<void>(()=>{}),

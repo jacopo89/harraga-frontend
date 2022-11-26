@@ -22,12 +22,13 @@ type CommonProps = {
     children?:any,
     existingValue?:FormikValues,
     existingErrors?: FormikErrors<FormikValues>|undefined
-    existingTouched?: FormikTouched<FormikValues>|undefined
+    existingTouched?: FormikTouched<FormikValues>|undefined,
+    formValue?: FormikValues|undefined
 }
 
 type Props = CommonProps & ConditionalProps
 
-export default function FormGeneratorContextProvider({elements, validationSchema, initialValues,onSubmit, children, existingValue,existingErrors, accessorRoot, onChange}:Props){
+export default function FormGeneratorContextProvider({formValue, elements, validationSchema, initialValues,onSubmit, children, existingValue,existingErrors, accessorRoot, onChange}:Props){
     const onSubmitHandler = (values:FormikValues) => {
         if(onSubmit){
             const onSubmitResponse = onSubmit(values)
@@ -124,7 +125,7 @@ export default function FormGeneratorContextProvider({elements, validationSchema
 
     }
 
-    return <FormGeneratorContext.Provider value={{values,errors, touched, setFieldValue, unsetFieldValue, elements, submitForm,accessorRoot}}>
+    return <FormGeneratorContext.Provider value={{formValue:values,values,errors, touched, setFieldValue, unsetFieldValue, elements, submitForm,accessorRoot}}>
         {formContent}
     </FormGeneratorContext.Provider>
 }

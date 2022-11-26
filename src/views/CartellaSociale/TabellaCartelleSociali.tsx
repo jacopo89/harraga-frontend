@@ -2,7 +2,7 @@ import {Button} from "@mui/material";
 import {useNavigate} from "react-router";
 import {editAnagraficaRoute, nuovaCartellaSocialeRoute} from "../../routes/frontend-routes";
 import * as React from 'react';
-import {useEffect, useState} from 'react';
+import {useContext, useEffect, useState} from 'react';
 import Box from '@mui/material/Box';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -18,6 +18,11 @@ import {getComparator, Order, stableSort} from "./Tabella/tabellaHelper";
 import {EnhancedTableHead, HeadCell} from "./Tabella/EnhancedTableHead";
 import {EnhancedTableToolbar} from "./Tabella/EnhancedTableToolbar";
 import {getCartelleSociali} from "../../api/cartellaSociale/cartellaSocialeApi";
+import FormGeneratorContextProvider from "../../form-generator/form-context/FormGeneratorContextProvider";
+import {filtriElements, filtriInitialValues} from "./FiltriTabellaCartelleSociali/FiltriCartelleSocialiFormType";
+import FormElement from "../../form-generator/form-elements/FormElement";
+import FormGeneratorContext from "../../form-generator/form-context/FormGeneratorContext";
+import {Col, Row} from "react-bootstrap";
 
 interface Anagrafica{
     nome:string,
@@ -32,13 +37,38 @@ export interface CartellaSocialeData{
 }
 
 export default function TabellaCartelleSociali(){
+
+    return <FormGeneratorContextProvider elements={filtriElements} initialValues={filtriInitialValues}>
+        <Row>
+            <Col xs={6}>
+                <FormElement accessor={"anagrafica.nome"}/>
+            </Col>
+            <Col xs={6}>
+                <FormElement accessor={"anagrafica.cognome"}/>
+            </Col>
+        </Row>
+        <Row>
+            <Col xs={6}>
+                <FormElement accessor={"anagrafica.paeseOrigine"}/>
+            </Col>
+            <Col xs={6}>
+                <FormElement accessor={"anagrafica.italiano"}/>
+            </Col>
+        </Row>
+
+        <Tabella/>
+    </FormGeneratorContextProvider>
+}
+
+function Tabella(){
     const navigate = useNavigate();
     const [cartelleSociali, setCartelleSociali] = useState<CartellaSociale[]>([])
 
+    const {formValue} = useContext(FormGeneratorContext)
     const editHandler = (id:string)=> navigate(editAnagraficaRoute(id))
 
     useEffect(()=>{
-        getCartelleSociali().then(response => setCartelleSociali(response.data["hydra:member"].map((cartellaSociale:CartellaSocialeData)=>{
+        getCartelleSociali(formValue).then(response => setCartelleSociali(response.data["hydra:member"].map((cartellaSociale:CartellaSocialeData)=>{
             return {
                 "@id": cartellaSociale["@id"],
                 id:cartellaSociale.id,
@@ -47,7 +77,7 @@ export default function TabellaCartelleSociali(){
                 numeroTutela:cartellaSociale.anagrafica.numeroTutela,
             }
         })))
-    },[])
+    },[formValue])
 
     return <div>
         <Button onClick={()=>{navigate(nuovaCartellaSocialeRoute)}}>Crea</Button>
