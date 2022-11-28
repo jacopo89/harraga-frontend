@@ -2,7 +2,6 @@ import FormGeneratorContextProvider from "../../../form-generator/form-context/F
 import {Divider} from "@mui/material";
 import {Button, Col, Row} from "react-bootstrap";
 import FormElement from "../../../form-generator/form-elements/FormElement";
-import {IterableForm} from "../../../form-generator/form-elements/IterableForm";
 
 import {useEffect, useState} from "react";
 import {getCartellaSocialeStoria} from "../../../api/cartellaSociale/cartellaSocialeApi";
@@ -10,15 +9,6 @@ import {toast} from "react-toastify";
 import {useParams} from "react-router-dom";
 import {storiaElements, storiaInitialValues, storiaValidationSchema} from "../../../models/form/storia/StoriaFormType";
 import {modificaStoria} from "../../../api/cartellaSociale/storiaApi";
-import {parentesInitialValue} from "../../../models/form/storia/parenti/ParenteFormType";
-import {percorsoMigratorioValues} from "../../../models/form/storia/percorsoMigratorio/percorsoMigratorioType";
-import {allontanamentiValues} from "../../../models/form/storia/allontanamento/AllontanamentoFormType";
-import {PEIValues} from "../../../models/form/storia/pei/PEIFormType";
-import {
-    RelazioneAssistenteSocialeValues
-} from "../../../models/form/storia/relazioneAssistenteSociale/RelazioneAssistenteSocialeFormType";
-import {affidoValues} from "../../../models/form/storia/affido/AffidoFormType";
-import {adozioneValues} from "../../../models/form/storia/adozione/AdozioneFormType";
 
 export default function (){
     const params = useParams();

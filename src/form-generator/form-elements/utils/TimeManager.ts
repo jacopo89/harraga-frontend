@@ -14,3 +14,7 @@ export function serializeDate(date:Date){
     const momentDate = moment(date);
     return momentDate.format(BACKEND_FORMAT)
 }
+
+export function getMomentDate(date:Date){
+    return moment(date)
+}

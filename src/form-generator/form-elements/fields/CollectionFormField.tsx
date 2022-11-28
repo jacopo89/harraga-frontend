@@ -1,9 +1,8 @@
 import {Button, Col, Row} from "react-bootstrap";
-import React, {useContext, useEffect, useMemo} from "react";
+import React, {useContext, useMemo} from "react";
 import BasicFormElementInterface from "../../BasicFormElementInterface";
 import {FormElements} from "../../ElementInterface";
 import FormGeneratorContext from "../../form-context/FormGeneratorContext";
-import {IterableForm} from "../IterableForm";
 import FormGeneratorContextProvider from "../../form-context/FormGeneratorContextProvider";
 import {getNestedValue} from "../utils/form-generator-utils";
 import DeleteIcon from '@mui/icons-material/Delete';

@@ -1,7 +1,7 @@
-import {FormElements} from "../../../form-generator/ElementInterface";
 import * as Yup from "yup";
+import {FilterElements} from "../../../form-generator/filter-elements/FilterElementInterface";
 
-export const filtriElements:FormElements = [
+export const filtriElements:FilterElements = [
     {
         Header:"Nome",
         accessor:"anagrafica",
@@ -26,9 +26,24 @@ export const filtriElements:FormElements = [
                 Header:"Italiano",
                 accessor:"italiano",
                 type:"checkbox"
+            },
+            {
+                Header:"Maggiorenne",
+                accessor:"maggiorenne",
+                type:"checkbox"
+            },
+            {
+                Header:"Data Nascita corretta",
+                accessor:"dataNascitaCorretta",
+                type:"date"
             }
         ],
         initialValues: {nome:null}
+    },
+    {
+        Header:"cognome",
+        accessor:"cognome",
+        type:"text"
     }
 ]
 

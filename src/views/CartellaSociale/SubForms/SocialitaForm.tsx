@@ -2,7 +2,6 @@ import FormGeneratorContextProvider from "../../../form-generator/form-context/F
 import {Divider} from "@mui/material";
 import {Button, Col, Row} from "react-bootstrap";
 import FormElement from "../../../form-generator/form-elements/FormElement";
-import {IterableForm} from "../../../form-generator/form-elements/IterableForm";
 
 import {useEffect, useState} from "react";
 import {getCartellaSocialeSocialita} from "../../../api/cartellaSociale/cartellaSocialeApi";
@@ -14,12 +13,6 @@ import {
     socialitaInitialValues,
     socialitaValidationSchema
 } from "../../../models/form/socialita/SocialitaFormType";
-import {
-    esperienzeInitialValues
-} from "../../../models/form/socialita/esperienzeVolontariato/EsperienzeVolontariatoFormType";
-import {laboratorioInitialValues} from "../../../models/form/socialita/laboratori/LaboratorioFormType";
-import {attivitaSportivaInitialValues} from "../../../models/form/socialita/attivitaSportiva/AttivitaSportivaFormType";
-import {associazioneInitialValues} from "../../../models/form/socialita/associazione/AssociazioneFormType";
 
 export default function (){
     const params = useParams();
