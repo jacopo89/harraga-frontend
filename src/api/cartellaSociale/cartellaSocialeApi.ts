@@ -1,5 +1,6 @@
 import authClient from "../authClient";
 import {createRoute} from "../../routes/routeHelper";
+import AuthClient from "../AuthClient";
 
 const getCartellaSocialeRoute = createRoute("/api/cartella_sociales")
 const postCartellaSocialeRoute = createRoute("/api/cartella_sociales")
@@ -15,7 +16,7 @@ const getCartellaSocialePenaleRoute = (id:string) => createRoute(`/api/cartella_
 const getCartellaSocialeDesideriRoute = (id:string) => createRoute(`/api/cartella_sociales/${id}/desideri`)
 
 export const getCartelleSociali = (filters:any ={}) => {
-    return authClient.get(getCartellaSocialeRoute,filters)
+    return AuthClient.get(getCartellaSocialeRoute,filters)
 }
 
 export const postCartellaSociale = (values:any) => {

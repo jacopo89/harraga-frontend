@@ -1,5 +1,5 @@
 import {Option} from "./form-elements/fields/SelectFormField";
-type ElementType  = "text" | "number" | "select" | "radio" | "checkbox" | "file" | "wysiwyg" | "tags" | "collection" | "embedded" | "date" | "countries"
+export type ElementType  = "text" | "number" | "select" | "radio" | "checkbox" | "file" | "wysiwyg" | "tags" | "collection" | "embedded" | "date" | "countries"
 
 export default interface ElementInterface{
     Header:string,

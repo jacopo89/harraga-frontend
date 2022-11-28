@@ -23,6 +23,7 @@ import {filtriElements, filtriInitialValues} from "./FiltriTabellaCartelleSocial
 import FormElement from "../../form-generator/form-elements/FormElement";
 import FormGeneratorContext from "../../form-generator/form-context/FormGeneratorContext";
 import {Col, Row} from "react-bootstrap";
+import {buildFiltersFromValues} from "../../api/AuthClient";
 
 interface Anagrafica{
     nome:string,
@@ -64,11 +65,11 @@ function Tabella(){
     const navigate = useNavigate();
     const [cartelleSociali, setCartelleSociali] = useState<CartellaSociale[]>([])
 
-    const {formValue} = useContext(FormGeneratorContext)
+    const {formValue,elements} = useContext(FormGeneratorContext)
     const editHandler = (id:string)=> navigate(editAnagraficaRoute(id))
-
+    useEffect(()=>{console.log("elements",elements)},[elements])
     useEffect(()=>{
-        getCartelleSociali(formValue).then(response => setCartelleSociali(response.data["hydra:member"].map((cartellaSociale:CartellaSocialeData)=>{
+        getCartelleSociali(buildFiltersFromValues(formValue,elements)).then(response => setCartelleSociali(response.data["hydra:member"].map((cartellaSociale:CartellaSocialeData)=>{
             return {
                 "@id": cartellaSociale["@id"],
                 id:cartellaSociale.id,

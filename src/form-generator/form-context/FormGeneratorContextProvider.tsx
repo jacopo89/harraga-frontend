@@ -125,7 +125,7 @@ export default function FormGeneratorContextProvider({formValue, elements, valid
 
     }
 
-    return <FormGeneratorContext.Provider value={{formValue:values,values,errors, touched, setFieldValue, unsetFieldValue, elements, submitForm,accessorRoot}}>
+    return <FormGeneratorContext.Provider value={{formValue:values, values,errors, touched, setFieldValue, unsetFieldValue, elements, submitForm,accessorRoot}}>
         {formContent}
     </FormGeneratorContext.Provider>
 }

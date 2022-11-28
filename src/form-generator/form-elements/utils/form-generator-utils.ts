@@ -1,3 +1,5 @@
+import {FormElements, GenericElementInterface} from "../../ElementInterface";
+
 export const getAccessorElementsNoIndex = (accessor:string) =>{
     return accessor.split(".").map(item => removeIndex(item) )
 }
@@ -40,4 +42,17 @@ export const getNestedValue = (accessor:string,obj:any) => {
 
 export const isArrayElementAccessor = (accessor:string) => {
     return accessor.endsWith("]");
+}
+
+export const getNestedFormElement = (accessor:string[], formElements:FormElements):GenericElementInterface|undefined =>{
+    let formElementsPool = formElements;
+    let result: GenericElementInterface | undefined = undefined
+    accessor.forEach(item => {
+        const nestedFormElement = formElementsPool.find(formElement => formElement.accessor === item)
+        if(nestedFormElement && nestedFormElement?.type !== "collection") result = nestedFormElement
+        // @ts-ignore
+        formElementsPool = nestedFormElement.formElements
+    } )
+
+    return result;
 }

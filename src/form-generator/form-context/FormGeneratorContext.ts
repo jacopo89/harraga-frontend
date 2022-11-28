@@ -1,5 +1,5 @@
 import {FormikErrors, FormikTouched, FormikValues} from "formik";
-import {GenericElementInterface} from "../ElementInterface";
+import {FormElements, GenericElementInterface} from "../ElementInterface";
 import React from "react";
 
 export interface FormContextInterface{
