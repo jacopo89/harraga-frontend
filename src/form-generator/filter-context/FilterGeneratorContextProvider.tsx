@@ -73,6 +73,8 @@ export default function FilterGeneratorContextProvider({formValue, elements, val
         updateValues()
     },[existingValue])
 
+    useEffect(()=>{console.log("formvalue",values)},[values])
+
 
     const formContent = (onSubmit) ? <form onSubmit={handleSubmit}>{children}</form> : children
 

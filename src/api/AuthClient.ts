@@ -4,7 +4,7 @@ import {
     getNestedFormElement,
     getNestedValue
 } from "../form-generator/form-elements/utils/form-generator-utils";
-import {ElementType, FormElements} from "../form-generator/ElementInterface";
+import FilterInterface, {FilterElements} from "../form-generator/filter-elements/FilterElementInterface";
 
 const config = {headers:{ 'Content-Type': 'application/json' }}
 const patchConfigDefault = {headers:{ 'Content-Type': 'application/merge-patch+json' }}
@@ -14,11 +14,11 @@ const finalConfig = localStorage.getItem('token') ? {headers:{ 'Content-Type': '
 // @ts-ignore
 const patchConfig = localStorage.getItem('token') ? {headers:{ 'Content-Type': 'application/merge-patch+json',  'Authorization': `Bearer ${localStorage.getItem('token').slice(1,-1)}` }} : patchConfigDefault
 
-type Filter = {
-    name:string,
-    value: any,
-    type: ElementType
+
+export interface Filter extends FilterInterface{
+    value: any
 }
+
 type Filters = Filter[]
 
 const addQueryParams= (url:string, filters:Filters =[]):string =>{
@@ -28,9 +28,9 @@ const addQueryParams= (url:string, filters:Filters =[]):string =>{
     filters.forEach(filter => {
         if(filter.value!==null && filter.value!==undefined && filter.value!=="") {
             if(filter.type === "checkbox"){
-                newUrl = newUrl.concat(`${filter.name}=${filter.value}&`)
+                newUrl = newUrl.concat(`${filter.accessor}=${filter.value}&`)
             }else{
-                newUrl = newUrl.concat(`${filter.name}=${filter.value}&`)
+                newUrl = newUrl.concat(`${filter.accessor}=${filter.value}&`)
             }
         }
     })
@@ -63,26 +63,6 @@ const put = (url:string,data:any) => axios.put(url,data,finalConfig)
 const patch = (url:string,data:any) => axios.patch(url,data,patchConfig)
 const cancel = (url:string) =>axios.delete(url,finalConfig)
 
-
-
-export const buildFiltersFromValues =(object:object,formElelements:FormElements):Filters =>{
-    const keys = getObjectKeys(object);
-    const filters = keys.map(key =>{
-        const formElement = getNestedFormElement(getAccessorElementsNoIndex(key),formElelements)
-        if(formElement){
-            return {
-                name:key,
-                value: getNestedValue(key, object),
-                type: formElement?.type
-            }
-        }
-
-        throw new Error()
-    })
-
-    return filters;
-
-}
 
 export default {
     get,

@@ -19,14 +19,13 @@ import {EnhancedTableHead, HeadCell} from "./Tabella/EnhancedTableHead";
 import {EnhancedTableToolbar} from "./Tabella/EnhancedTableToolbar";
 import {getCartelleSociali} from "../../api/cartellaSociale/cartellaSocialeApi";
 import {filtriElements, filtriInitialValues} from "./FiltriTabellaCartelleSociali/FiltriCartelleSocialiFormType";
-import FormGeneratorContext from "../../form-generator/form-context/FormGeneratorContext";
 import {Col, Row} from "react-bootstrap";
-import {buildFiltersFromValues} from "../../api/AuthClient";
+import {Filter} from "../../api/AuthClient";
 import {FormikValues} from "formik";
-import {BACKEND_FORMAT, getMomentDate} from "../../form-generator/form-elements/utils/TimeManager";
 import FilterGeneratorContextProvider from "../../form-generator/filter-context/FilterGeneratorContextProvider";
 import FilterElement from "../../form-generator/filter-elements/FilterElement";
 import FilterGeneratorContext from "../../form-generator/filter-context/FilterGeneratorContext";
+import {FilterElements} from "../../form-generator/filter-elements/FilterElementInterface";
 
 interface Anagrafica{
     nome:string,
@@ -45,7 +44,7 @@ export default function TabellaCartelleSociali(){
     return <FilterGeneratorContextProvider elements={filtriElements} initialValues={filtriInitialValues}>
         <Row>
             <Col xs={6}>
-                <FilterElement accessor={"anagrafica.nome"}/>
+                <FilterElement accessor={"nome"}/>
             </Col>
             <Col xs={6}>
                 <FilterElement accessor={"cognome"}/>
@@ -56,12 +55,12 @@ export default function TabellaCartelleSociali(){
                 <FilterElement accessor={"anagrafica.paeseOrigine"}/>
             </Col>
             <Col xs={6}>
-                <FilterElement accessor={"anagrafica.italiano"}/>
+                <FilterElement accessor={"italiano"}/>
             </Col>
         </Row>
         <Row>
             <Col xs={6}>
-                <FilterElement accessor={"anagrafica.maggiorenne"}/>
+                <FilterElement accessor={"maggiorenne"}/>
             </Col>
             <Col xs={6}>
             </Col>
@@ -77,18 +76,20 @@ function Tabella(){
 
     const {formValue,elements} = useContext(FilterGeneratorContext)
     const editHandler = (id:string)=> navigate(editAnagraficaRoute(id))
-    const getFiltersObjectFromFormValue = (formValue:FormikValues) => {
-        if(formValue?.anagrafica?.maggiorenne === true){
-            formValue["anagrafica"]["dataNascitaCorretta"] = getMomentDate(new Date()).subtract("18","years").format(BACKEND_FORMAT)
-            delete formValue["anagrafica"]["maggiorenne"]
-
-        }
-        console.log("formValue",formValue)
-        return formValue
+    const filters:Filter[] = []
+    const getFiltersObjectFromFormValue = (formValue:FormikValues, elements:FilterElements) => {
+        elements.forEach(element => {
+            filters.push({...element,
+                type: element.type,
+                value: (element.valueManipulator) ? element.valueManipulator(formValue) : formValue[element.accessor] ,
+                accessor: (element.accessorManipulator) ? element.accessorManipulator(formValue) : element.accessor,
+            })
+        })
+        return filters;
     }
 
     useEffect(()=>{
-        getCartelleSociali(buildFiltersFromValues(getFiltersObjectFromFormValue(formValue),elements)).then(response => setCartelleSociali(response.data["hydra:member"].map((cartellaSociale:CartellaSocialeData)=>{
+        getCartelleSociali(getFiltersObjectFromFormValue(formValue,elements)).then(response => setCartelleSociali(response.data["hydra:member"].map((cartellaSociale:CartellaSocialeData)=>{
             return {
                 "@id": cartellaSociale["@id"],
                 id:cartellaSociale.id,

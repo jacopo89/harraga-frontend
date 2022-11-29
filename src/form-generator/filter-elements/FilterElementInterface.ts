@@ -1,11 +1,15 @@
 import {Option} from "../form-elements/fields/SelectFormField";
+import {FormikValues} from "formik";
 
 export type FilterType  = "text" | "number" | "select" | "radio" | "checkbox" | "file" | "wysiwyg" | "tags" | "collection" | "embedded" | "date" | "countries"
+export type DateType = "after" | "before" | "between"
 
 export default interface FilterInterface{
     Header:string,
     accessor: string,
     type:FilterType,
+    valueManipulator?: (formValue: FormikValues) => any
+    accessorManipulator?: (formValue: FormikValues) => string
 }
 
 export interface TextFilterInterface extends FilterInterface{
@@ -21,10 +25,6 @@ export interface RadioFilterInterface extends FilterInterface{
     options:Option[]
 }
 
-export interface TextFilterInterface extends FilterInterface{
-    type:"text",
-}
-
 export interface CountriesFilterInterface extends FilterInterface{
     type:"countries",
 }
@@ -32,10 +32,6 @@ export interface CountriesFilterInterface extends FilterInterface{
 export interface SelectFilterInterface extends FilterInterface{
     type:"select",
     options:Option[]
-}
-
-export interface WYSIWYGFilterInterface extends FilterInterface{
-    type:"wysiwyg",
 }
 
 export interface TagsFilterInterface extends FilterInterface{
@@ -48,23 +44,10 @@ export interface NumberFilterInterface extends FilterInterface{
 
 export interface DateFilterInterface extends FilterInterface{
     type:"date",
-}
-export interface CollectionFilterInterface extends FilterInterface{
-    type:"collection",
-    formElements:FilterElements,
-    initialValues: object,
-}
-
-export interface EmbeddedFilterInterface extends FilterInterface{
-    type:"embedded",
-    formElements:FilterElements,
-    initialValues: object,
-}
-export interface FileFilterInterface extends FilterInterface{
-    type:"file"
+    dateType: DateType
 }
 
 
 
-export type GenericFilterInterface = TextFilterInterface | SelectFilterInterface | CheckboxFilterInterface | RadioFilterInterface | WYSIWYGFilterInterface | TagsFilterInterface|NumberFilterInterface | CollectionFilterInterface | EmbeddedFilterInterface | FileFilterInterface | DateFilterInterface | CountriesFilterInterface
+export type GenericFilterInterface = TextFilterInterface | SelectFilterInterface | CheckboxFilterInterface | RadioFilterInterface  | TagsFilterInterface|NumberFilterInterface | DateFilterInterface | CountriesFilterInterface
 export type FilterElements = GenericFilterInterface[]

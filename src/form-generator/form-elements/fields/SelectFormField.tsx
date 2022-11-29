@@ -7,7 +7,7 @@ import {getNestedValue} from "../utils/form-generator-utils";
 
 export interface Option{
     label:string,
-    value:string,
+    value:string|undefined,
 }
 
 
@@ -24,7 +24,6 @@ export default function SelectFormField(element:SelectFormElementInterface){
 
     const updateSelectValue =  useCallback(()=>{
         if(options.find(option => option.value === getNestedValue(accessor,values) )!== value){
-            console.log("changed values in select", getNestedValue(accessor,values), "while it was", value)
             setValue(options.find(option => option.value === getNestedValue(accessor,values) ))
         }
     },[accessor, values, value])
