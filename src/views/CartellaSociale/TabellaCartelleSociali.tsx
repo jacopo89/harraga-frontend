@@ -1,4 +1,3 @@
-import {Button} from "@mui/material";
 import {useNavigate} from "react-router";
 import {editAnagraficaRoute, nuovaCartellaSocialeRoute} from "../../routes/frontend-routes";
 import * as React from 'react';
@@ -8,18 +7,15 @@ import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
-import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Checkbox from '@mui/material/Checkbox';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Switch from '@mui/material/Switch';
 import {getComparator, Order, stableSort} from "./Tabella/tabellaHelper";
 import {EnhancedTableHead, HeadCell} from "./Tabella/EnhancedTableHead";
 import {EnhancedTableToolbar} from "./Tabella/EnhancedTableToolbar";
 import {getCartelleSociali} from "../../api/cartellaSociale/cartellaSocialeApi";
 import {filtriElements, filtriInitialValues} from "./FiltriTabellaCartelleSociali/FiltriCartelleSocialiFormType";
-import {Col, Row} from "react-bootstrap";
+import {Button, Card, Col, Row} from "react-bootstrap";
 import {Filter} from "../../api/AuthClient";
 import {FormikValues} from "formik";
 import FilterGeneratorContextProvider from "../../form-generator/filter-context/FilterGeneratorContextProvider";
@@ -42,30 +38,35 @@ export interface CartellaSocialeData{
 export default function TabellaCartelleSociali(){
 
     return <FilterGeneratorContextProvider elements={filtriElements} initialValues={filtriInitialValues}>
-        <Row>
-            <Col xs={6}>
-                <FilterElement accessor={"nome"}/>
-            </Col>
-            <Col xs={6}>
-                <FilterElement accessor={"cognome"}/>
-            </Col>
-        </Row>
-        <Row>
-            <Col xs={6}>
-                <FilterElement accessor={"anagrafica.paeseOrigine"}/>
-            </Col>
-            <Col xs={6}>
-                <FilterElement accessor={"italiano"}/>
-            </Col>
-        </Row>
-        <Row>
-            <Col xs={6}>
-                <FilterElement accessor={"maggiorenne"}/>
-            </Col>
-            <Col xs={6}>
-            </Col>
-        </Row>
+        <Card>
+            <Card.Header>Filtri</Card.Header>
+            <Card.Body>
+                <Row>
+                    <Col xs={6}>
+                        <FilterElement accessor={"nome"}/>
+                    </Col>
+                    <Col xs={6}>
+                        <FilterElement accessor={"cognome"}/>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col xs={6}>
+                        <FilterElement accessor={"paeseOrigine"}/>
+                    </Col>
+                    <Col xs={6}>
+                        <FilterElement accessor={"italiano"}/>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col xs={6}>
+                        <FilterElement accessor={"maggiorenne"}/>
+                    </Col>
+                    <Col xs={6}>
+                    </Col>
+                </Row>
+            </Card.Body>
 
+        </Card>
         <Tabella/>
     </FilterGeneratorContextProvider>
 }
@@ -101,8 +102,7 @@ function Tabella(){
     },[formValue])
 
     return <div>
-        <Button onClick={()=>{navigate(nuovaCartellaSocialeRoute)}}>Crea</Button>
-        <EnhancedTable rows={cartelleSociali} editHandler={editHandler}></EnhancedTable>
+        <EnhancedTable rows={cartelleSociali} addHandler={()=>{navigate(nuovaCartellaSocialeRoute)}} editHandler={editHandler}></EnhancedTable>
     </div>
 }
 
@@ -140,10 +140,11 @@ const headCells: HeadCell[] = [
 interface EnhancedTable{
     rows: CartellaSociale[],
     editHandler: (id:string) => void
+    addHandler: () => void
 }
 
 
-export function EnhancedTable({rows,editHandler}:EnhancedTable) {
+export function EnhancedTable({rows,editHandler,addHandler}:EnhancedTable) {
     const [order, setOrder] = React.useState<Order>('asc');
     const [orderBy, setOrderBy] = React.useState<keyof CartellaSociale>('nome');
     const [selected, setSelected] = React.useState<readonly string[]>([]);
@@ -211,7 +212,7 @@ export function EnhancedTable({rows,editHandler}:EnhancedTable) {
     return (
         <Box sx={{ width: '100%' }}>
             <Paper sx={{ width: '100%', mb: 2 }}>
-                <EnhancedTableToolbar numSelected={selected.length} />
+                <EnhancedTableToolbar numSelected={selected.length} addHandler={addHandler} />
                 <TableContainer>
                     <Table
                         sx={{ minWidth: 750 }}
@@ -231,7 +232,7 @@ export function EnhancedTable({rows,editHandler}:EnhancedTable) {
                             {/* if you don't need to support IE11, you can replace the `stableSort` call with:
               rows.slice().sort(getComparator(order, orderBy)) */}
                             {stableSort(rows, getComparator(order, orderBy))
-                                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                                /*.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)*/
                                 .map((row, index) => {
                                     const isItemSelected = isSelected(row.id);
                                     const labelId = `enhanced-table-checkbox-${index}`;
@@ -275,7 +276,7 @@ export function EnhancedTable({rows,editHandler}:EnhancedTable) {
                         </TableBody>
                     </Table>
                 </TableContainer>
-                <TablePagination
+                {/*<TablePagination
                     rowsPerPageOptions={[5, 10, 25]}
                     component="div"
                     count={rows.length}
@@ -283,12 +284,8 @@ export function EnhancedTable({rows,editHandler}:EnhancedTable) {
                     page={page}
                     onPageChange={handleChangePage}
                     onRowsPerPageChange={handleChangeRowsPerPage}
-                />
+                />*/}
             </Paper>
-            <FormControlLabel
-                control={<Switch checked={dense} onChange={handleChangeDense} />}
-                label="Dense padding"
-            />
         </Box>
     );
 }

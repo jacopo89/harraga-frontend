@@ -18,7 +18,9 @@ import {EnhancedTableToolbar} from "./Tabella/EnhancedTableToolbar";
 
 export interface AssociazioneUtenteCartella{
     id:string,
-    cartellaSociale:string
+    cartellaSocialeId:string,
+    nome:string,
+    cognome:string,
 }
 
 interface TabellaAsssociazioneUtenteCartelleProps{
@@ -28,7 +30,6 @@ interface TabellaAsssociazioneUtenteCartelleProps{
 
 export default function TabellaAssociazioneUtenteCartelle({id,associazioni}:TabellaAsssociazioneUtenteCartelleProps){
     const navigate = useNavigate();
-
 
     return <div>
         <EnhancedTable rows={associazioni} editHandler={() => {}}/>
@@ -43,7 +44,20 @@ const headCells: HeadCell[] = [
         numeric: false,
         disablePadding: true,
         label: 'Id',
-    }
+    },
+    {
+        id: 'nome',
+        numeric: false,
+        disablePadding: true,
+        label: 'Nome',
+    },
+    {
+        id: 'cognome',
+        numeric: false,
+        disablePadding: true,
+        label: 'Cognome',
+    },
+
 ];
 
 interface EnhancedTable{
@@ -165,6 +179,12 @@ export function EnhancedTable({rows,editHandler}:EnhancedTable) {
                                             </TableCell>
                                             <TableCell component="th" id={labelId} scope="row" padding="none">
                                                 {row.id}
+                                            </TableCell>
+                                            <TableCell component="th" id={labelId} scope="row" padding="none">
+                                                {row.nome}
+                                            </TableCell>
+                                            <TableCell component="th" id={labelId} scope="row" padding="none">
+                                                {row.cognome}
                                             </TableCell>
                                             <TableCell align="right"><Button onClick={()=>editHandler(row.id)}>Modifica</Button></TableCell>
                                         </TableRow>

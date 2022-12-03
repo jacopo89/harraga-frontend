@@ -1,14 +1,12 @@
 import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import {createTheme, ThemeProvider} from '@mui/material/styles';
+import {createTheme} from '@mui/material/styles';
 import {FormikValues} from "formik";
 import * as Yup from "yup";
 import {useNavigate} from "react-router";
@@ -16,14 +14,14 @@ import {authProvider} from "../../helpers/authentication/authProvider";
 import {FormElements} from "../../form-generator/ElementInterface";
 import FormGeneratorContextProvider from '../../form-generator/form-context/FormGeneratorContextProvider';
 import FormElement from "../../form-generator/form-elements/FormElement";
-import {Row,Col} from 'react-bootstrap';
+import {Col, Row} from 'react-bootstrap';
 
 function Copyright(props: any) {
     return (
         <Typography variant="body2" color="text.secondary" align="center" {...props}>
             {'Copyright © '}
-            <Link color="inherit" href="https://mui.com/">
-                Your Website
+            <Link color="inherit" href="/">
+                Harraga
             </Link>{' '}
             {new Date().getFullYear()}
             {'.'}
@@ -112,9 +110,6 @@ export default function SignUp() {
                     alignItems: 'center',
                 }}
             >
-                <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-                    <LockOutlinedIcon />
-                </Avatar>
                 <Typography component="h1" variant="h5">
                     Benvenuto in Harraga
                 </Typography>
@@ -154,12 +149,12 @@ export default function SignUp() {
                         variant="contained"
                         sx={{ mt: 3, mb: 2 }}
                     >
-                        Sign Up
+                        Registrati
                     </Button>
                     <Grid container>
                         <Grid item>
                             <Link href="/signin" variant="body2">
-                                {"You already have an account? Sign in"}
+                                {"Hai già un account? accedi"}
                             </Link>
                         </Grid>
                     </Grid>
@@ -167,10 +162,5 @@ export default function SignUp() {
             <Copyright sx={{ mt: 8, mb: 4 }} />
         </Container>
     </FormGeneratorContextProvider>
-    // @ts-ignore
-    return (
-        <ThemeProvider theme={theme}>
 
-        </ThemeProvider>
-    );
 }

@@ -7,8 +7,8 @@ import TabellaAssociazioneUtenteCartelle, {
 import {Button} from "@mui/material";
 import Select, {SingleValue} from "react-select";
 import {creaAssociazioneUtenteCartella, getCartelleSocialiUtente} from "../../api/utente/utenteApi";
-import {getCartelleSociali} from "../../api/cartellaSociale/cartellaSocialeApi";
 import {CartellaSociale, CartellaSocialeData} from "../CartellaSociale/TabellaCartelleSociali";
+import {getCartelleSociali} from "../../api/cartellaSociale/cartellaSocialeApi";
 
 type Option = {label: string;value: string; } | undefined
 export default function EditUtente(){
@@ -17,10 +17,18 @@ export default function EditUtente(){
     const [associazioni, setAssociazioni] = useState<AssociazioneUtenteCartella[]>([])
     const [cartelleSociali, setCartelleSociali] = useState<CartellaSociale[]>([])
     const [chosenOption,setChosenOption] = useState<SingleValue<Option>>()
-    const idCartelleAssociate = associazioni.map(associazione => associazione.cartellaSociale);
+    const idCartelleAssociate = associazioni.map(associazione => associazione.cartellaSocialeId);
 
     const getAssociazioniHandler = () => {
-        if(id)getCartelleSocialiUtente(id).then(response => setAssociazioni(response.data["hydra:member"]))
+        if(id)getCartelleSocialiUtente(id).then(response => setAssociazioni(response.data["hydra:member"].map((associazione:any) => {
+            return {
+                id: associazione.id,
+                cartellaSocialeId:associazione.cartellaSociale["@id"],
+                nome:associazione.cartellaSociale.anagrafica.nome,
+                cognome:associazione.cartellaSociale.anagrafica.cognome,
+
+            }
+        })))
     }
 
     const options = useMemo(()=>{
@@ -33,7 +41,8 @@ export default function EditUtente(){
     },[idCartelleAssociate, cartelleSociali])
 
     useEffect(()=>{
-        getCartelleSociali().then(response => setCartelleSociali(response.data["hydra:member"].map((cartellaSociale:CartellaSocialeData)=>{
+
+        getCartelleSociali([]).then(response => setCartelleSociali(response.data["hydra:member"].map((cartellaSociale:CartellaSocialeData)=>{
             return {
                 "@id": cartellaSociale["@id"],
                 id:cartellaSociale.id,
