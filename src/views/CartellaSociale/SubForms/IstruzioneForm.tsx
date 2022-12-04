@@ -4,20 +4,17 @@ import {Button, Col, Row} from "react-bootstrap";
 import FormElement from "../../../form-generator/form-elements/FormElement";
 
 import {useEffect, useState} from "react";
-import {getCartellaSocialeIstruzione, getCartellaSocialeLavoro} from "../../../api/cartellaSociale/cartellaSocialeApi";
+import {getCartellaSocialeIstruzione} from "../../../api/cartellaSociale/cartellaSocialeApi";
 import {toast} from "react-toastify";
 import {useParams} from "react-router-dom";
 import {modificaStoria} from "../../../api/cartellaSociale/storiaApi";
-import {
-    lavoroFormElements,
-    lavoroInitialValues,
-    lavoroValidationSchema
-} from "../../../models/form/lavoro/LavoroFormType";
 import {
     istruzioneFormElements,
     istruzioneInitialValues,
     istruzioneValidationSchema
 } from "../../../models/form/istruzione/IstruzioneFormType";
+import DoubleDivider from "../../../components/DoubleDivider";
+import {modificaIstruzione} from "../../../api/cartellaSociale/istruzioneApi";
 
 export default function (){
     const params = useParams();
@@ -29,7 +26,7 @@ export default function (){
 
     const onSubmit = (values:any) => {
         // @ts-ignore
-        modificaStoria(istruzione.id,values).then(response => toast.success("Anagrafica modificata con successo")).catch(error => toast.error("Errore nella creazione della cartella sociale"))
+        modificaIstruzione(istruzione.id,values).then(response => toast.success("Scheda istruzione modificata con successo")).catch(error => toast.error("Errore nella creazione della cartella sociale"))
     }
 
     return <div>
@@ -37,19 +34,30 @@ export default function (){
             <Divider className="mb-3"/>
             <section>
                 <Row>
+                    <Col xs={12}><h3>Percorsi d'istruzione e formazione nel paese d'origine</h3></Col>
+                </Row>
+                <Row>
                     <Col xs={12}>
                         <FormElement accessor={"percorsoIstruzioneOrigines"} nestedForm={PercorsoIstruzioneOrigineForm} />
                     </Col>
                 </Row>
             </section>
+            <DoubleDivider></DoubleDivider>
             <section>
+                <Row>
+                    <Col xs={12}><h3>Percorsi d'istruzione e formazione in Italia conclusi</h3></Col>
+                </Row>
                 <Row>
                     <Col xs={12}>
                         <FormElement accessor={"percorsoIstruzioneItaliaConclusos"} nestedForm={PercorsoIstruzioneItaliaConclusoForm} />
                     </Col>
                 </Row>
             </section>
+            <DoubleDivider></DoubleDivider>
             <section>
+                <Row>
+                    <Col xs={12}><h3>Percorsi d'istruzione e formazione in corso in Italia</h3></Col>
+                </Row>
                 <Row>
                     <Col xs={12}>
                         <FormElement accessor={"percorsoIstruzioneFormazioneItalias"} nestedForm={PercorsoIstruzioneItaliaForm} />

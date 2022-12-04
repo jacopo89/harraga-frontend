@@ -23,7 +23,7 @@ export const proceduraLegaleElements: FormElements = [
     },
     {
         Header: "Ricorsi amministrativi",
-        accessor: "ricorsiAmministrativi",
+        accessor: "ricorsoAmministrativos",
         type:"collection",
         formElements: ricorsiAmministrativiElements,
         initialValues:ricorsiAmministrativiInitialValues
@@ -32,6 +32,6 @@ export const proceduraLegaleElements: FormElements = [
 
 export const proceduraLegaleInitialValues= {
     regolamentoDublino:null,
-    appuntamenti:[],
-    ricorsiAmministrativi:[]
+    appuntamentos:[],
+    ricorsoAmministrativos:[]
 }

@@ -1,50 +1,50 @@
-import {Button} from "react-bootstrap";
-import React, {useContext} from "react";
+import {Button, Col, Row} from "react-bootstrap";
+import React, {useContext, useMemo} from "react";
 import BasicFormElementInterface from "../../BasicFormElementInterface";
 import {FormElements} from "../../ElementInterface";
 import FormGeneratorContext from "../../form-context/FormGeneratorContext";
 import {getNestedValue} from "../utils/form-generator-utils";
 import FormGeneratorContextProvider from "../../form-context/FormGeneratorContextProvider";
+import DeleteIcon from "@mui/icons-material/Delete";
+import {Divider} from "@mui/material";
 
 export interface EmbeddedElementInterface extends BasicFormElementInterface{
     type:"embedded",
     formElements: FormElements,
-    nestedForm: JSX.Element,
+    nestedForm:(index:number)=> JSX.Element,
     initialValues: any,
     validationSchema:any,
 }
 
-export default function EmbeddedFormField(props:EmbeddedElementInterface){
-    const {type,errors, touched,accessor,Header,formElements, initialValues,nestedForm} = props
+export default function EmbeddedFormField({accessor,nestedForm,initialValues}:EmbeddedElementInterface){
 
-    const {setFieldValue,values,elements,accessorRoot} = useContext(FormGeneratorContext);
+    const {setFieldValue,values,elements,accessorRoot, formValue, unsetFieldValue} = useContext(FormGeneratorContext);
 
-    const embeddedElement = formElements.find(element => element.accessor ===accessor);
+    const existingElement = getNestedValue(accessor,values)
+
+    // @ts-ignore
+    const embeddedElement = elements.find(element => element.accessor ===accessor);
+
+    // @ts-ignore
+    const nestedElements= embeddedElement.formElements
+    const nestedForms = useMemo(()=>{
+        return (<Row className={"mb-3"}>
+                    <Col xs={12}>
+                        <FormGeneratorContextProvider formValue={formValue} elements={nestedElements} initialValues={initialValues} existingValue={existingElement}  accessorRoot={accessorRoot} onChange={(value) => {
+                            console.log("accessor when saving embedded",accessor)
+                            return setFieldValue(accessor,value)
+                        }}>
+                            {nestedForm(1)}
+                        </FormGeneratorContextProvider>
+                        <Divider light/>
+                    </Col>
+
+                </Row>)
+    },[existingElement, accessor, initialValues])
+
+
     if(embeddedElement === undefined) return <div>{accessor}</div>
-
-    const existing = getNestedValue(accessor,values).length
-    // @ts-ignore
-    const nestedElements= collectionElement.formElements
-
     return <div>
-        <FormGeneratorContextProvider elements={nestedElements} initialValues={initialValues} accessorRoot={`${accessor}`} onChange={(value) => setFieldValue(`${accessor}`, value)}>
-            {nestedForm}
-        </FormGeneratorContextProvider>
+        {nestedForms}
     </div>
-
-    const nestedValues = values[accessor] ;
-    const nestedErrors = errors[accessor] ?? {};
-    const nestedTouched = touched[accessor] ?? {};
-
-    /*const changeValue =  (key:string,value:any)=> {
-        const newValue = {...nestedValues}
-        newValue[key] = value;
-        setFieldValue(newValue)
-    }
-
-    // @ts-ignore
-    return <FormGeneratorContext.Provider value={{setFieldValue:changeValue, values:nestedValues,errors:nestedErrors, touched:nestedTouched,elements:formElements, submitForm:()=>new Promise<void>(()=>{}) }}>
-            {nestedForm}
-        </FormGeneratorContext.Provider>
-*/
 }

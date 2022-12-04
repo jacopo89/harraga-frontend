@@ -1,5 +1,4 @@
 import FormGeneratorContextProvider from "../../../form-generator/form-context/FormGeneratorContextProvider";
-import {Divider} from "@mui/material";
 import {Button, Col, Row} from "react-bootstrap";
 import FormElement from "../../../form-generator/form-elements/FormElement";
 
@@ -7,12 +6,13 @@ import {useEffect, useState} from "react";
 import {getCartellaSocialeCompetenze} from "../../../api/cartellaSociale/cartellaSocialeApi";
 import {toast} from "react-toastify";
 import {useParams} from "react-router-dom";
-import {modificaStoria} from "../../../api/cartellaSociale/storiaApi";
 import {
     competenzeElements,
     competenzeInitialValues,
     competenzeValidationSchema
 } from "../../../models/form/competenze/CompetenzeFormType";
+import DoubleDivider from "../../../components/DoubleDivider";
+import {modificaCompetenze} from "../../../api/cartellaSociale/competenzeApi";
 
 export default function (){
     const params = useParams();
@@ -23,54 +23,73 @@ export default function (){
     },[])
 
     const onSubmit = (values:any) => {
+
         // @ts-ignore
-        modificaStoria(competenze.id,values).then(response => toast.success("Anagrafica modificata con successo")).catch(error => toast.error("Errore nella creazione della cartella sociale"))
+        modificaCompetenze(competenze.id,values).then(response => toast.success("Anagrafica modificata con successo")).catch(error => toast.error("Errore nella creazione della cartella sociale"))
     }
 
     return <div>
         <FormGeneratorContextProvider elements={competenzeElements} validationSchema={competenzeValidationSchema} onSubmit={onSubmit} initialValues={competenzeInitialValues} existingValue={competenze}>
-            <Divider className="mb-3"/>
+            <DoubleDivider></DoubleDivider>
             <section>
+                <Row>
+                    <Col xs={12}><h3>Lingue dichiarate</h3></Col>
+                </Row>
                 <Row>
                     <Col xs={12}>
                         <FormElement accessor={"linguaDichiaratas"} nestedForm={LinguaDichiarataForm}/>
                     </Col>
                 </Row>
             </section>
-            <Divider className="mb-3"/>
+            <DoubleDivider></DoubleDivider>
             <section>
+                <Row>
+                    <Col xs={12}><h3>Lingue attestate</h3></Col>
+                </Row>
                 <Row>
                     <Col xs={12}>
                         <FormElement accessor={"linguaAttestatas"} nestedForm={LinguaAttestataForm}/>
                     </Col>
                 </Row>
             </section>
-            <Divider className="mb-3"/>
+            <DoubleDivider></DoubleDivider>
             <section>
+                <Row>
+                    <Col xs={12}><h3>Lingue certificate</h3></Col>
+                </Row>
                 <Row>
                     <Col xs={12}>
                         <FormElement accessor={"linguaCertificatas"} nestedForm={LinguaCertificataForm}/>
                     </Col>
                 </Row>
             </section>
-            <Divider className="mb-3"/>
+            <DoubleDivider></DoubleDivider>
             <section>
+                <Row>
+                    <Col xs={12}><h3>Competenze digitali</h3></Col>
+                </Row>
                 <Row>
                     <Col xs={12}>
                         <FormElement accessor={"competenzaDigitales"} nestedForm={CompetenzeDigitaliForm}/>
                     </Col>
                 </Row>
             </section>
-            <Divider className="mb-3"/>
+            <DoubleDivider></DoubleDivider>
             <section>
+                <Row>
+                    <Col xs={12}><h3>Altre competenze</h3></Col>
+                </Row>
                 <Row>
                     <Col xs={12}>
                         <FormElement accessor={"altraCompetenzas"} nestedForm={AltreCompetenzeForm}/>
                     </Col>
                 </Row>
             </section>
-            <Divider className="mb-3"/>
+            <DoubleDivider></DoubleDivider>
             <section>
+                <Row>
+                    <Col xs={12}><h3>Patenti</h3></Col>
+                </Row>
                 <Row>
                     <Col xs={12}>
                         <FormElement accessor={"patentes"} nestedForm={PatenteForm}/>

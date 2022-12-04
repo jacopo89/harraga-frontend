@@ -87,7 +87,7 @@ export default function (){
                         <FormElement accessor={`revocaTutela.motivazione`}/>
                     </Col>
                     <Col xs={12}>
-                        <FormElement accessor={`riferimentoLegale.allegato`}/>
+                        <FormElement accessor={`revocaTutela.allegato`}/>
                     </Col>
                 </Row>
             </section>
@@ -138,7 +138,10 @@ export default function (){
             <Divider className="mb-3"/>
             <section>
                 <Row className="mb-3">
-                    <FormElement accessor={"documentiIdentitaAmministrativas"} nestedForm={DocumentiIdentitaForm}/>
+                    <Col xs={12}>
+                        <h3>Documenti di identità</h3>
+                    </Col>
+                    <FormElement accessor={"documentoIdentitaAmministrativas"} nestedForm={DocumentiIdentitaForm}/>
                 </Row>
             </section>
             <Divider className="mb-3"/>
@@ -296,7 +299,7 @@ const ProceduraLegaleForm = (index:number) => {
             <h4>Appuntamenti</h4>
             <Row className="mb-3">
                 <Col xs={12}>
-                    <FormElement accessor={"appuntamenti"} nestedForm={AppuntamentiForm}/>
+                    <FormElement accessor={"appuntamentos"} nestedForm={AppuntamentiForm}/>
                 </Col>
             </Row>
         </section>
@@ -304,7 +307,7 @@ const ProceduraLegaleForm = (index:number) => {
             <h4>Ricorsi amministrativi</h4>
             <Row className="mb-3">
                 <Col xs={12}>
-                    <FormElement accessor={"ricorsiAmministrativi"} nestedForm={RicorsiAmministrativiForm}/>
+                    <FormElement accessor={"ricorsoAmministrativos"} nestedForm={RicorsiAmministrativiForm}/>
                 </Col>
             </Row>
         </section>
