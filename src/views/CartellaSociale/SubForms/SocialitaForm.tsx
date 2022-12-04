@@ -1,5 +1,4 @@
 import FormGeneratorContextProvider from "../../../form-generator/form-context/FormGeneratorContextProvider";
-import {Divider} from "@mui/material";
 import {Button, Col, Row} from "react-bootstrap";
 import FormElement from "../../../form-generator/form-elements/FormElement";
 
@@ -7,12 +6,13 @@ import {useEffect, useState} from "react";
 import {getCartellaSocialeSocialita} from "../../../api/cartellaSociale/cartellaSocialeApi";
 import {toast} from "react-toastify";
 import {useParams} from "react-router-dom";
-import {modificaStoria} from "../../../api/cartellaSociale/storiaApi";
 import {
     socialitaElements,
     socialitaInitialValues,
     socialitaValidationSchema
 } from "../../../models/form/socialita/SocialitaFormType";
+import DoubleDivider from "../../../components/DoubleDivider";
+import {modificaSocialita} from "../../../api/cartellaSociale/socialitaApi";
 
 export default function (){
     const params = useParams();
@@ -24,37 +24,49 @@ export default function (){
 
     const onSubmit = (values:any) => {
         // @ts-ignore
-        modificaStoria(socialita.id,values).then(response => toast.success("Anagrafica modificata con successo")).catch(error => toast.error("Errore nella creazione della cartella sociale"))
+        modificaSocialita(socialita.id,values).then(response => toast.success("Scheda socialità modificata con successo")).catch(error => toast.error("Errore nella creazione della cartella sociale"))
     }
 
     return <div>
         <FormGeneratorContextProvider elements={socialitaElements} validationSchema={socialitaValidationSchema} onSubmit={onSubmit} initialValues={socialitaInitialValues} existingValue={socialita}>
-            <Divider className="mb-3"/>
+            <DoubleDivider/>
             <section>
                 <Row>
+                    <Row>
+                        <Col xs={12}><h3>Esperienze di volontariato</h3></Col>
+                    </Row>
                     <Col xs={12}>
                         <FormElement accessor={"esperienzaVolontariatos"} nestedForm={EsperienzeVolontariatoForm} />
                     </Col>
                 </Row>
             </section>
-            <Divider className="mb-3"/>
+            <DoubleDivider></DoubleDivider>
             <section>
+                <Row>
+                    <Col xs={12}><h3>Laboratori</h3></Col>
+                </Row>
                 <Row>
                     <Col xs={12}>
                         <FormElement accessor={"laboratorios"} nestedForm={LaboratorioForm} />
                     </Col>
                 </Row>
             </section>
-            <Divider className="mb-3"/>
+            <DoubleDivider></DoubleDivider>
             <section>
+                <Row>
+                    <Col xs={12}><h3>Attività sportiva</h3></Col>
+                </Row>
                 <Row>
                     <Col xs={12}>
                         <FormElement accessor={"attivitaSportivas"} nestedForm={AttivitaSportivaForm} />
                     </Col>
                 </Row>
             </section>
-            <Divider className="mb-3"/>
+            <DoubleDivider></DoubleDivider>
             <section>
+                <Row>
+                    <Col xs={12}><h3>Appartenenza a gruppi/associazioni</h3></Col>
+                </Row>
                 <Row>
                     <Col xs={12}>
                         <FormElement accessor={"associaziones"} nestedForm={AssociazioneForm} />

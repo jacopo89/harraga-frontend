@@ -13,6 +13,7 @@ import {getCartellaSocialeAmministrativa} from "../../../api/cartellaSociale/car
 import {modificaAmministrativa} from "../../../api/cartellaSociale/amministrativaApi";
 import {toast} from "react-toastify";
 import {useParams} from "react-router-dom";
+import useGetPermission from "../../../permissions/useGetPermissions";
 
 export default function (){
     const params = useParams();
@@ -26,6 +27,10 @@ export default function (){
         // @ts-ignore
         modificaAmministrativa(amministrativa.id,values).then(response => toast.success("Anagrafica modificata con successo")).catch(error => toast.error("Errore nella creazione della cartella sociale"))
     }
+
+    const {canReadAmministrativa, canWriteAmministrativa}= useGetPermission();
+    if(!canReadAmministrativa && !canWriteAmministrativa ) return <div>Non è consentito visualizzare questa scheda</div>
+
 
     return <div>
         <FormGeneratorContextProvider elements={amministrativaElements} validationSchema={amministrativaValidationSchema} onSubmit={onSubmit} initialValues={amministrativaInitialValues} existingValue={amministrativa}>
@@ -204,7 +209,7 @@ export default function (){
                     </Col>
                 </Row>
             </section>
-            <Button type="submit"> OK</Button>
+            {canWriteAmministrativa && <Button type="submit">Salva</Button>}
         </FormGeneratorContextProvider>
     </div>
 }

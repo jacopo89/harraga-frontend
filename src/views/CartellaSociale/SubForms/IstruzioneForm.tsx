@@ -15,6 +15,7 @@ import {
 } from "../../../models/form/istruzione/IstruzioneFormType";
 import DoubleDivider from "../../../components/DoubleDivider";
 import {modificaIstruzione} from "../../../api/cartellaSociale/istruzioneApi";
+import useGetPermission from "../../../permissions/useGetPermissions";
 
 export default function (){
     const params = useParams();
@@ -28,6 +29,9 @@ export default function (){
         // @ts-ignore
         modificaIstruzione(istruzione.id,values).then(response => toast.success("Scheda istruzione modificata con successo")).catch(error => toast.error("Errore nella creazione della cartella sociale"))
     }
+
+    const {canWriteIstruzione, canReadIstruzione}= useGetPermission();
+    if(!canReadIstruzione && !canWriteIstruzione ) return <div>Non è consentito visualizzare questa scheda</div>
 
     return <div>
         <FormGeneratorContextProvider elements={istruzioneFormElements} validationSchema={istruzioneValidationSchema} onSubmit={onSubmit} initialValues={istruzioneInitialValues} existingValue={istruzione}>
@@ -64,7 +68,7 @@ export default function (){
                     </Col>
                 </Row>
             </section>
-            <Button type="submit"> OK</Button>
+            {canWriteIstruzione && <Button type="submit"> Salva</Button>}
         </FormGeneratorContextProvider>
     </div>
 }

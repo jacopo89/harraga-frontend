@@ -14,6 +14,7 @@ import {
     sanitariaValidationSchema
 } from "../../../models/form/sanitaria/SanitariaFormType";
 import {modificaSanitaria} from "../../../api/cartellaSociale/sanitariaApi";
+import useGetPermission from "../../../permissions/useGetPermissions";
 
 export default function (){
     const params = useParams();
@@ -27,6 +28,9 @@ export default function (){
         // @ts-ignore
         modificaSanitaria(sanitaria.id,values).then(response => toast.success("Scheda sanitaria modificata con successo")).catch(error => toast.error("Errore nella creazione della cartella sociale"))
     }
+
+    const {canReadSanitaria, canWriteSanitaria}= useGetPermission();
+    if(!canReadSanitaria && !canWriteSanitaria ) return <div>Non è consentito visualizzare questa scheda</div>
 
     return <div>
         <FormGeneratorContextProvider elements={sanitariaElements} validationSchema={sanitariaValidationSchema} onSubmit={onSubmit} initialValues={sanitariaInitialValues} existingValue={sanitaria}>
@@ -125,7 +129,7 @@ export default function (){
                 </Row>
             </section>
 
-            <Button type="submit">Salva</Button>
+            {canWriteSanitaria && <Button type="submit">Salva</Button>}
         </FormGeneratorContextProvider>
     </div>
 }

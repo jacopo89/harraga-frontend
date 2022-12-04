@@ -9,6 +9,7 @@ import {toast} from "react-toastify";
 import {useParams} from "react-router-dom";
 import {storiaElements, storiaInitialValues, storiaValidationSchema} from "../../../models/form/storia/StoriaFormType";
 import {modificaStoria} from "../../../api/cartellaSociale/storiaApi";
+import useGetPermission from "../../../permissions/useGetPermissions";
 
 export default function (){
     const params = useParams();
@@ -22,6 +23,9 @@ export default function (){
         // @ts-ignore
         modificaStoria(storia.id,values).then(response => toast.success("Anagrafica modificata con successo")).catch(error => toast.error("Errore nella creazione della cartella sociale"))
     }
+
+    const {canReadStoria, canWriteStoria}= useGetPermission();
+    if(!canReadStoria && !canWriteStoria ) return <div>Non è consentito visualizzare questa scheda</div>
 
     return <div>
         <FormGeneratorContextProvider elements={storiaElements} validationSchema={storiaValidationSchema} onSubmit={onSubmit} initialValues={storiaInitialValues} existingValue={storia}>
@@ -225,7 +229,7 @@ export default function (){
             </section>
 
 
-            <Button type="submit"> OK</Button>
+            {canWriteStoria && <Button type="submit"> Salva</Button>}
         </FormGeneratorContextProvider>
     </div>
 }

@@ -13,6 +13,7 @@ import {
 } from "../../../models/form/competenze/CompetenzeFormType";
 import DoubleDivider from "../../../components/DoubleDivider";
 import {modificaCompetenze} from "../../../api/cartellaSociale/competenzeApi";
+import useGetPermission from "../../../permissions/useGetPermissions";
 
 export default function (){
     const params = useParams();
@@ -27,6 +28,9 @@ export default function (){
         // @ts-ignore
         modificaCompetenze(competenze.id,values).then(response => toast.success("Anagrafica modificata con successo")).catch(error => toast.error("Errore nella creazione della cartella sociale"))
     }
+
+    const {canReadCompetenze, canWriteCompetenze}= useGetPermission();
+    if(!canReadCompetenze && !canWriteCompetenze ) return <div>Non è consentito visualizzare questa scheda</div>
 
     return <div>
         <FormGeneratorContextProvider elements={competenzeElements} validationSchema={competenzeValidationSchema} onSubmit={onSubmit} initialValues={competenzeInitialValues} existingValue={competenze}>
@@ -85,7 +89,7 @@ export default function (){
                     </Col>
                 </Row>
             </section>
-            <DoubleDivider></DoubleDivider>
+            <DoubleDivider/>
             <section>
                 <Row>
                     <Col xs={12}><h3>Patenti</h3></Col>
@@ -97,7 +101,7 @@ export default function (){
                 </Row>
             </section>
 
-            <Button type="submit"> OK</Button>
+            {canWriteCompetenze && <Button type="submit"> Salva</Button>}
         </FormGeneratorContextProvider>
     </div>
 }

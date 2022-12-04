@@ -7,12 +7,13 @@ import {useEffect, useState} from "react";
 import {getCartellaSocialeLavoro} from "../../../api/cartellaSociale/cartellaSocialeApi";
 import {toast} from "react-toastify";
 import {useParams} from "react-router-dom";
-import {modificaStoria} from "../../../api/cartellaSociale/storiaApi";
 import {
     lavoroFormElements,
     lavoroInitialValues,
     lavoroValidationSchema
 } from "../../../models/form/lavoro/LavoroFormType";
+import {modificaLavoro} from "../../../api/cartellaSociale/lavoroApi";
+import useGetPermission from "../../../permissions/useGetPermissions";
 
 export default function (){
     const params = useParams();
@@ -24,20 +25,26 @@ export default function (){
 
     const onSubmit = (values:any) => {
         // @ts-ignore
-        modificaStoria(lavoro.id,values).then(response => toast.success("Anagrafica modificata con successo")).catch(error => toast.error("Errore nella creazione della cartella sociale"))
+        modificaLavoro(lavoro.id,values).then(response => toast.success("Anagrafica modificata con successo")).catch(error => toast.error("Errore nella creazione della cartella sociale"))
     }
+
+    const {canReadLavoro, canWriteLavoro}= useGetPermission();
+    if(!canReadLavoro && !canWriteLavoro ) return <div>Non è consentito visualizzare questa scheda</div>
 
     return <div>
         <FormGeneratorContextProvider elements={lavoroFormElements} validationSchema={lavoroValidationSchema} onSubmit={onSubmit} initialValues={lavoroInitialValues} existingValue={lavoro}>
             <Divider className="mb-3"/>
             <section>
                 <Row>
+                    <Col xs={12}><h3>Esperienze lavorative</h3></Col>
+                </Row>
+                <Row>
                     <Col xs={12}>
                         <FormElement accessor={"esperienzaLavorativas"} nestedForm={EsperienzaLavorativaForm} />
                     </Col>
                 </Row>
             </section>
-            <Button type="submit"> OK</Button>
+            {canWriteLavoro && <Button type="submit"> OK</Button>}
         </FormGeneratorContextProvider>
     </div>
 }

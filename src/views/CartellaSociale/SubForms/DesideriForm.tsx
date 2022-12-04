@@ -7,12 +7,13 @@ import {useEffect, useState} from "react";
 import {getCartellaSocialeDesideri} from "../../../api/cartellaSociale/cartellaSocialeApi";
 import {toast} from "react-toastify";
 import {useParams} from "react-router-dom";
-import {modificaStoria} from "../../../api/cartellaSociale/storiaApi";
 import {
     desideriFormElements,
     desideriInitialValues,
     desideriValidationSchema
 } from "../../../models/form/desideri/DesideriFormType";
+import {modificaDesideri} from "../../../api/cartellaSociale/desideriApi";
+import useGetPermission from "../../../permissions/useGetPermissions";
 
 export default function (){
     const params = useParams();
@@ -24,8 +25,11 @@ export default function (){
 
     const onSubmit = (values:any) => {
         // @ts-ignore
-        modificaStoria(desideri.id,values).then(response => toast.success("Anagrafica modificata con successo")).catch(error => toast.error("Errore nella creazione della cartella sociale"))
+        modificaDesideri(desideri.id,values).then(response => toast.success("Scheda desideri modificata con successo")).catch(error => toast.error("Errore nella creazione della cartella sociale"))
     }
+
+    const {canReadDesideri, canWriteDesideri}= useGetPermission();
+    if(!canReadDesideri && !canWriteDesideri ) return <div>Non è consentito visualizzare questa scheda</div>
 
     return <div>
         <FormGeneratorContextProvider elements={desideriFormElements} validationSchema={desideriValidationSchema} onSubmit={onSubmit} initialValues={desideriInitialValues} existingValue={desideri}>
@@ -42,7 +46,7 @@ export default function (){
                     </Col>
                 </Row>
             </section>
-            <Button type="submit"> OK</Button>
+            {canWriteDesideri && <Button type="submit"> Salva</Button>}
         </FormGeneratorContextProvider>
     </div>
 }

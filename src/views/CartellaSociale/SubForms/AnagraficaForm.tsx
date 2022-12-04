@@ -13,6 +13,7 @@ import {modificaAnagrafica} from "../../../api/cartellaSociale/anagraficaApi";
 import {toast} from "react-toastify";
 import {useParams} from "react-router-dom";
 import DoubleDivider from "../../../components/DoubleDivider";
+import useGetPermission from "../../../permissions/useGetPermissions";
 
 export default function (){
     const params = useParams();
@@ -27,6 +28,10 @@ export default function (){
         // @ts-ignore
         modificaAnagrafica(anagrafica.id,values).then(response => toast.success("Anagrafica modificata con successo")).catch(error => toast.error("Errore nella creazione della cartella sociale"))
     }
+
+    const {canReadAnagrafica, canWriteAnagrafica}= useGetPermission();
+    if(!canReadAnagrafica && !canWriteAnagrafica ) return <div>Non è consentito visualizzare questa scheda</div>
+
 
     return <div>
         <FormGeneratorContextProvider elements={anagraficaElements} validationSchema={anagraficaValidationSchema} onSubmit={onSubmit} initialValues={anagraficaInitialValues} existingValue={anagrafica}>
@@ -171,7 +176,7 @@ export default function (){
                     <Col xs={6}><FormElement accessor={"documentiPossesso.allegato"}/></Col>
                 </Row>
             </section>
-            <Button type="submit"> OK</Button>
+            {canWriteAnagrafica && <Button type="submit">Salva</Button>}
         </FormGeneratorContextProvider>
     </div>
 }
