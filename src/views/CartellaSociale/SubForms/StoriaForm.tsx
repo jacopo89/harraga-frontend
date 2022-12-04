@@ -10,6 +10,7 @@ import {useParams} from "react-router-dom";
 import {storiaElements, storiaInitialValues, storiaValidationSchema} from "../../../models/form/storia/StoriaFormType";
 import {modificaStoria} from "../../../api/cartellaSociale/storiaApi";
 import useGetPermission from "../../../permissions/useGetPermissions";
+import DoubleDivider from "../../../components/DoubleDivider";
 
 export default function (){
     const params = useParams();
@@ -29,7 +30,7 @@ export default function (){
 
     return <div>
         <FormGeneratorContextProvider elements={storiaElements} validationSchema={storiaValidationSchema} onSubmit={onSubmit} initialValues={storiaInitialValues} existingValue={storia}>
-            <Divider className="mb-3"/>
+            <DoubleDivider/>
             <section>
                 <Row>
                     <Col xs={6}>
@@ -41,7 +42,7 @@ export default function (){
                 </Row>
 
             </section>
-            <Divider className="mb-3"/>
+            <DoubleDivider/>
             <section>
                 <Row>
                     <Col xs={12}>
@@ -53,7 +54,7 @@ export default function (){
                 </Row>
 
             </section>
-            <Divider className="mb-3"/>
+            <DoubleDivider/>
             <section>
                 <Row>
                     <Col xs={12}>
@@ -65,7 +66,7 @@ export default function (){
                 </Row>
 
             </section>
-
+            <DoubleDivider/>
             <section>
                 <Row>
                     <Col xs={12}>
@@ -84,6 +85,7 @@ export default function (){
                         <FormElement accessor={"hotspot.dataUscita"}/>
                     </Col>
                 </Row>
+                <Divider className="my-3"></Divider>
                 <Row>
                     <Col xs={12}>
                         <h3>CPA</h3>
@@ -98,6 +100,7 @@ export default function (){
                         <FormElement accessor={"cPA.dataUscita"}/>
                     </Col>
                 </Row>
+                <Divider className="my-3"></Divider>
                 <Row>
                     <Col xs={12}>
                         <h3>Seconda Accoglienza</h3>
@@ -128,6 +131,7 @@ export default function (){
                     </Col>
                 </Row>
             </section>
+            <DoubleDivider/>
             <section>
                 <Row>
                     <Col xs={12}>
@@ -138,6 +142,7 @@ export default function (){
                     </Col>
                 </Row>
             </section>
+            <DoubleDivider/>
             <section>
                 <Row>
                     <Col xs={12}>
@@ -148,6 +153,7 @@ export default function (){
                     </Col>
                 </Row>
             </section>
+            <DoubleDivider/>
             <section>
                 <Row>
                     <Col xs={12}>
@@ -158,6 +164,7 @@ export default function (){
                     </Col>
                 </Row>
             </section>
+            <DoubleDivider/>
             <section>
                 <Row>
                     <Col xs={12}>
@@ -168,6 +175,7 @@ export default function (){
                     </Col>
                 </Row>
             </section>
+            <DoubleDivider/>
             <section>
                 <Row>
                     <Col xs={12}>
@@ -178,6 +186,7 @@ export default function (){
                     </Col>
                 </Row>
             </section>
+            <DoubleDivider/>
             <section>
                 <Row>
                     <Col xs={12}>

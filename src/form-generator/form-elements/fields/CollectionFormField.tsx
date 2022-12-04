@@ -18,7 +18,7 @@ export interface CollectionElementInterface extends BasicFormElementInterface{
 
 export default function CollectionFormField({accessor, nestedForm, buttonLabel ="Aggiungi",initialValues}:CollectionElementInterface){
 
-    const {setFieldValue,values,elements,accessorRoot, formValue, unsetFieldValue} = useContext(FormGeneratorContext);
+    const {setFieldValue, disable,values,elements,accessorRoot, formValue, unsetFieldValue} = useContext(FormGeneratorContext);
     /*const existingElements = useMemo(()=>{
         console.log("ricalcolo existing elements.")
         return getNestedValue(accessor,values)
@@ -40,12 +40,13 @@ export default function CollectionFormField({accessor, nestedForm, buttonLabel =
                 const indexAccessor = `${accessor}[${index}]`
                 return (<Row className={"mb-3"}>
                         <Col xs={1}>
-                            <Button className={"btn-sm p-1 rounded-circle bg-danger"} onClick={()=>unsetFieldValue(indexAccessor)}>
+                            { !disable ? <Button className={"btn-sm p-1 rounded-circle bg-danger"}
+                                     onClick={() => unsetFieldValue(indexAccessor)}>
                                 <DeleteIcon/>
-                            </Button>
+                            </Button> : <div>{index+1}</div>}
                         </Col>
                         <Col xs={11}>
-                            <FormGeneratorContextProvider formValue={formValue} key={index} elements={nestedElements} initialValues={initialValues} existingValue={getNestedValue(indexAccessor,values)}  accessorRoot={indexAccessor} onChange={(value) => setFieldValue(indexAccessor, value)}>
+                            <FormGeneratorContextProvider disable={disable} formValue={formValue} key={index} elements={nestedElements} initialValues={initialValues} existingValue={getNestedValue(indexAccessor,values)}  accessorRoot={indexAccessor} onChange={(value) => setFieldValue(indexAccessor, value)}>
                                 {nestedForm(index)}
                             </FormGeneratorContextProvider>
                             <Divider light/>
@@ -59,8 +60,11 @@ export default function CollectionFormField({accessor, nestedForm, buttonLabel =
     if(collectionElement === undefined) return <div>{accessor}</div>
     return <div>
         {nestedForms}
-        <Button type="button" onClick={(e)=>{e.preventDefault(); setFieldValue(`${accessor}[${existing}]`,initialValues)}}>
-            {buttonLabel}
-        </Button>
+        {
+            !disable && <Button type="button" onClick={(e)=>{e.preventDefault(); setFieldValue(`${accessor}[${existing}]`,initialValues)}}>
+                {buttonLabel}
+            </Button>
+        }
+
     </div>
 }

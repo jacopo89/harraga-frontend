@@ -12,7 +12,7 @@ export interface DateElementInterface extends BasicFormElementInterface{
 }
 
 export default function DateFormField(props:DateElementInterface){
-    const {type,values, errors, touched,setFieldValue,accessor,Header} = props
+    const {type,values,disable, errors, touched,setFieldValue,accessor,Header} = props
     const handleData = (value:any) => {
         /*console.log("value",value)
         console.log("serialized date", serializeDate(value))*/
@@ -21,7 +21,7 @@ export default function DateFormField(props:DateElementInterface){
     const value = getNestedValue(accessor,values);
     return <div className="filled form-group tooltip-end-top">
         <Form.Label>{Header}</Form.Label>
-        <DatePicker placeholderText={Header} className="form-control" selected={value ? normalizeDate(value): new Date()} onChange={handleData} dateFormat={"dd/MM/yyyy"}/>
+        <DatePicker disabled={disable} placeholderText={Header} className="form-control" selected={value ? normalizeDate(value): new Date()} onChange={handleData} dateFormat={"dd/MM/yyyy"}/>
         {/*{errors[accessor] && touched[accessor] && <div className="d-block invalid-tooltip">{errors[accessor]}</div>}*/}
     </div>
 }

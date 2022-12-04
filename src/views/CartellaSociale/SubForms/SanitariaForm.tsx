@@ -15,6 +15,7 @@ import {
 } from "../../../models/form/sanitaria/SanitariaFormType";
 import {modificaSanitaria} from "../../../api/cartellaSociale/sanitariaApi";
 import useGetPermission from "../../../permissions/useGetPermissions";
+import DoubleDivider from "../../../components/DoubleDivider";
 
 export default function (){
     const params = useParams();
@@ -34,7 +35,7 @@ export default function (){
 
     return <div>
         <FormGeneratorContextProvider elements={sanitariaElements} validationSchema={sanitariaValidationSchema} onSubmit={onSubmit} initialValues={sanitariaInitialValues} existingValue={sanitaria}>
-            <Divider className="mb-3"/>
+            <DoubleDivider/>
             <section>
                 <Row>
                     <Col xs={12}><h3>Disabilità</h3></Col>
@@ -43,7 +44,7 @@ export default function (){
                     </Col>
                 </Row>
             </section>
-            <Divider className="mb-3"/>
+            <DoubleDivider/>
             <section>
                 <Row>
                     <Col xs={12}><h3>Patologie</h3></Col>
@@ -52,7 +53,7 @@ export default function (){
                     </Col>
                 </Row>
             </section>
-            <Divider className="mb-3"/>
+            <DoubleDivider/>
             <section>
                 <Row>
                     <Col xs={12}><h3>Medico curante assegnato</h3></Col>
@@ -79,7 +80,7 @@ export default function (){
                     </Col>
                 </Row>
             </section>
-            <Divider className="mb-3"/>
+            <DoubleDivider/>
             <section>
                 <Row>
                     <Col xs={12}><h3>Preso in carico da altri servizi</h3></Col>
@@ -106,7 +107,7 @@ export default function (){
                     </Col>
                 </Row>
             </section>
-            <Divider className="mb-3"/>
+            <DoubleDivider/>
             <section>
                 <Row>
                     <Col xs={12}><h3>Vaccini</h3></Col>
@@ -117,7 +118,7 @@ export default function (){
                     </Col>
                 </Row>
             </section>
-            <Divider className="mb-3"/>
+            <DoubleDivider/>
             <section>
                 <Row>
                     <Row>
@@ -128,6 +129,7 @@ export default function (){
                     </Col>
                 </Row>
             </section>
+            <DoubleDivider/>
 
             {canWriteSanitaria && <Button type="submit">Salva</Button>}
         </FormGeneratorContextProvider>

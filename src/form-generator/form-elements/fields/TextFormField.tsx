@@ -8,10 +8,13 @@ export interface TextElementInterface extends BasicFormElementInterface{
 }
 
 export default function TextFormField(props:TextElementInterface){
-    const {type,values, errors, touched,setFieldValue,accessor,Header} = props
+    const {type,disable, values, errors, touched,setFieldValue,accessor,Header} = props
     const errorMessage = getNestedValue(accessor,errors)
     const nestedTouched = getNestedValue(accessor,touched)
 
+    useEffect(()=>{
+        console.log("accessor disable", accessor, disable)
+    },[])
     useEffect(()=>{
        /* console.log("values", values)
         console.log("accessor", accessor)
@@ -19,7 +22,7 @@ export default function TextFormField(props:TextElementInterface){
     },[values, accessor])
     return <div className="filled form-group tooltip-end-top">
         <Form.Label>{Header}</Form.Label>
-        <Form.Control type="text" name={accessor} placeholder={Header} value={getNestedValue(accessor,values)} onChange={(e)=>setFieldValue(e.target.value)} />
+        <Form.Control disabled={disable} type="text" name={accessor} placeholder={Header} value={getNestedValue(accessor,values)} onChange={(e)=>setFieldValue(e.target.value)} />
         {nestedTouched && <div className="d-block">{errorMessage}</div>}
     </div>
 }

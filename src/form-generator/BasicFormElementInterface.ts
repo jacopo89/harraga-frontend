@@ -6,5 +6,6 @@ export default interface BasicFormElementInterface extends ElementInterface{
     errors:FormikErrors<FormikValues>,
     touched:FormikTouched<FormikValues>,
     setFieldValue:(value:any)=> Promise<void> | Promise<FormikErrors<FormikValues>>
-    accessorRoot?:string
+    accessorRoot?:string,
+    disable?:boolean
 }

@@ -59,7 +59,7 @@ const procedurePenaliInitialValues = {
 export const penaleFormElements:FormElements = [
     {
         Header: 'Procedure penali',
-        accessor: 'procedurePenali',
+        accessor: 'proceduraPenales',
         type: "collection",
         formElements:procedurePenaliElements,
         initialValues:procedurePenaliInitialValues,
@@ -68,7 +68,7 @@ export const penaleFormElements:FormElements = [
 
 
 export const penaleInitialValues = {
-    procedurePenali:[],
+    proceduraPenales:[],
 };
 
 export const penaleValidationSchema = Yup.object().shape({

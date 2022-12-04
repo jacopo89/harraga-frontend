@@ -34,7 +34,7 @@ export default function (){
 
 
     return <div>
-        <FormGeneratorContextProvider elements={anagraficaElements} validationSchema={anagraficaValidationSchema} onSubmit={onSubmit} initialValues={anagraficaInitialValues} existingValue={anagrafica}>
+        <FormGeneratorContextProvider disable={!canWriteAnagrafica} elements={anagraficaElements} validationSchema={anagraficaValidationSchema} onSubmit={onSubmit} initialValues={anagraficaInitialValues} existingValue={anagrafica}>
             <DoubleDivider/>
             <section>
                 <Row className="mb-3">

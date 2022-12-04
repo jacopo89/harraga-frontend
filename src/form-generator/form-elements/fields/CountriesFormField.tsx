@@ -259,7 +259,7 @@ const countries = [
 ]
 
 export default function CountriesFormField(element:CountriesFormElementInterface){
-    const {type,values, errors, touched,setFieldValue,accessor,Header} = element
+    const {type,values, disable, errors, touched,setFieldValue,accessor,Header} = element
 
     const [value, setValue] = useState<Option|undefined>(countries.find(option => option.value === getNestedValue(accessor,values) ));
 
@@ -275,7 +275,7 @@ export default function CountriesFormField(element:CountriesFormElementInterface
     },[accessor,values])
 
     // @ts-ignore
-    const select =<Select classNamePrefix="react-select" options={countries} value={value} onChange={setValue} placeholder={Header} />
+    const select =<Select isDisabled={disable} classNamePrefix="react-select" options={countries} value={value} onChange={setValue} placeholder={Header} />
 
 
     return <>

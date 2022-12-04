@@ -18,7 +18,7 @@ export interface SelectFormElementInterface extends BasicFormElementInterface{
 }
 
 export default function SelectFormField(element:SelectFormElementInterface){
-    const {type,values, errors,options, touched,setFieldValue,accessor,Header} = element
+    const {type,values,disable, errors,options, touched,setFieldValue,accessor,Header} = element
 
     const [value, setValue] = useState<Option|undefined>(options.find(option => option.value === getNestedValue(accessor,values) ));
 
@@ -41,7 +41,7 @@ export default function SelectFormField(element:SelectFormElementInterface){
 
 
     // @ts-ignore
-    const select =<Select classNamePrefix="react-select" options={options} value={value} onChange={(value) =>setFieldValue(value.value)} placeholder={Header} />
+    const select =<Select isDisabled={disable} classNamePrefix="react-select" options={options} value={value} onChange={(value) =>setFieldValue(value.value)} placeholder={Header} />
 
 
     return <>

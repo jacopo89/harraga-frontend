@@ -41,7 +41,7 @@ export default function (){
                         <Col><h3>Procedure penali</h3></Col>
                     </Row>
                     <Col xs={12}>
-                        <FormElement accessor={"procedurePenali"} nestedForm={ProcedurePenaliForm} />
+                        <FormElement accessor={"proceduraPenales"} nestedForm={ProcedurePenaliForm} />
                     </Col>
                 </Row>
             </section>

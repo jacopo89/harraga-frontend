@@ -26,13 +26,13 @@ function getElement(elements: GenericElementInterface[], accessorParsed: string[
 }
 
 export default function FormElement({accessor,nestedForm}:FormElementInterface){
-    const {values,errors,touched,setFieldValue,elements,accessorRoot} = useContext(FormGeneratorContext)
+    const {values,errors,touched,setFieldValue,elements,accessorRoot,disable} = useContext(FormGeneratorContext)
     const accessorParsed = getAccessorElementsNoIndex(accessor)
     const element = getElement(elements,accessorParsed);
     const finalAccessor = accessor
     if(element){
         // @ts-ignore
-        return <FormElementGenerator nestedForm={nestedForm} {...element} accessorRoot={accessorRoot} type={element.type} values={values} errors={errors} touched={touched} setFieldValue={(value) => setFieldValue(finalAccessor, value)} Header={element.Header} accessor={finalAccessor}/>
+        return <FormElementGenerator nestedForm={nestedForm} {...element} disable={disable} accessorRoot={accessorRoot} type={element.type} values={values} errors={errors} touched={touched} setFieldValue={(value) => setFieldValue(finalAccessor, value)} Header={element.Header} accessor={finalAccessor}/>
     }
     return <div>{accessor}</div>
 

@@ -12,7 +12,7 @@ export interface FileFormElementInterface extends BasicFormElementInterface{
 }
 
 export default function FileFormField(props:FileFormElementInterface){
-    const {type,values, errors, touched,setFieldValue,accessor,Header} = props
+    const {type,values,disable, errors, touched,setFieldValue,accessor,Header} = props
 
     const existingFile = getNestedValue(accessor,values)
     useEffect(()=>{
@@ -22,13 +22,15 @@ export default function FileFormField(props:FileFormElementInterface){
     // @ts-ignore
     return <>
         <div>{Header}</div>
-        {existingFile && <>
+        {existingFile  && <>
             {existingFile.url && <Button onClick={() => {
                 window.open(process.env.REACT_APP_ENTRYPOINT + existingFile.url)
             }}>Download file</Button>}
-            <Button onClick={() => {setFieldValue(null)}}>Rimuovi file</Button>
+            {!disable && <Button onClick={() => {
+                setFieldValue(null)
+            }}>Rimuovi file</Button>}
             </>}
-        {!existingFile && <Dropzone
+        {!existingFile && !disable && <Dropzone
             onSubmit={(successFiles) => {
                 const files = successFiles.map(file => file.file)
                 // @ts-ignore
@@ -46,5 +48,6 @@ export default function FileFormField(props:FileFormElementInterface){
             //SubmitButtonComponent={button}
             inputContent="Carica file"
         />}
+        {!existingFile && disable && <div>Nessun file caricato</div>}
     </>
 }

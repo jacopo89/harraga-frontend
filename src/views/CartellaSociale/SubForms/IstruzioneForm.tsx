@@ -34,7 +34,7 @@ export default function (){
     if(!canReadIstruzione && !canWriteIstruzione ) return <div>Non è consentito visualizzare questa scheda</div>
 
     return <div>
-        <FormGeneratorContextProvider elements={istruzioneFormElements} validationSchema={istruzioneValidationSchema} onSubmit={onSubmit} initialValues={istruzioneInitialValues} existingValue={istruzione}>
+        <FormGeneratorContextProvider disable={!canWriteIstruzione} elements={istruzioneFormElements} validationSchema={istruzioneValidationSchema} onSubmit={onSubmit} initialValues={istruzioneInitialValues} existingValue={istruzione}>
             <Divider className="mb-3"/>
             <section>
                 <Row>
@@ -46,7 +46,7 @@ export default function (){
                     </Col>
                 </Row>
             </section>
-            <DoubleDivider></DoubleDivider>
+            <DoubleDivider/>
             <section>
                 <Row>
                     <Col xs={12}><h3>Percorsi d'istruzione e formazione in Italia conclusi</h3></Col>
