@@ -23,7 +23,9 @@ export default function FileFormField(props:FileFormElementInterface){
     return <>
         <div>{Header}</div>
         {existingFile && <>
-            <Button onClick={() => {window.open(process.env.REACT_APP_ENTRYPOINT + existingFile.url)}}>Download file</Button>
+            {existingFile.url && <Button onClick={() => {
+                window.open(process.env.REACT_APP_ENTRYPOINT + existingFile.url)
+            }}>Download file</Button>}
             <Button onClick={() => {setFieldValue(null)}}>Rimuovi file</Button>
             </>}
         {!existingFile && <Dropzone

@@ -1,7 +1,8 @@
-import React, {useCallback, useEffect, useState} from "react";
+import React, {useCallback, useEffect, useMemo, useState} from "react";
 import BasicFormElementInterface from "../../BasicFormElementInterface";
 import ReactQuill from "react-quill";
 import 'react-quill/dist/quill.snow.css';
+import {getNestedValue} from "../utils/form-generator-utils";
 
 export interface WYSIWYGElementInterface extends BasicFormElementInterface{
     type:"wysiwyg"
@@ -16,25 +17,24 @@ const modules = {
 
 export default function WYSIWYGFormField(props:WYSIWYGElementInterface){
     const {type,values, errors, touched,setFieldValue,accessor,Header} = props
-
-    useEffect(()=>{
-    },[values[accessor]])
-    const [value, setValue] = useState<string|undefined>(values[accessor]);
-
+    const formValue =useMemo(()=>getNestedValue(accessor,values),[accessor,values])
+    const [value, setValue] = useState<string|undefined>(formValue);
 
     const updateValueForm = useCallback(()=>{
-        if(value !== values[accessor]){
+        if(value !== formValue){
             setFieldValue(value)
         }
-    },[value,values[accessor]])
+    },[values,value, accessor])
 
     const updateFromForm = useCallback(()=>{
-        if(value !== values[accessor]){
-            setValue(values[accessor])
+        if(value !== formValue){
+            setValue(formValue)
         }
-    },[value,values[accessor]])
+    },[value,formValue])
 
-    useEffect(()=>{updateFromForm()},[values[accessor]])
+    useEffect(()=>{
+        updateFromForm()
+    },[values])
     useEffect(()=>{updateValueForm()},[value])
 
     return <div className="my-3">

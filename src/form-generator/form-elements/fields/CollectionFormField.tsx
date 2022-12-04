@@ -30,8 +30,8 @@ export default function CollectionFormField({accessor, nestedForm, buttonLabel =
     const collectionElement = elements.find(element => element.accessor ===accessor);
 
 
+    if(!Array.isArray(getNestedValue(accessor,values))) console.log("accessor", accessor)
     const existing = getNestedValue(accessor,values).length
-    console.log("existing elements number",existing)
 
     // @ts-ignore
     const nestedElements= collectionElement.formElements

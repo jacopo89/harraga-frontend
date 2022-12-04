@@ -4,12 +4,12 @@ export const regolamentoDublinoElements: FormElements = [
     {
         Header: "Paese origine",
         accessor: "paeseOrigine",
-        type:"text",
+        type:"countries",
     },
     {
         Header: "Paese arrivo",
         accessor: "paeseArrivo",
-        type:"text",
+        type:"countries",
     },
     {
         Header: "Data",

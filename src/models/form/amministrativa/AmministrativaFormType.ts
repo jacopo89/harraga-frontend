@@ -81,7 +81,7 @@ export const amministrativaElements:FormElements = [
         initialValues:codiceFiscaleInitialValues
     },
     {
-        accessor:"documentiIdentitaAmministrativas",
+        accessor:"documentoIdentitaAmministrativas",
         Header:"Documenti Identità amministrativi",
         type:"collection",
         formElements:documentoIdentitaAmministrativaElements,
@@ -128,7 +128,7 @@ export const amministrativaInitialValues = {
     tesseraSanitaria:null,
     STP:null,
     codiceFiscale:null,
-    documentiIdentitaAmministrativas:[],
+    documentoIdentitaAmministrativas:[],
     affidamento:null,
     proseguimentoAmministrativo:null,
     proceduraLegales:[]

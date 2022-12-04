@@ -16,7 +16,7 @@ export const proceduraLegaleElements: FormElements = [
     },
     {
         Header: "Appuntamenti",
-        accessor: "appuntamenti",
+        accessor: "appuntamentos",
         type:"collection",
         formElements: appuntamentiElements,
         initialValues:appuntamentiInitialValues
