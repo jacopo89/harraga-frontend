@@ -6,7 +6,7 @@ import './App.css';
 import Dashboard from './views/Dashboard/Dashboard';
 import SignIn from "./views/Authentication/Signin";
 import SignUp from "./views/Authentication/SignUp";
-import TabellaCartelleSociali from "./views/CartellaSociale/TabellaCartelleSociali";
+import TabellaCartelleSocialiPage from "./views/CartellaSociale/TabellaCartelleSocialiPage";
 import {
   amministrativaRouterElement,
   anagraficaRouterElement,
@@ -47,7 +47,7 @@ function App() {
   const authenticatedRoutes = <Routes>
     <Route path="/login" element={<SignIn/>}/>
     <Route path="/registrazione" element={<SignUp/>}/>
-    <Route path="/" element={<Dashboard content={<TabellaCartelleSociali/>}/>}/>
+    <Route path="/" element={<Dashboard content={<TabellaCartelleSocialiPage/>}/>}/>
     <Route path={anagraficaRouterElement} element={<Dashboard content={<EditCartellaSociale content={<AnagraficaForm/>} />}/>}/>
     <Route path={amministrativaRouterElement} element={<Dashboard content={<EditCartellaSociale content={<AmministrativaForm/>} />}/>}/>
     <Route path={socialitaRouterElement} element={<Dashboard content={<EditCartellaSociale content={<SocialitaForm/>} />}/>}/>

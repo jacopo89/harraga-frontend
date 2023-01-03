@@ -15,6 +15,7 @@ import {FormElements} from "../../form-generator/ElementInterface";
 import FormGeneratorContextProvider from '../../form-generator/form-context/FormGeneratorContextProvider';
 import FormElement from "../../form-generator/form-elements/FormElement";
 import {Col, Row} from 'react-bootstrap';
+import {toast} from "react-toastify";
 
 function Copyright(props: any) {
     return (
@@ -44,10 +45,11 @@ const validationSchema = Yup.object().shape({
     cognome: Yup.string().required("Inserisci il cognome").nullable(),
     email: Yup.string().email().required("Inserisci l'email").nullable(),
     password: Yup.string().required("Inserisci la password"),
+    telefono: Yup.string().required("Inserisci il numero di telefono"),
     ruolo:Yup.string().required("Inserire il ruolo")
 });
 
-const signupFormElements:FormElements = [
+export const signupFormElements:FormElements = [
     {
         accessor:"nome",
         type:"text",
@@ -97,7 +99,7 @@ const signupFormElements:FormElements = [
 
 export default function SignUp() {
     const navigate = useNavigate();
-    const onSubmit = (values:FormikValues) => authProvider.register(values).then((response:any) => navigate("/signin")) //MANCA IL CATCH
+    const onSubmit = (values:FormikValues) => authProvider.register(values).then((response:any) => navigate("/signin")).catch(error => toast.error(error.response.content))
 
     return <FormGeneratorContextProvider elements={signupFormElements} validationSchema={validationSchema} onSubmit={onSubmit} initialValues={initialValues} existingValue={undefined}>
         <Container component="main" maxWidth="xs">

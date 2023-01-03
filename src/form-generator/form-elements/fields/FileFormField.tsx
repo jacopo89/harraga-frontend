@@ -43,7 +43,6 @@ export default function FileFormField(props:FileFormElementInterface){
             }}
 
             PreviewComponent={DropzonePreview}
-            accept="image/*"
             maxFiles={1}
             //SubmitButtonComponent={button}
             inputContent="Carica file"

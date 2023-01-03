@@ -41,7 +41,7 @@ export const EnhancedTableToolbar = (props: EnhancedTableToolbarProps) => {
                     id="tableTitle"
                     component="div"
                 >
-                    Nutrition
+                    Associazioni
                 </Typography>
             )}
             {numSelected > 0 ? (

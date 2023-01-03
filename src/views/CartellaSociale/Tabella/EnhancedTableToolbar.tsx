@@ -8,11 +8,12 @@ import * as React from "react";
 
 interface EnhancedTableToolbarProps {
     numSelected: number;
+    numRows: number;
     addHandler:() => void
 }
 
 export const EnhancedTableToolbar = (props: EnhancedTableToolbarProps) => {
-    const { numSelected, addHandler } = props;
+    const { numSelected, addHandler, numRows } = props;
 
     return (
         <Toolbar
@@ -31,7 +32,7 @@ export const EnhancedTableToolbar = (props: EnhancedTableToolbarProps) => {
             id="tableTitle"
             component="div"
         >
-            Cartelle sociali
+            Cartelle sociali - {numRows}
         </Typography>
         <Tooltip title="Aggiungi">
             <IconButton onClick={addHandler}>

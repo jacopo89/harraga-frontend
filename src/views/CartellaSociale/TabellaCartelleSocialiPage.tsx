@@ -9,11 +9,14 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import Checkbox from '@mui/material/Checkbox';
 import {getComparator, Order, stableSort} from "./Tabella/tabellaHelper";
 import {EnhancedTableHead, HeadCell} from "./Tabella/EnhancedTableHead";
 import {EnhancedTableToolbar} from "./Tabella/EnhancedTableToolbar";
-import {getCartelleSociali} from "../../api/cartellaSociale/cartellaSocialeApi";
+import {
+    getCartelleSociali,
+    getCartelleSocialiUtente,
+    rimuoviCartellaSociale
+} from "../../api/cartellaSociale/cartellaSocialeApi";
 import {filtriElements, filtriInitialValues} from "./FiltriTabellaCartelleSociali/FiltriCartelleSocialiFormType";
 import {Button, Card, Col, Row} from "react-bootstrap";
 import {Filter} from "../../api/AuthClient";
@@ -22,6 +25,14 @@ import FilterGeneratorContextProvider from "../../form-generator/filter-context/
 import FilterElement from "../../form-generator/filter-elements/FilterElement";
 import FilterGeneratorContext from "../../form-generator/filter-context/FilterGeneratorContext";
 import {FilterElements} from "../../form-generator/filter-elements/FilterElementInterface";
+import FormGeneratorContextProvider from "../../form-generator/form-context/FormGeneratorContextProvider";
+import {uploadCSVFormElements, uploadCSVInitialValues} from "../UploadCSV/UploadCSVFormType";
+import FormElement from "../../form-generator/form-elements/FormElement";
+import {uploadCSV} from "../../api/csvUpload/csvUploadApi";
+import {toast} from "react-toastify";
+import useCurrentUser from "../../helpers/authentication/useCurrentUser";
+import useGetPermission from "../../permissions/useGetPermissions";
+
 
 interface Anagrafica{
     nome:string,
@@ -35,11 +46,19 @@ export interface CartellaSocialeData{
     anagrafica:Anagrafica
 }
 
-export default function TabellaCartelleSociali(){
+export interface UtenteCartellaSocialeData{
+    cartellaSociale:CartellaSocialeData
+}
+export default function TabellaCartelleSocialiPage(){
 
-    return <FilterGeneratorContextProvider elements={filtriElements} initialValues={filtriInitialValues}>
-        <Card>
-            <Card.Header>Filtri</Card.Header>
+    const uploadCSVHandler = (values:any) => uploadCSV(values).then(()=> toast.success("Cartelle caricate con successo")).catch(reason=>{
+        reason.response.data.forEach((message:string) => toast.error(message))
+    })
+
+    return <>
+        <FilterGeneratorContextProvider elements={filtriElements} initialValues={filtriInitialValues}>
+        <Card className={"my-3"}>
+            <Card.Header className={"py-3"}>Filtri</Card.Header>
             <Card.Body>
                 <Row>
                     <Col xs={6}>
@@ -69,14 +88,22 @@ export default function TabellaCartelleSociali(){
         </Card>
         <Tabella/>
     </FilterGeneratorContextProvider>
+        Importa tramite CSV
+        <FormGeneratorContextProvider onSubmit={uploadCSVHandler} elements={uploadCSVFormElements} initialValues={uploadCSVInitialValues}>
+            <FormElement accessor={"csvFile"}></FormElement>
+            <Button type={"submit"}>Importa</Button>
+        </FormGeneratorContextProvider>
+    </>
 }
 
 function Tabella(){
     const navigate = useNavigate();
+    const {canReadTutteCartelle} = useGetPermission();
     const [cartelleSociali, setCartelleSociali] = useState<CartellaSociale[]>([])
-
+    const currentUser = useCurrentUser();
     const {formValue,elements} = useContext(FilterGeneratorContext)
     const editHandler = (id:string)=> navigate(editAnagraficaRoute(id))
+
     const filters:Filter[] = []
     const getFiltersObjectFromFormValue = (formValue:FormikValues, elements:FilterElements) => {
         elements.forEach(element => {
@@ -89,20 +116,43 @@ function Tabella(){
         return filters;
     }
 
+    console.log("id", currentUser)
+    const getCartelleSocialiByFilters = () => {
+        if(canReadTutteCartelle){
+            return getCartelleSociali(getFiltersObjectFromFormValue(formValue,elements)).then(response => setCartelleSociali(response.data["hydra:member"].map((cartellaSociale:CartellaSocialeData)=>{
+                return {
+                    "@id": cartellaSociale["@id"],
+                    id:cartellaSociale.id,
+                    nome:cartellaSociale.anagrafica.nome,
+                    cognome:cartellaSociale.anagrafica.cognome,
+                    numeroTutela:cartellaSociale.anagrafica.numeroTutela,
+                }
+            })))
+        }else{
+            const filters = getFiltersObjectFromFormValue(formValue,elements);
+            filters.forEach(filter=>{
+                filter.accessor = `cartellaSociale.${filter.accessor}`
+            })
+
+            return getCartelleSocialiUtente(currentUser.id, getFiltersObjectFromFormValue(formValue,elements)).then(response => setCartelleSociali(response.data["hydra:member"].map((cartellaSociale:UtenteCartellaSocialeData)=>{
+                return {
+                    "@id": cartellaSociale.cartellaSociale["@id"],
+                    id:cartellaSociale.cartellaSociale.id,
+                    nome:cartellaSociale.cartellaSociale.anagrafica.nome,
+                    cognome:cartellaSociale.cartellaSociale.anagrafica.cognome,
+                    numeroTutela:cartellaSociale.cartellaSociale.anagrafica.numeroTutela,
+                }
+            })))
+        }
+
+    }
+    const removeHandler = (id:string)=> rimuoviCartellaSociale(id).then(()=> getCartelleSocialiByFilters())
     useEffect(()=>{
-        getCartelleSociali(getFiltersObjectFromFormValue(formValue,elements)).then(response => setCartelleSociali(response.data["hydra:member"].map((cartellaSociale:CartellaSocialeData)=>{
-            return {
-                "@id": cartellaSociale["@id"],
-                id:cartellaSociale.id,
-                nome:cartellaSociale.anagrafica.nome,
-                cognome:cartellaSociale.anagrafica.cognome,
-                numeroTutela:cartellaSociale.anagrafica.numeroTutela,
-            }
-        })))
+        getCartelleSocialiByFilters()
     },[formValue])
 
     return <div>
-        <EnhancedTable rows={cartelleSociali} addHandler={()=>{navigate(nuovaCartellaSocialeRoute)}} editHandler={editHandler}></EnhancedTable>
+        <EnhancedTable rows={cartelleSociali} addHandler={()=>{navigate(nuovaCartellaSocialeRoute)}} editHandler={editHandler} removeHandler={removeHandler}></EnhancedTable>
     </div>
 }
 
@@ -139,12 +189,13 @@ const headCells: HeadCell[] = [
 
 interface EnhancedTable{
     rows: CartellaSociale[],
-    editHandler: (id:string) => void
+    editHandler: (id:string) => void,
+    removeHandler: (id:string) => void,
     addHandler: () => void
 }
 
 
-export function EnhancedTable({rows,editHandler,addHandler}:EnhancedTable) {
+export function EnhancedTable({rows,editHandler,addHandler, removeHandler}:EnhancedTable) {
     const [order, setOrder] = React.useState<Order>('asc');
     const [orderBy, setOrderBy] = React.useState<keyof CartellaSociale>('nome');
     const [selected, setSelected] = React.useState<readonly string[]>([]);
@@ -190,18 +241,6 @@ export function EnhancedTable({rows,editHandler,addHandler}:EnhancedTable) {
         setSelected(newSelected);
     };
 
-    const handleChangePage = (event: unknown, newPage: number) => {
-        setPage(newPage);
-    };
-
-    const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setRowsPerPage(parseInt(event.target.value, 10));
-        setPage(0);
-    };
-
-    const handleChangeDense = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setDense(event.target.checked);
-    };
 
     const isSelected = (name: string) => selected.indexOf(name) !== -1;
 
@@ -212,7 +251,7 @@ export function EnhancedTable({rows,editHandler,addHandler}:EnhancedTable) {
     return (
         <Box sx={{ width: '100%' }}>
             <Paper sx={{ width: '100%', mb: 2 }}>
-                <EnhancedTableToolbar numSelected={selected.length} addHandler={addHandler} />
+                <EnhancedTableToolbar numRows={rows.length} numSelected={selected.length} addHandler={addHandler} />
                 <TableContainer>
                     <Table
                         sx={{ minWidth: 750 }}
@@ -239,7 +278,7 @@ export function EnhancedTable({rows,editHandler,addHandler}:EnhancedTable) {
                                     return (
                                         <TableRow
                                             hover
-                                            onClick={(event) => handleClick(event, row.id)}
+                                            onClick={(event) => {}}
                                             role="checkbox"
                                             aria-checked={isItemSelected}
                                             tabIndex={-1}
@@ -247,20 +286,16 @@ export function EnhancedTable({rows,editHandler,addHandler}:EnhancedTable) {
                                             selected={isItemSelected}
                                         >
                                             <TableCell padding="checkbox">
-                                                <Checkbox
-                                                    color="primary"
-                                                    checked={isItemSelected}
-                                                    inputProps={{
-                                                        'aria-labelledby': labelId,
-                                                    }}
-                                                />
                                             </TableCell>
                                             <TableCell component="th" id={labelId} scope="row" padding="none">
                                                 {row.nome}
                                             </TableCell>
                                             <TableCell align="right">{row.cognome}</TableCell>
                                             <TableCell align="right">{row.numeroTutela}</TableCell>
-                                            <TableCell align="right"><Button onClick={()=>editHandler(row.id)}>Modifica</Button></TableCell>
+                                            <TableCell align="right">
+                                                <Button className={"me-1"} onClick={()=>editHandler(row.id)}>Modifica</Button>
+                                                <Button variant={"danger"} onClick={()=>removeHandler(row.id)}>Rimuovi</Button>
+                                            </TableCell>
                                         </TableRow>
                                     );
                                 })}
@@ -276,15 +311,6 @@ export function EnhancedTable({rows,editHandler,addHandler}:EnhancedTable) {
                         </TableBody>
                     </Table>
                 </TableContainer>
-                {/*<TablePagination
-                    rowsPerPageOptions={[5, 10, 25]}
-                    component="div"
-                    count={rows.length}
-                    rowsPerPage={rowsPerPage}
-                    page={page}
-                    onPageChange={handleChangePage}
-                    onRowsPerPageChange={handleChangeRowsPerPage}
-                />*/}
             </Paper>
         </Box>
     );

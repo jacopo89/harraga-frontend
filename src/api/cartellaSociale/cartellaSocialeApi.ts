@@ -6,6 +6,7 @@ const getCartellaSocialeRoute = createRoute("/api/cartella_sociales")
 const getCartellaSocialeUtenteRoute = (id:string)=> createRoute(`/api/utentes/${id}/utente_cartella_sociales`)
 const postCartellaSocialeRoute = createRoute("/api/cartella_sociales")
 const getCartellaSocialeAnagraficaRoute = (id:string) => createRoute(`/api/cartella_sociales/${id}/anagrafica`)
+const deleteCartellaSocialeRoute = (id:string) => createRoute(`/api/cartella_sociales/${id}`)
 const getCartellaSocialeAmministrativaRoute = (id:string) => createRoute(`/api/cartella_sociales/${id}/amministrativa`)
 const getCartellaSocialeStoriaRoute = (id:string) => createRoute(`/api/cartella_sociales/${id}/storia`)
 const getCartellaSocialeSanitariaRoute = (id:string) => createRoute(`/api/cartella_sociales/${id}/sanitaria`)
@@ -20,10 +21,13 @@ export const getCartelleSociali = (filters:any ={}) => {
     return AuthClient.get(getCartellaSocialeRoute,filters)
 }
 
-export const getCartelleSocialiUtente = (utenteId:string) => {
-    return AuthClient.get(getCartellaSocialeUtenteRoute(utenteId))
+export const getCartelleSocialiUtente = (utenteId:string, filters:any={}) => {
+    return AuthClient.get(getCartellaSocialeUtenteRoute(utenteId),filters)
 }
 
+export const rimuoviCartellaSociale = (id:string) =>{
+    return authClient.delete(deleteCartellaSocialeRoute(id))
+}
 
 export const postCartellaSociale = (values:any) => {
     return authClient.post(postCartellaSocialeRoute,values)

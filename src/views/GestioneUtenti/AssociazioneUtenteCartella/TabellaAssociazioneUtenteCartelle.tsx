@@ -6,15 +6,12 @@ import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
-import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import Checkbox from '@mui/material/Checkbox';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Switch from '@mui/material/Switch';
 import {getComparator, Order, stableSort} from "./Tabella/tabellaHelper";
 import {EnhancedTableHead, HeadCell} from "./Tabella/EnhancedTableHead";
 import {EnhancedTableToolbar} from "./Tabella/EnhancedTableToolbar";
+import {rimuoviAssociazioneUtenteCartella} from "../../../api/utente/utenteApi";
 
 export interface AssociazioneUtenteCartella{
     id:string,
@@ -26,13 +23,15 @@ export interface AssociazioneUtenteCartella{
 interface TabellaAsssociazioneUtenteCartelleProps{
     id:string,
     associazioni: AssociazioneUtenteCartella[]
+    getAssociazioni: () => void
 }
 
-export default function TabellaAssociazioneUtenteCartelle({id,associazioni}:TabellaAsssociazioneUtenteCartelleProps){
+export default function TabellaAssociazioneUtenteCartelle({id,associazioni, getAssociazioni}:TabellaAsssociazioneUtenteCartelleProps){
     const navigate = useNavigate();
 
+    const rimuoviAssociazioneHandler = (id:string) => rimuoviAssociazioneUtenteCartella(id).then(response => getAssociazioni())
     return <div>
-        <EnhancedTable rows={associazioni} editHandler={() => {}}/>
+        <EnhancedTable rows={associazioni} editHandler={rimuoviAssociazioneHandler}/>
     </div>
 }
 
@@ -93,6 +92,7 @@ export function EnhancedTable({rows,editHandler}:EnhancedTable) {
     };
 
     const handleClick = (event: React.MouseEvent<unknown>, name: string) => {
+        return
         const selectedIndex = selected.indexOf(name);
         let newSelected: readonly string[] = [];
 
@@ -169,13 +169,6 @@ export function EnhancedTable({rows,editHandler}:EnhancedTable) {
                                             selected={isItemSelected}
                                         >
                                             <TableCell padding="checkbox">
-                                                <Checkbox
-                                                    color="primary"
-                                                    checked={isItemSelected}
-                                                    inputProps={{
-                                                        'aria-labelledby': labelId,
-                                                    }}
-                                                />
                                             </TableCell>
                                             <TableCell component="th" id={labelId} scope="row" padding="none">
                                                 {row.id}
@@ -186,7 +179,7 @@ export function EnhancedTable({rows,editHandler}:EnhancedTable) {
                                             <TableCell component="th" id={labelId} scope="row" padding="none">
                                                 {row.cognome}
                                             </TableCell>
-                                            <TableCell align="right"><Button onClick={()=>editHandler(row.id)}>Modifica</Button></TableCell>
+                                            <TableCell align="right"><Button variant={"contained"} onClick={()=>editHandler(row.id)}>Rimuovi</Button></TableCell>
                                         </TableRow>
                                     );
                                 })}
@@ -202,7 +195,7 @@ export function EnhancedTable({rows,editHandler}:EnhancedTable) {
                         </TableBody>
                     </Table>
                 </TableContainer>
-                <TablePagination
+                {/*<TablePaginationFormTy
                     rowsPerPageOptions={[5, 10, 25]}
                     component="div"
                     count={rows.length}
@@ -210,12 +203,12 @@ export function EnhancedTable({rows,editHandler}:EnhancedTable) {
                     page={page}
                     onPageChange={handleChangePage}
                     onRowsPerPageChange={handleChangeRowsPerPage}
-                />
+                />*/}
             </Paper>
-            <FormControlLabel
+            {/*<FormControlLabel
                 control={<Switch checked={dense} onChange={handleChangeDense} />}
                 label="Dense padding"
-            />
+            />*/}
         </Box>
     );
 }

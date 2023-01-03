@@ -203,7 +203,7 @@ export function EnhancedTable({rows,editHandler}:EnhancedTable) {
                         </TableBody>
                     </Table>
                 </TableContainer>
-                <TablePagination
+                {/*<TablePagination
                     rowsPerPageOptions={[5, 10, 25]}
                     component="div"
                     count={rows.length}
@@ -211,12 +211,12 @@ export function EnhancedTable({rows,editHandler}:EnhancedTable) {
                     page={page}
                     onPageChange={handleChangePage}
                     onRowsPerPageChange={handleChangeRowsPerPage}
-                />
+                />*/}
             </Paper>
-            <FormControlLabel
+            {/*<FormControlLabel
                 control={<Switch checked={dense} onChange={handleChangeDense} />}
                 label="Dense padding"
-            />
+            />*/}
         </Box>
     );
 }

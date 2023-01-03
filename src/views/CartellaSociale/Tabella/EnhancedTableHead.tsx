@@ -7,7 +7,7 @@ import TableSortLabel from "@mui/material/TableSortLabel";
 import Box from "@mui/material/Box";
 import {visuallyHidden} from "@mui/utils";
 import {Order} from "./tabellaHelper";
-import {CartellaSociale} from "../TabellaCartelleSociali";
+import {CartellaSociale} from "../TabellaCartelleSocialiPage";
 
 export interface HeadCell {
     disablePadding: boolean;
@@ -39,15 +39,6 @@ export function EnhancedTableHead(props: EnhancedTableProps, ) {
         <TableHead>
             <TableRow>
                 <TableCell padding="checkbox">
-                    <Checkbox
-                        color="primary"
-                        indeterminate={numSelected > 0 && numSelected < rowCount}
-                        checked={rowCount > 0 && numSelected === rowCount}
-                        onChange={onSelectAllClick}
-                        inputProps={{
-                            'aria-label': 'select all desserts',
-                        }}
-                    />
                 </TableCell>
                 {props.headCells.map((headCell) => (
                     <React.Fragment key={headCell.id}>
