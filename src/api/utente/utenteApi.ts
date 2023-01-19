@@ -4,6 +4,7 @@ import {createRoute} from "../../routes/routeHelper";
 const getUtentiRoute = createRoute("/api/utentes")
 const getcartelleSocialiUtenteRoute = (id:string) => createRoute(`/api/utentes/${id}/utente_cartella_sociales`)
 const getUtenteInfo = (id:string) => createRoute(`/api/utentes/${id}`)
+const cambiaPasswordUtenteRoute = (id:string) => createRoute(`/api/utentes/${id}/cambia_password`)
 const postAssociazioneCartellaSocialeUtenteRoute = createRoute(`/api/utente_cartella_sociales`)
 const deleteAssociazioneCartellaSocialeUtenteRoute = (id:string)=> createRoute(`/api/utente_cartella_sociales/${id}`)
 
@@ -16,6 +17,10 @@ export const getUtente = (id:string) => {
 }
 export const patchUtente = (id:string, data:any) => {
     return authClient.patch(getUtenteInfo(id), data)
+}
+
+export const cambiaPasswordUtente = (id:string, data:any) => {
+    return authClient.patch(cambiaPasswordUtenteRoute(id), data)
 }
 
 export const getCartelleSocialiUtente = (id:string) => {

@@ -7,6 +7,7 @@ import TabellaAssociazioneUtenteCartelle, {
 import {Button} from "@mui/material";
 import Select, {SingleValue} from "react-select";
 import {
+    cambiaPasswordUtente,
     creaAssociazioneUtenteCartella,
     getCartelleSocialiUtente,
     getUtente,
@@ -19,11 +20,12 @@ import FormGeneratorContext from "../../form-generator/form-context/FormGenerato
 import * as Yup from "yup";
 import {signupFormElements} from "../Authentication/SignUp";
 import FormElement from "../../form-generator/form-elements/FormElement";
+import {FormElements} from "../../form-generator/ElementInterface";
+import {toast} from "react-toastify";
 
 const initialValues = {
     nome:null,
     cognome:null,
-    password:null,
     email:null,
     ruolo:"minore"
 }
@@ -32,9 +34,22 @@ const validationSchema = Yup.object().shape({
     nome: Yup.string().required("Inserisci il nome").nullable(),
     cognome: Yup.string().required("Inserisci il cognome").nullable(),
     email: Yup.string().email().required("Inserisci l'email").nullable(),
-    password: Yup.string().required("Inserisci la password"),
     ruolo:Yup.string().required("Inserire il ruolo")
 });
+
+const cambiaPasswordInitialValues = {
+    password:null
+}
+
+export const cambiaPasswordFormElements:FormElements = [
+    {
+        accessor:"password",
+        type:"text",
+        Header:"Password"
+    }
+]
+
+
 
 
 type Option = {label: string;value: string; } | undefined
@@ -61,6 +76,11 @@ export default function EditUtente(){
     const editUtenteHandler = (values:any) => {
         // @ts-ignore
         return patchUtente(id,values)
+    }
+
+    const cambiaPasswordHandler = (values:any) => {
+        // @ts-ignore
+        return cambiaPasswordUtente(id,values).then(response => toast.success("Password modificata con successo")).catch(error => toast.error("Si è verificato un errore"))
     }
 
 
@@ -122,11 +142,37 @@ export default function EditUtente(){
                                         <FormElement accessor={"telefono"}></FormElement>
                                     </Col>
                                 </Row>
+                                <Row className="mb-3">
+                                    <Col xs={6}>
+                                        <FormElement accessor={"ruolo"}></FormElement>
+                                    </Col>
+                                </Row>
                                 <Row>
                                     <Col>
                                         <Button variant="contained" type="submit">Salva</Button>
                                     </Col>
 
+                                </Row>
+                            </>
+                        }}
+                    </FormGeneratorContext.Consumer>
+                </FormGeneratorContextProvider>
+            </section>
+            <section>
+                <h3>Cambio password</h3>
+                <FormGeneratorContextProvider elements={cambiaPasswordFormElements} initialValues={cambiaPasswordInitialValues} onSubmit={cambiaPasswordHandler}>
+                    <FormGeneratorContext.Consumer>
+                        {({values}:any)=>{
+                            return <>
+                                <Row>
+                                    <Col xs={6}>
+                                        <FormElement accessor={"password"}></FormElement>
+                                    </Col>
+                                </Row>
+                                <Row>
+                                    <Col>
+                                        <Button variant="contained" type="submit">Salva</Button>
+                                    </Col>
                                 </Row>
                             </>
                         }}

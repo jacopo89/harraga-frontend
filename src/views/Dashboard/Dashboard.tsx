@@ -7,14 +7,16 @@ import MuiAppBar, {AppBarProps as MuiAppBarProps} from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
-import Badge from '@mui/material/Badge';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Link from '@mui/material/Link';
-import MenuIcon from '@mui/icons-material/Menu';
-import NotificationsIcon from '@mui/icons-material/Notifications';
-import Sidebar from "./Sidebar";
+import LogoutIcon from '@mui/icons-material/Logout';
+import {gestioneUtenti, listaCartelleSociali} from "../../routes/frontend-routes";
+import {useNavigate} from "react-router";
+import Button from '@mui/material/Button';
+import useCurrentUser from "../../helpers/authentication/useCurrentUser";
+import useGetPermission from "../../permissions/useGetPermissions";
 
 function Copyright(props: any) {
     return (
@@ -118,10 +120,11 @@ const dashboardContentBasic = <React.Fragment>
 </React.Fragment>
 
 function DashboardContent({content = dashboardContentBasic}:any) {
-    const [open, setOpen] = React.useState(true);
-    const toggleDrawer = () => {
-        setOpen(!open);
-    };
+    const [open, setOpen] = React.useState(false);
+    const navigate = useNavigate()
+    const currentUser = useCurrentUser();
+    const {canAccessUtenti} = useGetPermission()
+
 
     return (
         <ThemeProvider theme={mdTheme}>
@@ -133,37 +136,37 @@ function DashboardContent({content = dashboardContentBasic}:any) {
                             pr: '24px', // keep right padding when drawer closed
                         }}
                     >
-                        <IconButton
-                            edge="start"
-                            color="inherit"
-                            aria-label="open drawer"
-                            onClick={toggleDrawer}
-                            sx={{
-                                marginRight: '36px',
-                                ...(open && { display: 'none' }),
-                            }}
-                        >
-                            <MenuIcon />
-                        </IconButton>
-                        <Typography
-                            component="h1"
-                            variant="h6"
-                            color="inherit"
-                            noWrap
-                            sx={{ flexGrow: 1 }}
-                        >
-                            Dashboard
-                        </Typography>
-                        <IconButton color="inherit">
-                            <Badge badgeContent={4} color="secondary">
-                                <NotificationsIcon />
-                            </Badge>
-                        </IconButton>
+                        <div className={"d-flex flex-grow-1 justify-content-start"}>
+                            <div className={"px-1"}>
+                                <Button color={"secondary"} variant={"contained"} onClick={()=>navigate(listaCartelleSociali)}>
+                                    Home
+                                </Button>
+                            </div>
+                            <div className={"px-1"}>
+                                {canAccessUtenti && <Button color={"secondary"} variant={"contained"}
+                                         onClick={() => navigate(gestioneUtenti)}>
+                                    Utenti
+                                </Button>}
+                            </div>
+                        </div>
+
+                        <div className={"d-flex"}>
+                            <Typography
+                                component="h1"
+                                variant="h6"
+                                color="inherit"
+                                noWrap
+                                sx={{ flexGrow: 1, margin: 0 }}
+                            >
+                                {currentUser.username}
+                            </Typography>
+                            <IconButton color="inherit" onClick={()=>{localStorage.removeItem("token")}}>
+                                <LogoutIcon />
+                            </IconButton>
+                        </div>
+
                     </Toolbar>
                 </AppBar>
-                <Drawer variant="permanent" open={open}>
-                    <Sidebar/>
-                </Drawer>
                 <Box
                     component="main"
                     sx={{

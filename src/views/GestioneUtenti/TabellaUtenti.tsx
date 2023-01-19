@@ -25,6 +25,7 @@ export interface Utente{
     cognome:string,
     email:string,
     telefono:string,
+    roles:string[]
 }
 
 export default function TabellaUtenti(){
@@ -117,24 +118,12 @@ export function EnhancedTable({rows,editHandler}:EnhancedTable) {
         setSelected(newSelected);
     };
 
-    const handleChangePage = (event: unknown, newPage: number) => {
-        setPage(newPage);
-    };
-
-    const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setRowsPerPage(parseInt(event.target.value, 10));
-        setPage(0);
-    };
-
-    const handleChangeDense = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setDense(event.target.checked);
-    };
-
     const isSelected = (name: string) => selected.indexOf(name) !== -1;
 
     // Avoid a layout jump when reaching the last page with empty rows.
     const emptyRows =
         page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+
 
     return (
         <Box sx={{ width: '100%' }}>
@@ -159,8 +148,7 @@ export function EnhancedTable({rows,editHandler}:EnhancedTable) {
                             {/* if you don't need to support IE11, you can replace the `stableSort` call with:
               rows.slice().sort(getComparator(order, orderBy)) */}
                             {stableSort(rows, getComparator(order, orderBy))
-                                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                                .map((row, index) => {
+                                .map((row:Utente, index) => {
                                     const isItemSelected = isSelected(row.id);
                                     const labelId = `enhanced-table-checkbox-${index}`;
                                     return (
@@ -174,19 +162,14 @@ export function EnhancedTable({rows,editHandler}:EnhancedTable) {
                                             selected={isItemSelected}
                                         >
                                             <TableCell padding="checkbox">
-                                                <Checkbox
-                                                    color="primary"
-                                                    checked={isItemSelected}
-                                                    inputProps={{
-                                                        'aria-labelledby': labelId,
-                                                    }}
-                                                />
+
                                             </TableCell>
                                             <TableCell component="th" id={labelId} scope="row" padding="none">
                                                 {row.nome}
                                             </TableCell>
                                             <TableCell align="right">{row.cognome}</TableCell>
                                             <TableCell align="right">{row.email}</TableCell>
+                                            <TableCell align="right">{row.roles.join(",")}</TableCell>
                                             <TableCell align="right"><Button onClick={()=>editHandler(row.id)}>Modifica</Button></TableCell>
                                         </TableRow>
                                     );

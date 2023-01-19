@@ -18,7 +18,7 @@ import {
     rimuoviCartellaSociale
 } from "../../api/cartellaSociale/cartellaSocialeApi";
 import {filtriElements, filtriInitialValues} from "./FiltriTabellaCartelleSociali/FiltriCartelleSocialiFormType";
-import {Button, Card, Col, Row} from "react-bootstrap";
+import {Button, Card, Col, Modal, Row} from "react-bootstrap";
 import {Filter} from "../../api/AuthClient";
 import {FormikValues} from "formik";
 import FilterGeneratorContextProvider from "../../form-generator/filter-context/FilterGeneratorContextProvider";
@@ -32,6 +32,8 @@ import {uploadCSV} from "../../api/csvUpload/csvUploadApi";
 import {toast} from "react-toastify";
 import useCurrentUser from "../../helpers/authentication/useCurrentUser";
 import useGetPermission from "../../permissions/useGetPermissions";
+import Select from "react-select";
+import {creaAssociazioneUtenteCartella} from "../../api/utente/utenteApi";
 
 
 interface Anagrafica{
@@ -51,9 +53,8 @@ export interface UtenteCartellaSocialeData{
 }
 export default function TabellaCartelleSocialiPage(){
 
-    const uploadCSVHandler = (values:any) => uploadCSV(values).then(()=> toast.success("Cartelle caricate con successo")).catch(reason=>{
-        reason.response.data.forEach((message:string) => toast.error(message))
-    })
+    const [show, setShow]= useState(false)
+    const {canAccessUtenti} = useGetPermission()
 
     return <>
         <FilterGeneratorContextProvider elements={filtriElements} initialValues={filtriInitialValues}>
@@ -87,13 +88,32 @@ export default function TabellaCartelleSocialiPage(){
 
         </Card>
         <Tabella/>
-    </FilterGeneratorContextProvider>
-        Importa tramite CSV
-        <FormGeneratorContextProvider onSubmit={uploadCSVHandler} elements={uploadCSVFormElements} initialValues={uploadCSVInitialValues}>
-            <FormElement accessor={"csvFile"}></FormElement>
-            <Button type={"submit"}>Importa</Button>
-        </FormGeneratorContextProvider>
+        </FilterGeneratorContextProvider>
+        {canAccessUtenti && <>
+            <Button onClick={() => setShow(true)}>Importa tramite CSV</Button>
+            <ImportaCSVModal show={show} setShow={setShow}/>
+            </>
+        }
+
     </>
+}
+
+function ImportaCSVModal({show, setShow}:any){
+    const uploadCSVHandler = (values:any) => uploadCSV(values).then(()=> toast.success("Cartelle caricate con successo")).catch(reason=>{
+        reason.response.data.forEach((message:string) => toast.error(message))
+    })
+
+    return <Modal centered show={show} onHide={()=>{setShow(false)}}>
+        <Modal.Header closeButton>
+            <Modal.Title>Importa CSV</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+            <FormGeneratorContextProvider onSubmit={uploadCSVHandler} elements={uploadCSVFormElements} initialValues={uploadCSVInitialValues}>
+                <FormElement accessor={"csvFile"}></FormElement>
+                <Button type={"submit"}>Importa</Button>
+            </FormGeneratorContextProvider>
+        </Modal.Body>
+    </Modal>
 }
 
 function Tabella(){
@@ -116,7 +136,6 @@ function Tabella(){
         return filters;
     }
 
-    console.log("id", currentUser)
     const getCartelleSocialiByFilters = () => {
         if(canReadTutteCartelle){
             return getCartelleSociali(getFiltersObjectFromFormValue(formValue,elements)).then(response => setCartelleSociali(response.data["hydra:member"].map((cartellaSociale:CartellaSocialeData)=>{
@@ -293,9 +312,11 @@ export function EnhancedTable({rows,editHandler,addHandler, removeHandler}:Enhan
                                             <TableCell align="right">{row.cognome}</TableCell>
                                             <TableCell align="right">{row.numeroTutela}</TableCell>
                                             <TableCell align="right">
-                                                <Button className={"me-1"} onClick={()=>editHandler(row.id)}>Modifica</Button>
-                                                <Button variant={"danger"} onClick={()=>removeHandler(row.id)}>Rimuovi</Button>
+                                                <Button className={"me-1"} onClick={()=>editHandler(row.id)}>Visualizza</Button>
+                                                <ConfirmButton removeHandler={() => removeHandler(row.id)}/>
                                             </TableCell>
+
+
                                         </TableRow>
                                     );
                                 })}
@@ -314,4 +335,20 @@ export function EnhancedTable({rows,editHandler,addHandler, removeHandler}:Enhan
             </Paper>
         </Box>
     );
+}
+
+function ConfirmButton({removeHandler}:any){
+    const [show, setShow] = useState(false)
+    return <>
+        <Button variant={"danger"} onClick={()=>setShow(true)}>Rimuovi</Button>
+        <Modal centered show={show} onHide={()=>{setShow(false)}}>
+            <Modal.Header closeButton>
+                <Modal.Title>Sei sicuro di voler rimuovere la cartella?</Modal.Title>
+            </Modal.Header>
+            <Modal.Footer>
+                <Button onClick={()=>setShow(false)}>Annulla</Button>
+                <Button variant={"danger"} onClick={()=>removeHandler()}>Rimuovi</Button>
+            </Modal.Footer>
+        </Modal>
+    </>
 }

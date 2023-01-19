@@ -15,11 +15,11 @@ export default function (){
 
     const navigate = useNavigate();
     const onSubmit = (values:any) => {
-        console.log("values",values)
         postCartellaSociale(values).then(response => navigate(editCartellaSocialeRoute(response.data.id))).catch(error => toast.error("Errore nella creazione della cartella sociale"))
     }
 
     return <div>
+        <h1>Nuova Cartella Sociale</h1>
         <FormGeneratorContextProvider elements={cartellaSocialeElements} validationSchema={cartellaSocialeValidationSchema} onSubmit={onSubmit} initialValues={cartellaSocialeInitialValues}>
             <Row className="mb-3">
                 <Col xs={6}><FormElement accessor={"anagrafica.nome"}/></Col>
@@ -60,7 +60,7 @@ export default function (){
             </Row>
 
             <IterableForm initialValue={{allegato:null}} form={DocumentiIdentitaForm} buttonLabel={"Aggiungi documento identità"} accessor={"anagrafica.documentoIdentitas"}/>*/}
-            <Button type="submit"> OK</Button>
+            <Button type="submit"> Crea</Button>
         </FormGeneratorContextProvider>
     </div>
 }

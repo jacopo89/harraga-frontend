@@ -49,6 +49,7 @@ export default function useGetPermission(){
     const user = useCurrentUser();
 
     const canReadTutteCartelle = user.roles.includes(COMUNE_ROLE);
+    const canAccessUtenti = user.roles.includes(COMUNE_ROLE);
 
     const canReadAnagrafica = user.roles.some((role:string) => ANAGRAFICA_READ.includes(role))
     const canWriteAnagrafica = user.roles.some((role:string) => ANAGRAFICA_WRITE.includes(role))
@@ -90,6 +91,6 @@ export default function useGetPermission(){
         canReadPenale, canWritePenale,
         canReadDesideri,canWriteDesideri,
         canReadLavoro,canWriteLavoro,
-        canReadSocialita, canWriteSocialita,canReadTutteCartelle
+        canReadSocialita, canWriteSocialita,canReadTutteCartelle,canAccessUtenti
     }
 }
